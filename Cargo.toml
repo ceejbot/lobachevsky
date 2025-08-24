@@ -1,0 +1,41 @@
+[package]
+description = "A library and command-line tool for generating neo-Reimannian progressions as midi files"
+name = "lobachevsky"
+version = "0.1.0"
+edition = "2024"
+categories = ["command-line-utilities", "multimedia"]
+keywords = [
+	"music",
+	"music-theory",
+	"midi",
+	"euclydian-rhythm",
+	"neo-reimannian",
+]
+authors = ["C J Silverio <ceejceej@gmail.com>"]
+readme = "README.md"
+license = "Parity-7.0.0"
+repository = "https://github.com/ceejbot/lobachevsky"
+homepage = "https://github.com/ceejbot/lobachevsky"
+
+[dependencies]
+midly = "0.5.3"
+rand = "0.9"
+clap = { version = "4.0", features = ["derive"] }
+thiserror = "2.0.16"
+miette = { version = "7.6.0", features = ["fancy"] }
+
+[lints.rust]
+unsafe_code = { level = "deny", priority = 1 }
+future_incompatible = { level = "deny", priority = 2 }
+trivial_casts = { level = "warn", priority = 3 }
+rust_2018_idioms = { level = "warn", priority = 4 }
+
+[lints.clippy]
+unwrap_used = "deny"
+
+[profile.release]
+lto = true        # Enable full link-time optimization
+codegen-units = 1 # Single codegen unit for better optimization
+opt-level = 3     # Maximum optimization
+strip = true      # Strip symbols for smaller binary
+panic = "abort"   # Smaller binary, no unwinding

@@ -1,0 +1,9 @@
+name = "lydian_exploration"
+description = "Exploration of F Lydian mode with neo-Riemannian transformations"
+start_chord = "F"
+transformations = ["L", "P", "R", "L", "P", "L", "R", "P"]
+mode = "lydian"
+tonic = "F"
+return_to_start = true
+tempo_hint = 118
+bars_hint = 32

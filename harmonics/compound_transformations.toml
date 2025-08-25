@@ -1,0 +1,7 @@
+name = "compound_transformations"
+description = "Using compound neo-Riemannian transformations for larger harmonic movements"
+start_chord = "C"
+transformations = ["RP", "PL", "LR", "PLP", "RPL", "LPL"]
+return_to_start = false
+tempo_hint = 115
+bars_hint = 32

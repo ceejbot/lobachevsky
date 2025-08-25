@@ -96,6 +96,10 @@ pub enum LobachevskyError {
     )]
     TomlError(#[from] toml::de::Error),
 
+    #[error("Parse error: {message}")]
+    #[diagnostic(code(lobachevsky::parse_error), help("Check the input format and try again"))]
+    ParseError { message: String },
+
     #[error("Generic error: {0}")]
     #[diagnostic(code(lobachevsky::generic_error))]
     Generic(String),

@@ -26,6 +26,18 @@ pub struct EuclideanPattern {
     velocity: u8,
 }
 
+impl Default for EuclideanPattern {
+    fn default() -> Self {
+        Self {
+            voice: DrumVoice::Kick,
+            hits: 0,
+            steps: 4,
+            rotation: 0,
+            velocity: 64,
+        }
+    }
+}
+
 impl EuclideanPattern {
     pub fn new(voice: DrumVoice, hits: usize, steps: usize) -> Self {
         EuclideanPattern {

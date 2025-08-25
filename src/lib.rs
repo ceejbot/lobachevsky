@@ -4,10 +4,14 @@
 //! generating chord progressions, creating rhythmic patterns, and outputting
 //! MIDI files.
 
+pub mod cli_inputs;
 pub mod core;
 pub mod errors;
 pub mod euclidean;
 pub mod generation;
+pub mod generators;
+pub mod harmony;
+pub mod melody;
 pub mod midi;
 pub mod rhythm;
 pub mod theory;

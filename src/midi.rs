@@ -280,6 +280,26 @@ impl Composition {
         self
     }
 
+    /// Add a rhythm track from drum events
+    pub fn add_rhythm_track_from_events(&mut self, events: &[DrumEvent]) -> &mut Self {
+        let mut track = self.midi_file.add_track();
+
+        for event in events {
+            // Calculate which bar this event falls in
+            let bar = (event.beat.0 / 4.0) as usize;
+            // Create a new DrumEvent with beat position relative to the bar
+            let bar_relative_event = DrumEvent {
+                voice: event.voice,
+                beat: crate::rhythm::Beat(event.beat.0 % 4.0),
+                velocity: event.velocity,
+            };
+            track.add_drum_hit(&bar_relative_event, bar);
+        }
+
+        self.midi_file.add_completed_track(track.build());
+        self
+    }
+
     /// Save the composition to a MIDI file
     pub fn save(&self, path: impl AsRef<Path>) -> Result<(), LobachevskyError> {
         self.midi_file.save(path)

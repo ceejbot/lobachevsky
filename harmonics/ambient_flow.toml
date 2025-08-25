@@ -1,0 +1,7 @@
+name = "ambient_flow"
+description = "Slow, atmospheric progression for ambient compositions"
+start_chord = "Am"
+transformations = ["L", "L", "P", "R", "L", "P", "P", "R"]
+return_to_start = true
+tempo_hint = 90
+bars_hint = 64

@@ -1,0 +1,9 @@
+name = "dorian_journey"
+description = "Modal neo-Riemannian progression in D Dorian"
+start_chord = "Dm"
+transformations = ["R", "P", "L", "P", "R", "L"]
+mode = "dorian"
+tonic = "D"
+return_to_start = true
+tempo_hint = 110
+bars_hint = 32

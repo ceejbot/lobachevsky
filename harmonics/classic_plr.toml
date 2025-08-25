@@ -1,0 +1,7 @@
+name = "classic_plr"
+description = "Classic neo-Riemannian P-L-R transformations"
+start_chord = "C"
+transformations = ["P", "L", "R", "P", "L", "R", "L", "P"]
+return_to_start = true
+tempo_hint = 120
+bars_hint = 32

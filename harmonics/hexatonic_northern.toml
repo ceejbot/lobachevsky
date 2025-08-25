@@ -1,0 +1,7 @@
+name = "hexatonic_northern"
+description = "Northern hexatonic cycle (PL transformations)"
+start_chord = "C"
+transformations = ["P", "L", "P", "L", "P", "L"]
+return_to_start = false
+tempo_hint = 125
+bars_hint = 16

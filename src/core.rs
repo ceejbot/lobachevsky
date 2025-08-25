@@ -5,8 +5,9 @@ use std::fmt;
 use crate::LobachevskyError;
 
 /// Represents the 12 pitch classes in Western music
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub enum PitchClass {
+    #[default]
     C = 0,
     Cs = 1, // C♯ / D♭
     D = 2,
@@ -139,6 +140,24 @@ pub struct Note {
     pub octave: i8,
 }
 
+impl Default for Note {
+    fn default() -> Self {
+        Self {
+            pitch_class: PitchClass::C,
+            octave: 3,
+        }
+    }
+}
+
+impl From<&str> for Note {
+    fn from(value: &str) -> Self {
+        Note {
+            pitch_class: PitchClass::try_from(value).unwrap_or_default(),
+            ..Default::default()
+        }
+    }
+}
+
 impl Note {
     /// Create a new note
     pub fn new(pitch_class: PitchClass, octave: i8) -> Self {
@@ -173,9 +192,10 @@ impl fmt::Display for Note {
 }
 
 /// Musical modes
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub enum Mode {
-    Ionian,     // Major scale (W-W-H-W-W-W-H)
+    #[default]
+    Ionian, // Major scale (W-W-H-W-W-W-H)
     Dorian,     // Minor with ♮6 (W-H-W-W-W-H-W)
     Phrygian,   // Minor with ♭2 (H-W-W-W-H-W-W)
     Lydian,     // Major with ♯4 (W-W-W-H-W-W-H)
@@ -328,9 +348,10 @@ impl fmt::Display for Mode {
 }
 
 /// Chord quality including triads, seventh chords, and suspended chords
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub enum ChordQuality {
     // Basic triads
+    #[default]
     Major,
     Minor,
     Diminished,
@@ -501,7 +522,7 @@ impl ChordQuality {
 }
 
 /// Represents a chord
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct Chord {
     pub root: PitchClass,
     pub quality: ChordQuality,
@@ -590,6 +611,16 @@ impl Chord {
     /// Get chord name for display
     pub fn name(&self, prefer_sharps: bool) -> String {
         format!("{}{}", self.root.enharmonic_name(prefer_sharps), self.quality.symbol())
+    }
+}
+
+impl TryFrom<&str> for Chord {
+    type Error = LobachevskyError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let (root_str, quality) = ChordQuality::split_root_quality(value);
+        let root = PitchClass::try_from(root_str)?;
+        Ok(Chord::new(root, quality))
     }
 }
 

@@ -22,16 +22,19 @@ impl TryFrom<&str> for Transform {
     type Error = LobachevskyError;
 
     fn try_from(v: &str) -> Result<Self, Self::Error> {
-        match v.trim().to_ascii_lowercase().as_str() {
-            "p" | "parallel" => Ok(Self::P),
-            "r" | "relative" => Ok(Self::R),
-            "l" | "leading-tone" | "leading" | "leadingtone" | "leading tone" => Ok(Self::L),
-            "rp" => Ok(Self::rp()),
-            "pr" => Ok(Self::pr()),
-            "pl" => Ok(Self::pl()),
-            "lp" => Ok(Self::lp()),
-            "rl" => Ok(Self::rl()),
-            "lr" => Ok(Self::lr()),
+        match v.trim().to_ascii_uppercase().as_str() {
+            "P" | "PARALLEL" => Ok(Self::P),
+            "R" | "RELATIVE" => Ok(Self::R),
+            "L" | "LEADING-TONE" | "LEADING" | "LEADINGTONE" | "LEADING TONE" => Ok(Self::L),
+            "RP" => Ok(Self::rp()),
+            "PR" => Ok(Self::pr()),
+            "PL" => Ok(Self::pl()),
+            "LP" => Ok(Self::lp()),
+            "RL" => Ok(Self::rl()),
+            "LR" => Ok(Self::lr()),
+            "PLP" => Ok(Self::Compound(vec![Self::P, Self::L, Self::P])),
+            "RPL" => Ok(Self::Compound(vec![Self::R, Self::P, Self::L])),
+            "LPL" => Ok(Self::Compound(vec![Self::L, Self::P, Self::L])),
             _ => Err(LobachevskyError::InvalidTransformation { input: v.to_string() }),
         }
     }

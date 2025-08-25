@@ -1,0 +1,60 @@
+name = "coding_flow_theta"
+description = "Steady programming groove enhanced with 6Hz theta waves for deep creative flow"
+tempo_hint = 120
+
+# Solid 4/4 kick foundation with light groove
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.2
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 70
+[layers.pattern_type.groove_type]
+groove_type = "Template"
+name = "deep_house_shuffle"
+
+# Consistent backbeat for structure
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 2
+steps = 4
+rotation = 1
+velocity = 55
+
+# Steady hi-hat pattern with minimal swing
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.58
+subdivision = 0.25
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 8
+steps = 16
+velocity = 40
+
+# Subtle percussive movement
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 3
+velocity = 28
+
+# Theta wave isochronic enhancement (6 Hz for creative flow)
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 6.0
+velocity = 22
+brainwave_type = "theta"

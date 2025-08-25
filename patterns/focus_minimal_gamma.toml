@@ -1,0 +1,41 @@
+name = "focus_minimal_gamma"
+description = "Stripped-down minimal pattern with 40Hz gamma waves for peak cognitive performance"
+tempo_hint = 118
+
+# Ultra-minimal kick pattern
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 65
+
+# Minimal snare on 3
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.9 },
+]
+velocity_range = [45, 55]
+
+# Very sparse hi-hat
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 16
+rotation = 2
+velocity = 30
+
+# Gamma wave isochronic enhancement (40 Hz for high-level focus)
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 40.0
+velocity = 18
+brainwave_type = "gamma"

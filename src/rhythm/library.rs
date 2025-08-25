@@ -63,6 +63,17 @@ pub enum PatternType {
         /// Amount of random humanization
         humanization: Option<f64>,
     },
+    /// Isochronic tones for brainwave entrainment
+    Isochronic {
+        /// Pulse frequency in Hz (e.g. 10.0 for 10 Hz alpha waves)
+        frequency_hz: f64,
+        /// Pulse velocity (0-127)
+        velocity: Option<u8>,
+        /// Base pattern to layer isochronic pulses over (optional)
+        base_pattern: Option<Box<PatternType>>,
+        /// Brainwave category for documentation
+        brainwave_type: Option<String>,
+    },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -158,6 +169,22 @@ impl PatternData {
                     }
                     Box::new(groove)
                 }
+                PatternType::Isochronic {
+                    frequency_hz,
+                    velocity,
+                    base_pattern,
+                    brainwave_type: _,
+                } => {
+                    let mut isochronic = IsochronicPattern::new(voice, *frequency_hz);
+                    if let Some(vel) = velocity {
+                        isochronic = isochronic.with_velocity(*vel);
+                    }
+                    if let Some(base) = base_pattern {
+                        let base_rhythm = pattern_type_to_rhythm(base, voice)?;
+                        isochronic = isochronic.with_base_pattern(base_rhythm);
+                    }
+                    Box::new(isochronic)
+                }
             };
             layered = layered.add_layer(pattern);
         }
@@ -236,6 +263,22 @@ fn pattern_type_to_rhythm(
                 groove = groove.with_humanization(*humanization_amount);
             }
             Ok(Box::new(groove))
+        }
+        PatternType::Isochronic {
+            frequency_hz,
+            velocity,
+            base_pattern,
+            brainwave_type: _,
+        } => {
+            let mut isochronic = IsochronicPattern::new(voice, *frequency_hz);
+            if let Some(vel) = velocity {
+                isochronic = isochronic.with_velocity(*vel);
+            }
+            if let Some(base) = base_pattern {
+                let base_rhythm = pattern_type_to_rhythm(base, voice)?;
+                isochronic = isochronic.with_base_pattern(base_rhythm);
+            }
+            Ok(Box::new(isochronic))
         }
     }
 }

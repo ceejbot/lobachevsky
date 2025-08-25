@@ -1,6 +1,6 @@
 # Rhythm Pattern Library 🎵
 
-This directory contains 24+ high-quality rhythm patterns designed for flow-state and programming music. Each pattern is defined in TOML format and can be loaded dynamically at runtime.
+This directory contains 30+ high-quality rhythm patterns designed for flow-state and programming music, now including **isochronic tones for brainwave entrainment**. Each pattern is defined in TOML format and can be loaded dynamically at runtime.
 
 ## Pattern Categories
 
@@ -11,6 +11,20 @@ Perfect for long coding sessions with hypnotic, non-jarring grooves:
 - **focus_minimal** (118 BPM) - Stripped down for deep concentration  
 - **ambient_progressive** (110 BPM) - Slow builds with atmospheric textures
 - **trance_builder** (132 BPM) - Progressive builds without drops
+
+### 🧠 Enhanced with Brainwave Entrainment
+Flow-state patterns enhanced with isochronic tones for deeper focus:
+- **deep_hypnotic_alpha** (126 BPM) - Hypnotic pattern + 10Hz alpha waves
+- **coding_flow_theta** (120 BPM) - Programming groove + 6Hz theta for creativity
+- **focus_minimal_gamma** (118 BPM) - Minimal focus + 40Hz gamma for peak performance
+
+### 🎵 Pure Brainwave Entrainment
+Dedicated patterns for specific cognitive states:
+- **pure_alpha_entrainment** (100 BPM) - Multi-frequency alpha (8-12 Hz) for relaxed focus
+- **theta_deep_work** (90 BPM) - Theta waves (4-7 Hz) for creative problem-solving  
+- **gamma_peak_focus** (125 BPM) - Gamma waves (30-45 Hz) for peak cognitive performance
+- **beta_active_concentration** (110 BPM) - Beta waves (13-25 Hz) for analytical thinking
+- **mixed_entrainment_flow** (115 BPM) - Multi-frequency alpha/theta for optimal flow
 
 ### 🕺 Electronic Dance Subgenres
 Authentic dance music patterns with proper groove:
@@ -137,6 +151,21 @@ groove_type = "Custom"
 "1.0" = -0.005  # Beat 1: -0.005 beat timing adjustment
 ```
 
+**Isochronic Patterns**
+```toml
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 10.0        # Pulse frequency in Hz
+velocity = 30              # MIDI velocity (0-127)
+brainwave_type = "alpha"   # Optional: alpha, beta, gamma, theta, delta
+
+# Optional: layer over existing pattern
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+```
+
 ### 🥁 Available Drum Voices
 - **kick**, **kick_soft** - Main and ghost kicks (GM 36, 35)
 - **snare**, **rim**, **clap** - Snare family (GM 38, 37, 39)
@@ -213,6 +242,87 @@ Several patterns use mathematical sequences for algorithmic beauty:
 - **polyrhythmic_ambient** - Prime time signatures (7/8, 11/16, 17/16)
 - Golden ratio timing adjustments (0.618, 1.618)
 
+## Brainwave Entrainment & Isochronic Tones
+
+### 🧠 What are Isochronic Tones?
+
+Isochronic tones are evenly-spaced pulses of sound designed to synchronize brainwaves to specific frequencies. Unlike binaural beats, they work with regular speakers and can be layered subtly under rhythm patterns.
+
+### 🧪 Scientific Background
+
+**Brainwave Frequencies:**
+- **Delta (0.5-4 Hz)**: Deep sleep, healing, regeneration
+- **Theta (4-8 Hz)**: Deep meditation, creativity, REM sleep, insight
+- **Alpha (8-13 Hz)**: Relaxed focus, light meditation, flow states
+- **Beta (13-30 Hz)**: Alert concentration, active thinking, analysis
+- **Gamma (30+ Hz)**: High-level cognitive processing, peak awareness
+
+### 🎯 Usage Guidelines
+
+**For Programming & Development:**
+- **Alpha patterns** (8-12 Hz): Ideal for coding, focused work, problem-solving
+- **Beta patterns** (15-25 Hz): Perfect for debugging, analytical tasks, learning
+- **Gamma patterns** (35-45 Hz): Use for complex architecture, peak performance
+
+**For Creative Work:**
+- **Theta patterns** (4-8 Hz): Excellent for brainstorming, creative problem-solving
+- **Alpha-Theta blends**: Optimal for design work and innovative thinking
+
+**Session Recommendations:**
+- Start with 15-30 minute sessions to gauge individual response
+- Use subtle velocities (20-35) to avoid distraction
+- Combine with familiar rhythm patterns for comfort
+- Take breaks every hour when using gamma frequencies
+
+### 🎵 Pattern Combinations
+
+**Enhanced Flow State Patterns:**
+```toml
+# Layer alpha entrainment over existing patterns
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 10.0
+velocity = 25
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+```
+
+**Multi-Frequency Entrainment:**
+```toml
+# Combine multiple frequencies for complex cognitive states
+# Alpha layer (relaxed focus)
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 10.0
+velocity = 30
+
+# Theta layer (creativity)
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 6.0
+velocity = 25
+```
+
+### ⚡ Advanced Applications
+
+**Frequency Relationships:**
+- Use mathematical ratios (2:3, 3:4, 4:5) between frequencies
+- Golden ratio relationships (6.18 Hz + 10 Hz) for harmonic resonance
+- Fibonacci sequences in frequency selection (5, 8, 13 Hz)
+
+**Temporal Integration:**
+- Sync isochronic frequencies with rhythm BPM for coherence
+- Use pattern_length to create frequency modulation over time
+- Layer multiple time signatures with corresponding brainwave frequencies
+
 ## Pattern Design Philosophy
 
 These patterns are designed specifically for:
@@ -221,5 +331,6 @@ These patterns are designed specifically for:
 - **Programming focus** - Steady energy without distraction
 - **Mathematical beauty** - Algorithmic precision and elegance
 - **Gradual evolution** - Subtle changes over time
+- **Brainwave entrainment** - Scientifically-informed cognitive enhancement
 
-Perfect for long coding sessions, deep work, and meditative programming! 🎧✨
+Perfect for long coding sessions, deep work, meditative programming, and cognitive optimization! 🎧✨🧠

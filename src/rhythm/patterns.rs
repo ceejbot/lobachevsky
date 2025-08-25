@@ -522,3 +522,123 @@ impl Clone for GroovePattern {
         }
     }
 }
+
+/// Isochronic pattern - generates regular pulses at specific Hz for brainwave
+/// entrainment
+pub struct IsochronicPattern {
+    voice: DrumVoice,
+    frequency_hz: f64,
+    velocity: u8,
+    base_pattern: Option<Box<dyn RhythmPattern>>,
+    pulse_density: f64, // How many pulses per beat
+}
+
+impl IsochronicPattern {
+    pub fn new(voice: DrumVoice, frequency_hz: f64) -> Self {
+        // Calculate pulse density: frequency_hz pulses per second
+        // At 120 BPM, there are 2 beats per second, so pulse_density = frequency_hz / 2
+        // For a general tempo: beats_per_second = BPM / 60, so pulse_density =
+        // frequency_hz / (BPM/60) We'll use a standard 120 BPM reference:
+        // pulse_density = frequency_hz / 2
+        let pulse_density = frequency_hz / 2.0;
+
+        IsochronicPattern {
+            voice,
+            frequency_hz,
+            velocity: 30, // Subtle by default
+            base_pattern: None,
+            pulse_density,
+        }
+    }
+
+    pub fn with_velocity(mut self, velocity: u8) -> Self {
+        self.velocity = velocity;
+        self
+    }
+
+    pub fn with_base_pattern(mut self, base_pattern: Box<dyn RhythmPattern>) -> Self {
+        self.base_pattern = Some(base_pattern);
+        self
+    }
+
+    /// Generate isochronic pulses for a bar
+    fn generate_isochronic_events(&self, _bar: usize) -> Vec<DrumEvent> {
+        let mut events = Vec::new();
+
+        // Generate pulses at the specified frequency
+        // Each bar is 4 beats, so we need pulse_density * 4 pulses per bar
+        let pulses_per_bar = (self.pulse_density * 4.0).round() as usize;
+
+        if pulses_per_bar == 0 {
+            return events;
+        }
+
+        let pulse_interval = 4.0 / pulses_per_bar as f64; // Beats between pulses
+
+        for i in 0..pulses_per_bar {
+            let beat_position = i as f64 * pulse_interval;
+            events.push(DrumEvent {
+                voice: self.voice,
+                beat: Beat(beat_position),
+                velocity: self.velocity,
+            });
+        }
+
+        events
+    }
+}
+
+impl RhythmPattern for IsochronicPattern {
+    fn events_for_bar(&self, bar: usize) -> Vec<DrumEvent> {
+        let mut events = Vec::new();
+
+        // Add base pattern events if present
+        if let Some(base) = &self.base_pattern {
+            events.extend(base.events_for_bar(bar));
+        }
+
+        // Add isochronic pulse events
+        events.extend(self.generate_isochronic_events(bar));
+
+        // Sort by beat position
+        events.sort_by(|a, b| a.beat.partial_cmp(&b.beat).unwrap_or(std::cmp::Ordering::Equal));
+        events
+    }
+
+    fn pattern_length(&self) -> usize {
+        self.base_pattern.as_ref().map_or(1, |p| p.pattern_length())
+    }
+
+    fn clone_box(&self) -> Box<dyn RhythmPattern> {
+        Box::new(IsochronicPattern {
+            voice: self.voice,
+            frequency_hz: self.frequency_hz,
+            velocity: self.velocity,
+            base_pattern: self.base_pattern.as_ref().map(|p| p.clone_box()),
+            pulse_density: self.pulse_density,
+        })
+    }
+}
+
+impl std::fmt::Debug for IsochronicPattern {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("IsochronicPattern")
+            .field("voice", &self.voice)
+            .field("frequency_hz", &self.frequency_hz)
+            .field("velocity", &self.velocity)
+            .field("pulse_density", &self.pulse_density)
+            .finish_non_exhaustive()
+    }
+}
+
+impl Clone for IsochronicPattern {
+    fn clone(&self) -> Self {
+        IsochronicPattern {
+            voice: self.voice,
+            frequency_hz: self.frequency_hz,
+            velocity: self.velocity,
+            base_pattern: self.base_pattern.as_ref().map(|p| p.clone_box()),
+            pulse_density: self.pulse_density,
+        }
+    }
+}

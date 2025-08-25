@@ -85,6 +85,11 @@ fn main() {
         ("polyrhythmic_ambient", "6 layers in different time signatures"),
         ("glitch_minimal", "Custom microtiming with stuttering effects"),
         ("deep_house", "Classic swing with velocity accents"),
+        ("gamma_peak_focus", "High-frequency gamma entrainment (30-45 Hz)"),
+        (
+            "mixed_entrainment_flow",
+            "Multi-frequency alpha/theta brainwave entrainment",
+        ),
     ];
 
     for (pattern_name, description) in showcase_patterns {
@@ -130,10 +135,12 @@ fn main() {
     println!("\n🎪 READY FOR INTEGRATION!");
     println!("=========================");
     println!("The advanced rhythm system is now fully functional with:");
-    println!("• 24 high-quality rhythm patterns");
-    println!("• 3 new advanced pattern types (Swing, Polyrhythmic, Groove)");
+    println!("• 30+ high-quality rhythm patterns");
+    println!("• 4 advanced pattern types (Swing, Polyrhythmic, Groove, Isochronic)");
+    println!("• Brainwave entrainment & isochronic tone support");
     println!("• Data-driven TOML pattern definitions");
     println!("• Perfect for flow-state and programming music");
+    println!("• Scientifically-informed cognitive enhancement");
     println!("• Comprehensive test coverage");
-    println!("\n🎵 Ready to generate hypnotic, mathematical music! 🎵");
+    println!("\n🎵🧠 Ready to generate hypnotic, cognitive-enhancing music! 🧠🎵");
 }

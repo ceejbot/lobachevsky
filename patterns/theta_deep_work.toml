@@ -1,0 +1,49 @@
+name = "theta_deep_work"
+description = "Theta wave entrainment (4-7 Hz) for deep creative problem-solving and insight"
+tempo_hint = 90
+
+# Minimal grounding rhythm
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 2
+steps = 4
+velocity = 50
+
+# Very sparse textural elements
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 3.0, probability = 0.4 },
+]
+velocity_range = [35, 45]
+
+# Primary theta entrainment (6 Hz - optimal for creativity)
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 6.0
+velocity = 35
+brainwave_type = "theta"
+
+# Deep theta layer (4.5 Hz) for enhanced receptivity
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 4.5
+velocity = 25
+brainwave_type = "theta"
+
+# Upper theta (7 Hz) for memory consolidation
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Isochronic"
+frequency_hz = 7.0
+velocity = 22
+brainwave_type = "theta"

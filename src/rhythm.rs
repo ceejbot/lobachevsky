@@ -141,33 +141,23 @@ impl EuclideanPattern {
         self
     }
 
-    /// Generate Euclidean rhythm pattern using a simple Bresenham-like approach
+    /// Generate Euclidean rhythm pattern using the Bresenham algorithm
     /// This distributes hits as evenly as possible across the steps
     fn generate_pattern(&self) -> Vec<bool> {
-        if self.hits == 0 || self.steps == 0 {
-            return vec![false; self.steps];
+        use crate::euclidean::{Breshenham, EuclideanRhythm};
+
+        // Handle edge cases that the old implementation allowed
+        if self.steps == 0 {
+            return Vec::new();
         }
 
-        if self.hits >= self.steps {
-            return vec![true; self.steps];
-        }
+        // Clamp hits to steps (maintain backward compatibility)
+        let hits = self.hits.min(self.steps);
 
-        let mut pattern = vec![false; self.steps];
+        // Use the tested and optimized Bresenham implementation
+        let mut pattern = Breshenham::generate(self.steps, hits).unwrap_or_else(|_| vec![false; self.steps]);
 
-        // Use Bresenham-like algorithm to distribute hits evenly
-        let mut error = 0i32;
-        let threshold = self.steps as i32;
-
-        #[allow(clippy::needless_range_loop)]
-        for i in 0..self.steps {
-            error += self.hits as i32;
-            if error >= threshold {
-                pattern[i] = true;
-                error -= self.steps as i32;
-            }
-        }
-
-        // Apply rotation
+        // Apply additional rotation on top of the default "start with beat" rotation
         if self.rotation > 0 && !pattern.is_empty() {
             let rot = self.rotation % pattern.len();
             pattern.rotate_left(rot);

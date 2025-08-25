@@ -45,6 +45,13 @@ pub enum LobachevskyError {
     )]
     UnknownRhythmStyle { style: String },
 
+    #[error("Euclidean algorithm input error: steps: {steps} < pulses: {pulses}")]
+    #[diagnostic(
+        code(lobachevsky::euclidean_error),
+        help("The number of steps must be larger than or equal to the number of pulses.")
+    )]
+    EuclideanInputs { steps: usize, pulses: usize },
+
     #[error("Failed to read directory")]
     #[diagnostic(
         code(lobachevsky::directory_read_error),

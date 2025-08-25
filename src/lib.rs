@@ -4,7 +4,6 @@
 //! generating chord progressions, creating rhythmic patterns, and outputting
 //! MIDI files.
 
-pub mod cli_inputs;
 pub mod core;
 pub mod errors;
 pub mod euclidean;

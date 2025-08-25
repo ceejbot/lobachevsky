@@ -4,13 +4,12 @@
 use clap::builder::Styles;
 use clap::builder::styling::AnsiColor;
 use clap::{Parser, Subcommand};
-use lobachevsky::cli_inputs::{ExtendedInput, GenerateInput, HexatonicInput, ModalInput, ProgressionInput};
 use lobachevsky::core::Chord;
-use lobachevsky::generation::{HexatonicExplorer, ProgressionBuilder};
-use lobachevsky::generators::AlgorithmicComposition;
+use lobachevsky::generation::ProgressionBuilder;
+use lobachevsky::generators::*;
 use lobachevsky::melody::{MelodyGenerator, MelodyStrategy};
 use lobachevsky::midi::Composition;
-use lobachevsky::rhythm::{EuclideanPattern, GenrePatterns};
+use lobachevsky::rhythm::GenrePatterns;
 use lobachevsky::{LobachevskyError, Transform};
 
 #[derive(Parser)]
@@ -210,7 +209,7 @@ fn main() -> miette::Result<()> {
             mode,
             tonic,
         } => {
-            let input = ProgressionInput::from_cli(
+            let input = progression::ProgressionInput::from_cli(
                 &start,
                 &pattern,
                 length,
@@ -218,11 +217,11 @@ fn main() -> miette::Result<()> {
                 mode.as_deref(),
                 tonic.as_deref(),
             )?;
-            generate_progression(input, &cli.output)?;
+            progression::generate_progression(input, &cli.output)?;
         }
         Commands::Hexatonic { cycle, start } => {
-            let input = HexatonicInput::from_cli(&cycle, &start)?;
-            generate_hexatonic(input, &cli.output)?;
+            let input = hexatonic::HexatonicInput::from_cli(&cycle, &start)?;
+            hexatonic::generate_hexatonic(input, &cli.output)?;
         }
         Commands::Ambient { style, bars, tempo } => {
             generate_ambient(&style, bars, tempo, &cli.output)?;
@@ -238,8 +237,8 @@ fn main() -> miette::Result<()> {
             length,
             analyze,
         } => {
-            let input = ModalInput::from_cli(&mode, &tonic, start.as_deref(), &pattern, length, analyze)?;
-            generate_modal(input, &cli.output)?;
+            let input = modal::ModalInput::from_cli(&mode, &tonic, start.as_deref(), &pattern, length, analyze)?;
+            modal::generate_modal(input, &cli.output)?;
         }
         Commands::Extended {
             start,
@@ -247,8 +246,8 @@ fn main() -> miette::Result<()> {
             length,
             analyze,
         } => {
-            let input = ExtendedInput::from_cli(&start, &pattern, length, analyze)?;
-            generate_extended(input, &cli.output)?;
+            let input = extended::ExtendedInput::from_cli(&start, &pattern, length, analyze)?;
+            extended::generate_extended(input, &cli.output)?;
         }
         Commands::Generate {
             rhythm,
@@ -263,7 +262,7 @@ fn main() -> miette::Result<()> {
             notes_per_chord,
             return_to_start,
         } => {
-            let input = GenerateInput::from_cli(
+            let input = algorithmic::GenerateInput::from_cli(
                 rhythm.as_deref(),
                 harmony.as_deref(),
                 &start,
@@ -276,71 +275,10 @@ fn main() -> miette::Result<()> {
                 notes_per_chord,
                 return_to_start,
             )?;
-            generate_algorithmic(input, bars, tempo, &cli.output)?;
+            algorithmic::generate_algorithmic(input, bars, tempo, &cli.output)?;
         }
     }
     Ok(())
-}
-
-fn generate_progression(input: ProgressionInput, output: &str) -> Result<(), LobachevskyError> {
-    let mut builder = ProgressionBuilder::new()
-        .start(input.start_chord)
-        .pattern(&input.transforms)
-        .length(input.length);
-
-    if input.return_to_start {
-        builder = builder.with_return();
-    }
-
-    // Apply modal constraints if specified
-    if let (Some(mode), Some(tonic)) = (input.mode, input.tonic) {
-        builder = builder.with_mode(mode, tonic);
-        println!("Using modal constraint: {} {}", tonic, mode);
-    }
-
-    let progression = builder.build();
-
-    // Print the progression
-    println!("Generated progression:");
-    for (i, chord) in progression.iter().enumerate() {
-        println!("  {}: {}", i + 1, chord);
-    }
-
-    // Generate MIDI
-    let mut composition = Composition::new(110);
-    composition.add_harmony_track(&progression, 4, 4);
-
-    composition.save(output)?;
-    println!("Saved to {}", output);
-    Ok(())
-}
-
-fn generate_hexatonic(input: HexatonicInput, output: &str) -> Result<(), LobachevskyError> {
-    let explorer = HexatonicExplorer::new();
-
-    if let Some(chords) = explorer.get_cycle(input.cycle, input.start_chord) {
-        println!("Hexatonic cycle starting from {}:", input.start_chord);
-        for (i, chord) in chords.iter().enumerate() {
-            println!("  {}: {}", i + 1, chord);
-        }
-
-        // Generate MIDI - repeat the cycle several times
-        let mut full_progression = Vec::new();
-        for _ in 0..4 {
-            full_progression.extend_from_slice(&chords);
-        }
-
-        let mut composition = Composition::new(110);
-        composition.add_harmony_track(&full_progression, 4, 2);
-
-        composition.save(output)?;
-        println!("Saved to {}", output);
-        Ok(())
-    } else {
-        Err(LobachevskyError::ParseError {
-            message: "Could not generate hexatonic cycle".to_string(),
-        })
-    }
 }
 
 fn generate_ambient(style: &str, bars: usize, tempo: u16, output: &str) -> Result<(), LobachevskyError> {
@@ -411,181 +349,4 @@ fn generate_composition(bars: usize, tempo: u16, output: &str) {
     } else {
         println!("Saved complete composition to {}", output);
     }
-}
-
-fn generate_modal(input: ModalInput, output: &str) -> Result<(), LobachevskyError> {
-    println!(
-        "Exploring {} {} mode with neo-Riemannian transformations",
-        input.tonic, input.mode
-    );
-
-    // Create modal transformer
-    use lobachevsky::ModalNeoRiemannian;
-    let modal_transformer = ModalNeoRiemannian::new(input.mode, input.tonic);
-
-    if input.analyze {
-        let analysis = modal_transformer.analyze_mode();
-        println!("\n=== Modal Analysis ===");
-        println!("Mode: {} {}", input.tonic, input.mode);
-        println!("Available chords:");
-        for (i, chord) in analysis.chords.iter().enumerate() {
-            let degree = match i {
-                0 => "I",
-                1 => "ii",
-                2 => "iii",
-                3 => "IV",
-                4 => "V",
-                5 => "vi",
-                6 => "vii°",
-                _ => "?",
-            };
-            println!("  {}: {}", degree, chord);
-        }
-
-        if !analysis.characteristic_chords.is_empty() {
-            println!("Characteristic chords:");
-            for chord in &analysis.characteristic_chords {
-                println!("  {}", chord);
-            }
-        }
-    }
-
-    // Determine starting chord
-    let start_chord = if let Some(chord) = input.start_chord {
-        if modal_transformer.valid_chords().contains(&chord) {
-            chord
-        } else {
-            eprintln!(
-                "Warning: {} is not in {} {} mode, using first chord of mode",
-                chord, input.tonic, input.mode
-            );
-            modal_transformer
-                .valid_chords()
-                .iter()
-                .next()
-                .copied()
-                .unwrap_or(Chord::c_major())
-        }
-    } else {
-        // Use the tonic chord of the mode
-        input.mode.triads(input.tonic)[0]
-    };
-
-    println!("\nStarting from: {}", start_chord);
-
-    // Generate modal progression using the transformer directly
-    let progression = modal_transformer.apply_sequence(
-        start_chord,
-        &input.transforms[0..input.length.min(input.transforms.len())],
-    );
-
-    println!("\nModal progression ({} transformations):", progression.len() - 1);
-    for (i, chord) in progression.iter().enumerate() {
-        if i == 0 {
-            println!("  Start: {}", chord);
-        } else {
-            println!(
-                "  {}: {} (via {})",
-                i,
-                chord,
-                match &input.transforms[(i - 1) % input.transforms.len()] {
-                    Transform::P => "P",
-                    Transform::R => "R",
-                    Transform::L => "L",
-                    Transform::Compound(_) => "compound",
-                }
-            );
-        }
-    }
-
-    // Generate MIDI
-    let mut composition = Composition::new(110);
-    composition.add_harmony_track(&progression, 4, 2);
-
-    composition.save(output)?;
-    println!("\nSaved modal exploration to {}", output);
-    Ok(())
-}
-
-fn generate_extended(input: ExtendedInput, output: &str) -> Result<(), LobachevskyError> {
-    use lobachevsky::theory::{NeoRiemannian, Transformable};
-
-    println!("Exploring extended chord transformations");
-
-    if input.analyze {
-        println!("\n=== Extended Chord Analysis ===");
-        println!("Starting chord: {}", input.start_chord);
-        println!("Chord type: {:?}", input.start_chord.quality);
-        println!("Is triad: {}", input.start_chord.quality.is_triad());
-        println!("Is seventh chord: {}", input.start_chord.quality.is_seventh());
-        println!("Is suspended: {}", input.start_chord.quality.is_suspended());
-
-        if let Some(underlying) = input.start_chord.underlying_triad() {
-            println!("Underlying triad: {}", underlying);
-        }
-
-        println!(
-            "Supports basic transforms (P, R, L): {}",
-            input.start_chord.supports_basic_transforms()
-        );
-        println!(
-            "Supports P3,0 transforms: {}",
-            input.start_chord.supports_p3_transforms()
-        );
-    }
-
-    // Generate extended chord progression
-    let transformer = NeoRiemannian::new();
-    let progression = transformer.apply_sequence_any(
-        input.start_chord,
-        &input.transforms[0..input.length.min(input.transforms.len())],
-    );
-
-    println!(
-        "\nExtended chord progression ({} transformations):",
-        progression.len() - 1
-    );
-    for (i, chord) in progression.iter().enumerate() {
-        if i == 0 {
-            println!("  Start: {} ({:?})", chord, chord.quality);
-        } else {
-            let transform = &input.transforms[(i - 1) % input.transforms.len()];
-            let transform_name = match transform {
-                Transform::P => "P",
-                Transform::R => "R",
-                Transform::L => "L",
-                Transform::Compound(_) => "compound",
-            };
-
-            if input.analyze {
-                println!("  {}: {} ({:?}) (via {})", i, chord, chord.quality, transform_name);
-                if let Some(underlying) = chord.underlying_triad() {
-                    println!("      Underlying: {}", underlying);
-                }
-            } else {
-                println!("  {}: {} (via {})", i, chord, transform_name);
-            }
-        }
-    }
-
-    // Generate MIDI
-    let mut composition = Composition::new(110);
-    composition.add_harmony_track(&progression, 4, 2);
-
-    composition.save(output)?;
-    println!("\nSaved extended chord exploration to {}", output);
-    Ok(())
-}
-
-fn generate_algorithmic(input: GenerateInput, bars: usize, tempo: u16, output: &str) -> Result<(), LobachevskyError> {
-    // Load or create rhythm pattern
-    let rhythm = if let Some(rhythm_name) = &input.rhythm_name {
-        AlgorithmicComposition::load_rhythm_pattern(rhythm_name)?
-    } else {
-        Box::new(EuclideanPattern::default())
-    };
-
-    lobachevsky::generators::algorithmic_composition(
-        input.harmony, rhythm, input.melody_strategy, bars, tempo, input.notes_per_chord, output,
-    )
 }

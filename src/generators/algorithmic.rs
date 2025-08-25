@@ -1,8 +1,81 @@
+//! Implementation of the `generate` command, which pulls together all the
+//! algorithms to generate an algorithmic composition.
+
+use super::*;
 use crate::harmony::TypedHarmonicPattern;
 use crate::melody::{MelodyGenerator, MelodyStrategy};
 use crate::midi::Composition;
-use crate::rhythm::PatternLibrary;
+use crate::rhythm::{EuclideanPattern, PatternLibrary};
 use crate::{Chord, LobachevskyError, ProgressionBuilder, RhythmPattern};
+
+/// Input for the Generate command
+pub struct GenerateInput {
+    pub rhythm_name: Option<String>,
+    pub harmony: TypedHarmonicPattern,
+    pub melody_strategy: MelodyStrategy,
+    pub notes_per_chord: usize,
+}
+
+impl GenerateInput {
+    #[allow(clippy::too_many_arguments)]
+    pub fn from_cli(
+        rhythm: Option<&str>,
+        harmony_file: Option<&str>,
+        start: &str,
+        pattern: &str,
+        mode: Option<&str>,
+        tonic: Option<&str>,
+        melody: &str,
+        bars: usize,
+        tempo: u16,
+        notes_per_chord: usize,
+        return_to_start: bool,
+    ) -> Result<Self, LobachevskyError> {
+        // Load or create harmonic pattern
+        let harmony = if let Some(harmony_path) = harmony_file {
+            // Load from file
+            if harmony_path.ends_with(".toml") {
+                let mut lib = crate::harmony::HarmonicLibrary::new();
+                let pattern = lib.load_from_file(std::path::Path::new(harmony_path))?;
+                pattern.to_typed()?
+            } else {
+                // Assume it's a pattern name from the harmonics directory
+                let mut lib = crate::harmony::HarmonicLibrary::new();
+                lib.load_from_directory(std::path::Path::new("harmonics"))?;
+                let pattern = lib.get(harmony_path).ok_or_else(|| LobachevskyError::ParseError {
+                    message: format!("Harmonic pattern '{}' not found", harmony_path),
+                })?;
+                pattern.to_typed()?
+            }
+        } else {
+            // Create from command line arguments
+            let start_chord = Chord::try_from(start)?;
+            let transforms = parse_transforms(pattern)?;
+            let (parsed_mode, parsed_tonic) = parse_mode_and_tonic(mode, tonic)?;
+
+            TypedHarmonicPattern {
+                name: "cli_generated".to_string(),
+                description: Some("Generated from command line arguments".to_string()),
+                start_chord,
+                transformations: transforms,
+                mode: parsed_mode,
+                tonic: parsed_tonic,
+                return_to_start,
+                tempo_hint: Some(tempo),
+                bars_hint: Some(bars),
+            }
+        };
+
+        let melody_strategy = MelodyStrategy::from(melody);
+
+        Ok(GenerateInput {
+            rhythm_name: rhythm.map(|s| s.to_string()),
+            harmony,
+            melody_strategy,
+            notes_per_chord,
+        })
+    }
+}
 
 pub struct AlgorithmicComposition {
     rhythm: Box<dyn RhythmPattern>,
@@ -150,16 +223,22 @@ impl AlgorithmicComposition {
     }
 }
 
-pub fn algorithmic_composition(
-    harmony: TypedHarmonicPattern,
-    rhythm: Box<dyn RhythmPattern>,
-    melody: MelodyStrategy,
+pub fn generate_algorithmic(
+    input: GenerateInput,
     bars: usize,
     tempo: u16,
-    notes_per_chord: usize,
     output: &str,
 ) -> Result<(), LobachevskyError> {
-    let composition = AlgorithmicComposition::new(harmony, rhythm, melody, bars, tempo, notes_per_chord);
+    // Load or create rhythm pattern
+    let rhythm = if let Some(rhythm_name) = &input.rhythm_name {
+        AlgorithmicComposition::load_rhythm_pattern(rhythm_name)?
+    } else {
+        Box::new(EuclideanPattern::default())
+    };
+
+    let composition = AlgorithmicComposition::new(
+        input.harmony, rhythm, input.melody_strategy, bars, tempo, input.notes_per_chord,
+    );
 
     composition.generate(output)
 }

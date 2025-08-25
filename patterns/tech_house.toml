@@ -1,0 +1,88 @@
+name = "tech_house"
+description = "Driving 4/4 tech house with syncopated percussion and rolling grooves"
+tempo_hint = 128
+
+# Solid tech house kick - precise and punchy
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 82
+
+# Syncopated off-beat kicks
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.6 },
+    { beat = 1.75, probability = 0.4 },
+    { beat = 2.75, probability = 0.7 },
+    { beat = 3.75, probability = 0.5 },
+]
+velocity_range = [50, 60]
+
+# Snare with some swing
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.58
+subdivision = 0.5
+[layers.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.9 },
+    { beat = 3.0, probability = 0.85 },
+]
+velocity_range = [65, 75]
+
+# Rolling hi-hats with polyrhythmic complexity
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [9, 8]
+pattern_length = 2
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 13
+steps = 18
+rotation = 3
+velocity = 48
+
+# Rim shots for percussive texture
+[[layers]]
+voice = "rim"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.3 },
+    { beat = 1.5, probability = 0.25 },
+    { beat = 2.5, probability = 0.35 },
+    { beat = 3.5, probability = 0.2 },
+]
+velocity_range = [35, 45]
+
+# Shaker with subtle groove
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.4
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 11
+steps = 16
+rotation = 1
+velocity = 38
+[layers.pattern_type.groove_type]
+groove_type = "Custom"
+
+[layers.pattern_type.groove_type.timing_map]
+"0.25" = 0.01
+"1.25" = -0.01
+"2.25" = 0.015
+"3.25" = -0.005

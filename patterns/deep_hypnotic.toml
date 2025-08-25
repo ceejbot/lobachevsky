@@ -1,0 +1,66 @@
+name = "deep_hypnotic"
+description = "Deep hypnotic pattern for extended focus sessions - minimal evolution, long loops"
+tempo_hint = 126
+
+# Main deep kick pattern - steady but not mechanical
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.3
+humanization = 0.02
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 75
+[layers.pattern_type.groove_type]
+groove_type = "Template"
+name = "deep_house_shuffle"
+
+# Very subtle off-beat kicks for texture
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.15 },
+    { beat = 2.75, probability = 0.12 },
+]
+velocity_range = [35, 45]
+
+# Minimal snare/clap - very sparse
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.85 },
+]
+velocity_range = [50, 60]
+
+# Subtle rolling hi-hats with swing
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.6
+subdivision = 0.25
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 6
+steps = 16
+rotation = 2
+velocity = 35
+
+# Very sparse percussive texture
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.08 },
+    { beat = 1.75, probability = 0.10 },
+    { beat = 3.25, probability = 0.07 },
+]
+velocity_range = [25, 35]

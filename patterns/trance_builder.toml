@@ -1,0 +1,80 @@
+name = "trance_builder"
+description = "Progressive builds without drops - continuous energy for sustained focus"
+tempo_hint = 132
+
+# Strong 4/4 kick with slight groove
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.2
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 80
+[layers.pattern_type.groove_type]
+groove_type = "Template"
+name = "deep_house_shuffle"
+
+# Off-beat kicks for drive
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.4 },
+    { beat = 1.5, probability = 0.3 },
+    { beat = 2.5, probability = 0.35 },
+    { beat = 3.5, probability = 0.25 },
+]
+velocity_range = [45, 55]
+
+# Snare/clap on 2 and 4
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.95 },
+    { beat = 3.0, probability = 0.9 },
+]
+velocity_range = [65, 75]
+
+# Rolling hi-hats with polyrhythmic feel
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 11
+steps = 14
+rotation = 2
+velocity = 45
+
+# Open hi-hats for texture
+[[layers]]
+voice = "hihat_open"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.3 },
+    { beat = 2.75, probability = 0.25 },
+]
+velocity_range = [40, 50]
+
+# Driving shaker pattern
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.55
+subdivision = 0.125
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 7
+steps = 8
+velocity = 35

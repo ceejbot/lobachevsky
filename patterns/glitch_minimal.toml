@@ -1,0 +1,106 @@
+name = "glitch_minimal"
+description = "Stuttering patterns and broken rhythms with glitchy micro-timing"
+tempo_hint = 122
+
+# Main kick with glitchy timing
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.8
+humanization = 0.04
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 72
+[layers.pattern_type.groove_type]
+groove_type = "Custom"
+
+[layers.pattern_type.groove_type.timing_map]
+"0.0" = 0.02
+"1.0" = -0.03
+"2.0" = 0.05
+"3.0" = -0.02
+
+[layers.pattern_type.groove_type.velocity_map]
+"0.0" = 1.1
+"1.0" = 0.8
+"2.0" = 1.2
+"3.0" = 0.9
+
+# Stuttering kick pattern
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.125, probability = 0.6 },
+    { beat = 0.1875, probability = 0.4 },
+    { beat = 1.0625, probability = 0.5 },
+    { beat = 2.125, probability = 0.7 },
+    { beat = 2.1875, probability = 0.3 },
+    { beat = 3.0625, probability = 0.45 },
+]
+velocity_range = [40, 60]
+
+# Broken snare pattern
+[[layers]]
+voice = "rim"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.9
+[layers.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.8 },
+    { beat = 1.0625, probability = 0.4 },
+    { beat = 3.0, probability = 0.7 },
+    { beat = 2.9375, probability = 0.3 },
+]
+velocity_range = [45, 65]
+[layers.pattern_type.groove_type]
+groove_type = "Custom"
+
+[layers.pattern_type.groove_type.timing_map]
+"1.0" = 0.03
+"3.0" = -0.02
+
+# Glitchy hi-hats with micro-stutters
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.7
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 11
+steps = 16
+rotation = 1
+velocity = 38
+[layers.pattern_type.groove_type]
+groove_type = "Custom"
+
+[layers.pattern_type.groove_type.timing_map]
+"0.25" = 0.015
+"0.5" = -0.02
+"0.75" = 0.025
+"1.25" = -0.015
+"1.5" = 0.02
+"2.25" = 0.01
+"3.75" = -0.03
+
+# Scattered percussion
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.3125, probability = 0.25 },
+    { beat = 0.4375, probability = 0.15 },
+    { beat = 1.3125, probability = 0.3 },
+    { beat = 2.4375, probability = 0.2 },
+    { beat = 2.5625, probability = 0.1 },
+    { beat = 3.1875, probability = 0.35 },
+]
+velocity_range = [20, 40]

@@ -1,0 +1,103 @@
+name = "algorithmic_abstract"
+description = "Generated variations using mathematical patterns - evolving algorithmic beauty"
+tempo_hint = 116
+
+# Primary kick using golden ratio proportions
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 8  # Fibonacci numbers
+velocity = 68
+
+# Secondary kick in different Euclidean ratio
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 3
+steps = 13  # Another Fibonacci number
+rotation = 5
+velocity = 45
+
+# Polyrhythmic snare based on prime numbers
+[[layers]]
+voice = "rim"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 4]  # Prime number time signature
+pattern_length = 3
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 2
+steps = 7
+rotation = 2
+velocity = 50
+
+# Hi-hats using complex Euclidean distribution
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.618  # Golden ratio
+subdivision = 0.125
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 13  # Fibonacci
+steps = 21  # Fibonacci
+rotation = 8  # Fibonacci
+velocity = 35
+
+# Polyrhythmic ride in irrational time
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [11, 8]
+pattern_length = 2
+[layers.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.618 },  # Golden ratio
+    { beat = 0.618, probability = 0.382 },  # 1 - golden ratio
+    { beat = 1.236, probability = 0.618 },
+    { beat = 1.854, probability = 0.382 },
+]
+velocity_range = [25, 40]
+
+# Complex percussion pattern
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [17, 16]
+pattern_length = 1
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 7
+steps = 17
+rotation = 11  # Another prime
+velocity = 28
+
+# Additional textural layer
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.5
+humanization = 0.03
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 8  # Fibonacci
+steps = 13  # Fibonacci
+rotation = 3
+velocity = 22
+[layers.pattern_type.groove_type]
+groove_type = "Custom"
+
+[layers.pattern_type.groove_type.timing_map]
+"0.0" = 0.01
+"0.618" = -0.01  # Golden ratio timing adjustments
+"1.236" = 0.015
+"1.854" = -0.005

@@ -1,0 +1,64 @@
+name = "coding_flow"
+description = "Steady, non-distracting groove optimized for programming focus"
+tempo_hint = 120
+
+# Solid but gentle 4/4 foundation
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.4
+humanization = 0.015
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 72
+[layers.pattern_type.groove_type]
+groove_type = "Template"
+name = "deep_house_shuffle"
+
+# Minimal snare on 2 and 4
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.9 },
+    { beat = 3.0, probability = 0.85 },
+]
+velocity_range = [55, 65]
+
+# Consistent but subtle hi-hat pattern
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.58
+subdivision = 0.25
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 8
+steps = 16
+velocity = 40
+
+# Occasional open hi-hat for texture
+[[layers]]
+voice = "hihat_open"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.2 },
+    { beat = 2.5, probability = 0.25 },
+]
+velocity_range = [35, 45]
+
+# Very subtle shaker for continuous motion
+[[layers]]
+voice = "shaker"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 8
+rotation = 1
+velocity = 28

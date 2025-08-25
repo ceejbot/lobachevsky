@@ -1,0 +1,47 @@
+name = "focus_minimal"
+description = "Stripped down, meditative pattern for deep concentration"
+tempo_hint = 118
+
+# Clean, precise kick pattern
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 68
+
+# Minimal snare - just on beat 3
+[[layers]]
+voice = "rim"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.95 },
+]
+velocity_range = [50, 55]
+
+# Very sparse hi-hats with subtle swing
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Swing"
+swing_ratio = 0.62
+subdivision = 0.5
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 3
+steps = 8
+rotation = 1
+velocity = 32
+
+# Occasional texture elements
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.5, probability = 0.1 },
+    { beat = 3.75, probability = 0.08 },
+]
+velocity_range = [22, 28]

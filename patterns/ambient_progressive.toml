@@ -1,0 +1,73 @@
+name = "ambient_progressive"
+description = "Slow progressive builds with atmospheric textures - perfect for long coding sessions"
+tempo_hint = 110
+
+# Soft, deep kick pattern
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 70
+
+# Ghost kick pattern for subtle movement
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.25 },
+    { beat = 1.25, probability = 0.20 },
+    { beat = 2.5, probability = 0.30 },
+    { beat = 3.75, probability = 0.18 },
+]
+velocity_range = [30, 40]
+
+# Very minimal snare - just enough to maintain pulse
+[[layers]]
+voice = "rim"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.7 },
+]
+velocity_range = [45, 55]
+
+# Polyrhythmic hi-hats for gentle complexity
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 4]
+pattern_length = 4
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 7
+steps = 20
+rotation = 3
+velocity = 30
+
+# Atmospheric ride pattern
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.15 },
+    { beat = 1.5, probability = 0.18 },
+    { beat = 2.25, probability = 0.12 },
+    { beat = 3.5, probability = 0.20 },
+]
+velocity_range = [25, 35]
+
+# Subtle percussion texture
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.08 },
+    { beat = 3.0, probability = 0.06 },
+]
+velocity_range = [20, 30]

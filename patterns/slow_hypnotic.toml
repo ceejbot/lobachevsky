@@ -1,0 +1,77 @@
+name = "slow_hypnotic"
+description = "Deep focus music for extended concentration - very slow, meditative"
+tempo_hint = 95
+
+# Very deep, slow kick
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Groove"
+intensity = 0.4
+humanization = 0.02
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 70
+[layers.pattern_type.groove_type]
+groove_type = "Template"
+name = "deep_house_shuffle"
+
+# Minimal ghost kicks
+[[layers]]
+voice = "kick_soft"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.15 },
+    { beat = 2.5, probability = 0.18 },
+]
+velocity_range = [30, 40]
+
+# Very sparse snare
+[[layers]]
+voice = "clap"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.8 },
+]
+velocity_range = [55, 65]
+
+# Slow, hypnotic hi-hats
+[[layers]]
+voice = "hihat_closed"
+[layers.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 4
+[layers.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 14
+rotation = 3
+velocity = 32
+
+# Atmospheric texture
+[[layers]]
+voice = "ride"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.2 },
+    { beat = 1.5, probability = 0.15 },
+    { beat = 3.25, probability = 0.25 },
+]
+velocity_range = [20, 30]
+
+# Very subtle percussion
+[[layers]]
+voice = "percussion"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.25, probability = 0.1 },
+    { beat = 3.75, probability = 0.08 },
+]
+velocity_range = [15, 25]

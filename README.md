@@ -104,7 +104,43 @@ lobachevsky ambient --style 2000s --bars 128 --tempo 124
 
 # 2010s Euclidean patterns
 lobachevsky ambient --style 2010s --bars 64 --tempo 120
+
+# Detroit techno - raw, driving
+lobachevsky ambient --style detroit --bars 32 --tempo 132
+
+# Berlin dub techno - deep, atmospheric
+lobachevsky ambient --style berlin --bars 64 --tempo 125
+
+# Minimal Berlin - stripped-down, hypnotic
+lobachevsky ambient --style minimal --bars 48 --tempo 128
+
+# Acid minimal - 303-influenced with syncopation
+lobachevsky ambient --style acid --bars 64 --tempo 135
+
+# Deep minimal - subdued with ghost notes
+lobachevsky ambient --style deep --bars 32 --tempo 120
 ```
+
+## Rhythm Styles
+
+The rhythm generator supports multiple styles, each with distinct characteristics:
+
+### Era-Based Styles
+- **90s**: Sparse, breathing ambient techno with subtle hi-hat patterns and minimal snare placement
+- **2000s**: Shuffled microhouse with ghost notes and soft kick variations
+- **2010s**: Complex Euclidean patterns with mathematical rhythm distribution
+
+### Regional/Genre Styles  
+- **detroit**: Raw, driving 4/4 with boomy kicks and sparse percussion, emphasizing the off-beats
+- **berlin**: Deep, atmospheric dub techno with spacious arrangements and delayed elements
+- **minimal**: Stripped-down, hypnotic patterns focusing on rolling hi-hat grooves
+- **acid**: 303-influenced patterns with syncopated percussion and complex polyrhythmic elements
+- **deep**: Subdued patterns emphasizing ghost notes and subtle swing for underground vibes
+
+Each style uses different combinations of:
+- **EuclideanPattern**: Mathematical distribution of hits across time steps
+- **ProbabilityPattern**: Stochastic variations with per-beat hit probabilities  
+- **LayeredPattern**: Multiple synchronized rhythm layers
 
 ### Create complete compositions
 
@@ -162,6 +198,108 @@ Implementations include:
 - `ProbabilityPattern`: Stochastic variations
 - `LayeredPattern`: Combine multiple patterns
 - `GenrePatterns`: Pre-built genre-specific templates
+
+## Pattern Format
+
+The library supports loading rhythm patterns from TOML files for data-driven pattern creation. Pattern files use the following structure:
+
+### Basic Structure
+
+```toml
+name = "pattern_name"
+description = "Optional description of the pattern"
+tempo_hint = 128  # Optional suggested BPM
+
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 16
+rotation = 0    # Optional
+velocity = 80   # Optional
+```
+
+### Pattern Types
+
+#### Euclidean Patterns
+Mathematical distribution of hits across time steps:
+```toml
+[layers.pattern_type]
+type = "Euclidean"
+hits = 5        # Number of hits to distribute
+steps = 8       # Total time steps  
+rotation = 2    # Optional: rotate pattern
+velocity = 70   # Optional: MIDI velocity
+```
+
+#### Probability Patterns
+Stochastic patterns with per-beat hit probabilities:
+```toml
+[layers.pattern_type]
+type = "Probability"
+velocity_range = [40, 80]  # Optional: min/max velocity range
+[[layers.pattern_type.points]]
+beat = 0.0
+probability = 0.9
+[[layers.pattern_type.points]]  
+beat = 1.5
+probability = 0.6
+```
+
+### Valid Drum Voices
+- `kick`, `kick_soft`: Kick drums (GM notes 36, 35)
+- `snare`, `rim`, `clap`: Snare family (GM notes 38, 37, 39) 
+- `hihat_closed`, `hihat_open`: Hi-hats (GM notes 42, 46)
+- `shaker`, `ride`, `percussion`: Other percussion (GM notes 70, 51, 69)
+
+### Example: UK Garage Pattern
+```toml
+name = "uk_garage"
+description = "UK Garage with shuffled hi-hats and syncopated kicks"
+tempo_hint = 138
+
+[[layers]]
+voice = "kick"
+[layers.pattern_type]
+type = "Probability" 
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 1.5, probability = 0.8 },
+    { beat = 2.0, probability = 0.9 },
+    { beat = 3.5, probability = 0.7 },
+]
+velocity_range = [80, 90]
+
+[[layers]]
+voice = "snare"
+[layers.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.9 },
+    { beat = 3.0, probability = 0.95 },
+]
+
+[[layers]]
+voice = "hihat_closed" 
+[layers.pattern_type]
+type = "Euclidean"
+hits = 13
+steps = 16
+rotation = 2
+velocity = 45
+```
+
+Load patterns using the `PatternLibrary` API:
+```rust
+use lobachevsky::rhythm::{PatternLibrary, PatternData};
+
+let mut library = PatternLibrary::new();
+library.load_from_directory(Path::new("patterns"))?;
+
+let pattern = library.get("uk_garage").unwrap();
+let rhythm = pattern.to_pattern()?;
+```
 
 ### Extensions
 

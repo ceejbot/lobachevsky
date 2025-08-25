@@ -282,7 +282,7 @@ impl Composition {
 
     /// Save the composition to a MIDI file
     pub fn save(&self, path: impl AsRef<Path>) -> Result<(), LobachevskyError> {
-        Ok(self.midi_file.save(path)?)
+        self.midi_file.save(path)
     }
 }
 

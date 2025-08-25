@@ -38,7 +38,9 @@ impl TryFrom<&str> for PitchClass {
             "A" => Ok(PitchClass::A),
             "A#" | "As" | "Bb" => Ok(PitchClass::As),
             "B" => Ok(PitchClass::B),
-            _ => Err(LobachevskyError::InvalidPitch(value.to_string())),
+            _ => Err(LobachevskyError::InvalidPitch {
+                input: value.to_string(),
+            }),
         }
     }
 }
@@ -194,7 +196,9 @@ impl TryFrom<&str> for Mode {
             "mixolydian" => Ok(Mode::Mixolydian),
             "aeolian" => Ok(Mode::Aeolian),
             "locrian" => Ok(Mode::Locrian),
-            _ => Err(LobachevskyError::InvalidMode(value.to_string())),
+            _ => Err(LobachevskyError::InvalidMode {
+                input: value.to_string(),
+            }),
         }
     }
 }

@@ -9,7 +9,6 @@ use lobachevsky::generation::{HexatonicCycle, HexatonicExplorer, MelodyGenerator
 use lobachevsky::midi::Composition;
 use lobachevsky::rhythm::GenrePatterns;
 use lobachevsky::{LobachevskyError, Transform};
-use miette::IntoDiagnostic;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None, styles = v3_styles(), max_term_width = 100)]
@@ -64,7 +63,7 @@ enum Commands {
 
     /// Generate ambient techno composition
     Ambient {
-        /// Style: 90s, 2000s, 2010s
+        /// Style: 90s, 2000s, 2010s, detroit, berlin, minimal, acid, deep
         #[arg(short, long, default_value = "90s")]
         style: String,
 
@@ -148,6 +147,7 @@ fn v3_styles() -> Styles {
 }
 
 fn main() -> miette::Result<()> {
+    miette::set_panic_hook();
     let cli = Cli::parse();
 
     match cli.command {
@@ -173,7 +173,10 @@ fn main() -> miette::Result<()> {
             generate_hexatonic(&cycle, &start, &cli.output);
         }
         Commands::Ambient { style, bars, tempo } => {
-            generate_ambient(&style, bars, tempo, &cli.output).into_diagnostic()?;
+            if let Err(e) = generate_ambient(&style, bars, tempo, &cli.output) {
+                eprintln!("{:?}", miette::Report::new(e));
+                std::process::exit(1);
+            }
         }
         Commands::Compose { bars, tempo } => {
             generate_composition(bars, tempo, &cli.output);
@@ -325,13 +328,19 @@ fn generate_ambient(style: &str, bars: usize, tempo: u16, output: &str) -> Resul
         "90s" => GenrePatterns::ambient_90s(),
         "2000s" => GenrePatterns::microhouse_2000s(),
         "2010s" => GenrePatterns::euclidean_2010s(),
-        _ => return Err(LobachevskyError::UnknownRhythmStyle(style.to_string())),
+        "detroit" => GenrePatterns::detroit_techno(),
+        "berlin" => GenrePatterns::berlin_dub_techno(),
+        "minimal" => GenrePatterns::minimal_berlin(),
+        "acid" => GenrePatterns::acid_minimal(),
+        "deep" => GenrePatterns::deep_minimal(),
+        _ => {
+            return Err(LobachevskyError::UnknownRhythmStyle {
+                style: style.to_string(),
+            });
+        }
     };
 
-    println!(
-        "Generating {} ambient techno rhythm ({} bars at {} BPM)",
-        style, bars, tempo
-    );
+    println!("Generating {} techno rhythm ({} bars at {} BPM)", style, bars, tempo);
 
     let mut composition = Composition::new(tempo);
     composition.add_rhythm_track(pattern.as_ref(), bars);

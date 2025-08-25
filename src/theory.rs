@@ -32,7 +32,7 @@ impl TryFrom<&str> for Transform {
             "lp" => Ok(Self::lp()),
             "rl" => Ok(Self::rl()),
             "lr" => Ok(Self::lr()),
-            _ => Err(LobachevskyError::InvalidTransformation(v.to_string())),
+            _ => Err(LobachevskyError::InvalidTransformation { input: v.to_string() }),
         }
     }
 }

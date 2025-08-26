@@ -1,0 +1,36 @@
+# Test bass pattern
+# Simple pattern to test bass integration
+
+name = "test_bass"
+description = "Test pattern with bass tracks"
+tempo_hint = 120
+style = "test"
+
+# Simple kick drum
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 100
+
+# Test bass sequence
+[[bass_tracks]]
+voice = "Bass"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "fifth", "octave"]
+note_duration = 0.25
+velocity_pattern = [80, 70, 75, 85]
+
+# Test bass probability
+[[bass_tracks]]
+voice = "BassStaccato"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.8, note = "fifth" },
+    { beat = 2.5, probability = 0.7, note = "third" },
+]
+velocity_range = [60, 80]

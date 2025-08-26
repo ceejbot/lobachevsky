@@ -313,6 +313,19 @@ impl Composition {
         self
     }
 
+    /// Add bass track from bass events (from rhythm patterns)
+    pub fn add_bass_track_from_events(&mut self, events: &[crate::rhythm::BassEvent]) -> &mut Self {
+        let mut track = self.midi_file.add_track();
+
+        for event in events {
+            let channel = event.voice.midi_channel();
+            track.add_note(event.note, event.beat.0, event.duration, event.velocity, channel);
+        }
+
+        self.midi_file.add_completed_track(track.build());
+        self
+    }
+
     /// Save the composition to a MIDI file
     pub fn save(&self, path: impl AsRef<Path>) -> Result<(), LobachevskyError> {
         self.midi_file.save(path)

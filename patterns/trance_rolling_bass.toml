@@ -19,37 +19,3 @@ points = [
     { beat = 3.0, probability = 1.0 },
 ]
 velocity_range = [114, 121]
-
-# Rolling bass - the signature trance sound
-# This bass pattern creates the classic galloping rhythm
-[[bass_tracks]]
-voice = "Bass"
-[bass_tracks.pattern]
-type = "Sequence"
-# Root-root-fifth-octave creates the rolling feeling
-sequence = ["root", "root", "fifth", "octave", "root", "fifth", "root", "octave"]
-note_duration = 0.25  # 16th notes for fast movement
-velocity_pattern = [100, 80, 90, 85, 95, 75, 90, 88]
-
-# Off-beat bass accents
-[[bass_tracks]]
-voice = "BassStaccato"
-[bass_tracks.pattern]
-type = "Probability"
-points = [
-    { beat = 0.5, probability = 0.7, note = "fifth" },
-    { beat = 1.5, probability = 0.8, note = "octave" },
-    { beat = 2.5, probability = 0.7, note = "fifth" },
-    { beat = 3.5, probability = 0.9, note = "root" },
-]
-velocity_range = [60, 75]
-
-# Sub bass foundation
-[[bass_tracks]]
-voice = "BassSub"
-[bass_tracks.pattern]
-type = "Euclidean"
-hits = 4
-steps = 4
-note_pattern = ["root"]  # Just root notes for sub bass
-velocity = 70

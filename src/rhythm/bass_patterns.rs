@@ -175,7 +175,7 @@ impl BassPattern for EuclideanBassPattern {
 pub struct ProbabilityBassPattern {
     voice: BassVoice,
     points: Vec<(Beat, f64, String)>, // (beat, probability, note_type)
-    velocity_range: (u8, u8),
+    pub velocity_range: (u8, u8),
 }
 
 impl ProbabilityBassPattern {

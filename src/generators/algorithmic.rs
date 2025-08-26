@@ -140,13 +140,7 @@ impl AlgorithmicComposition {
         log::info!("=====================================");
 
         // Align bars to 16 or 32 bar multiples
-        let aligned_bars = if self.bars <= 16 {
-            16
-        } else if self.bars <= 32 {
-            32
-        } else {
-            self.bars.div_ceil(16) // Round up to nearest 16
-        };
+        let aligned_bars = calculate_aligned_bars(self.bars);
 
         if aligned_bars != self.bars {
             log::info!(
@@ -270,6 +264,20 @@ impl AlgorithmicComposition {
     }
 }
 
+/// Calculate aligned bar count for musical structure
+/// Rounds up to 16 bars minimum, 32 bars for medium lengths,
+/// or the next multiple of 16 for longer pieces
+fn calculate_aligned_bars(bars: usize) -> usize {
+    if bars <= 16 {
+        16
+    } else if bars <= 32 {
+        32
+    } else {
+        // Round up to next multiple of 16
+        ((bars + 15) / 16) * 16
+    }
+}
+
 pub fn generate_algorithmic(
     input: GenerateInput,
     bars: usize,
@@ -289,4 +297,46 @@ pub fn generate_algorithmic(
     );
 
     composition.generate(output)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_bar_alignment() {
+        // Test cases: (input, expected_output)
+        let test_cases = vec![
+            (8, 16),    // Small number → 16
+            (16, 16),   // Exactly 16 → 16
+            (17, 32),   // Just over 16 → 32
+            (32, 32),   // Exactly 32 → 32
+            (33, 48),   // Just over 32 → 48 (next multiple of 16)
+            (48, 48),   // Multiple of 16 → stays same
+            (64, 64),   // Multiple of 16 → stays same
+            (100, 112), // Non-multiple → round up to 112
+            (127, 128), // Almost 128 → round up to 128
+            (128, 128), // Exactly 128 → stays 128
+            (200, 208), // Large non-multiple → round up to 208
+            (256, 256), // Large multiple → stays same
+        ];
+
+        for (input, expected) in test_cases {
+            let aligned = calculate_aligned_bars(input);
+            assert_eq!(
+                aligned, expected,
+                "Bar alignment failed: {} bars should align to {} but got {}",
+                input, expected, aligned
+            );
+        }
+    }
+
+    #[test]
+    fn test_bar_alignment_edge_cases() {
+        assert_eq!(calculate_aligned_bars(0), 16); // Zero bars → 16
+        assert_eq!(calculate_aligned_bars(1), 16); // One bar → 16
+        assert_eq!(calculate_aligned_bars(15), 16); // 15 bars → 16
+        assert_eq!(calculate_aligned_bars(31), 32); // 31 bars → 32
+        assert_eq!(calculate_aligned_bars(1000), 1008); // Large number → next multiple of 16
+    }
 }

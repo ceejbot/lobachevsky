@@ -1,0 +1,94 @@
+# Dub techno bass pattern
+# Deep, spacious bass with echo and delay characteristics
+# Tempo range: 120-128 BPM
+
+name = "dub_techno_bass"
+description = "Spacious bass pattern for dub techno with atmospheric delays"
+tempo_hint = 125
+style = "dub"
+
+# Deep spacious kick
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.5
+humanization = 0.02
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 74
+[tracks.pattern_type.groove_type]
+groove_type = "Template"
+name = "dub_delay"
+
+# Main dub bass - deep and spacious
+[[bass_tracks]]
+voice = "BassLegato"
+[bass_tracks.pattern]
+type = "Sequence"
+# Simple sequence that leaves space for delay/reverb
+sequence = ["root", "root", "root", "fifth", "root", "root", "third", "root"]
+note_duration = 0.5  # 8th notes for spacious feel
+velocity_pattern = [80, 65, 70, 75, 80, 60, 68, 75]
+
+# Echo/delay bass - simulates dub delay
+[[bass_tracks]]
+voice = "Bass"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    # Delayed echoes of main hits
+    { beat = 0.25, probability = 0.6, note = "root" },
+    { beat = 0.75, probability = 0.4, note = "root" },
+    { beat = 1.75, probability = 0.5, note = "fifth" },
+    { beat = 3.25, probability = 0.3, note = "root" },
+    { beat = 3.75, probability = 0.2, note = "root" },
+]
+velocity_range = [45, 60]  # Softer for echo effect
+
+# Sub bass foundation
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Euclidean"
+hits = 2
+steps = 8
+rotation = 0
+note_pattern = ["root", "root", "root", "root", "fifth", "root", "root", "root"]
+velocity = 65
+
+# Filtered bass movement
+[[bass_tracks]]
+voice = "BassStaccato"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 1.5, probability = 0.3, note = "fifth" },
+    { beat = 2.75, probability = 0.25, note = "third" },
+]
+velocity_range = [35, 50]
+
+# Atmospheric hi-hats
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 3
+velocity = 30
+
+# Spacious ride
+[[tracks]]
+voice = "Ride"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.3 },
+    { beat = 1.5, probability = 0.25 },
+    { beat = 2.5, probability = 0.35 },
+    { beat = 3.5, probability = 0.2 },
+]
+velocity_range = [28, 38]

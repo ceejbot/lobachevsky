@@ -1,0 +1,62 @@
+# Techno acid bass pattern
+# Classic 303-style acid bassline with sliding notes
+# Tempo range: 125-135 BPM
+
+name = "techno_acid_bass"
+description = "Acid-style bass pattern for techno"
+tempo_hint = 130
+style = "techno"
+
+# Driving techno kick
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 120
+
+# Acid bass line - main pattern
+[[bass_tracks]]
+voice = "BassSlide"
+[bass_tracks.pattern]
+type = "Sequence"
+# Classic acid sequence with slides
+sequence = ["root", "root", "third", "fifth", "seventh", "fifth", "third", "root",
+           "octave", "seventh", "fifth", "third", "root", "third", "fifth", "octave"]
+note_duration = 0.125  # 32nd notes for fast movement
+velocity_pattern = [100, 70, 85, 90, 95, 88, 80, 75,
+                   110, 95, 85, 80, 70, 85, 90, 105]
+
+# Staccato accent bass
+[[bass_tracks]]
+voice = "BassStaccato"
+[bass_tracks.pattern]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 3
+note_pattern = ["root", "fifth", "third", "seventh", "octave"]
+velocity = 85
+
+# Sub bass foundation for weight
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0, note = "root" },
+    { beat = 2.0, probability = 0.9, note = "root" },
+    { beat = 2.5, probability = 0.3, note = "fifth" },
+]
+velocity_range = [60, 70]
+
+# Minimal hi-hats
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 7
+steps = 16
+rotation = 2
+velocity = 45

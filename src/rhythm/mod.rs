@@ -1,10 +1,12 @@
 //! Rhythm generation and pattern systems
 
+mod bass_patterns;
 mod beats;
 mod genres;
 mod library;
 mod patterns;
 
+pub use bass_patterns::*;
 pub use beats::*;
 pub use genres::*;
 pub use library::*;

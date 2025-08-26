@@ -1,0 +1,70 @@
+# Ambient drone bass pattern
+# Deep, sustained bass tones for ambient and drone music
+# Tempo range: 60-90 BPM
+
+name = "ambient_drone_bass"
+description = "Deep sustained bass for ambient drone music"
+tempo_hint = 75
+style = "ambient"
+
+# Very minimal kick pattern
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.6 },
+    { beat = 8.0, probability = 0.4 },
+    { beat = 16.0, probability = 0.7 },
+]
+velocity_range = [40, 55]
+
+# Drone bass - long sustained tones
+[[bass_tracks]]
+voice = "BassLegato"
+[bass_tracks.pattern]
+type = "Sequence"
+# Very slow movement between chord tones
+sequence = ["root", "root", "root", "root", "root", "root", "root", "root",
+           "fifth", "fifth", "fifth", "fifth", "third", "third", "third", "third"]
+note_duration = 2.0  # Half notes for very slow movement
+velocity_pattern = [65, 65, 65, 65, 65, 65, 65, 65,
+                   60, 60, 60, 60, 58, 58, 58, 58]
+
+# Sub bass foundation - very deep and sustained
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0, note = "root" },
+    { beat = 8.0, probability = 0.8, note = "root" },
+    { beat = 12.0, probability = 0.3, note = "fifth" },
+    { beat = 16.0, probability = 0.9, note = "root" },
+]
+velocity_range = [45, 55]
+
+# Occasional harmonic bass movement
+[[bass_tracks]]
+voice = "Bass"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 4.0, probability = 0.2, note = "third" },
+    { beat = 6.0, probability = 0.15, note = "fifth" },
+    { beat = 10.0, probability = 0.1, note = "seventh" },
+    { beat = 14.0, probability = 0.25, note = "octave" },
+]
+velocity_range = [35, 45]
+
+# Atmospheric percussion
+[[tracks]]
+voice = "Ride"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.5, probability = 0.1 },
+    { beat = 7.75, probability = 0.08 },
+    { beat = 13.25, probability = 0.12 },
+]
+velocity_range = [15, 25]

@@ -5,7 +5,7 @@ use std::fmt::Display;
 use rand;
 use rand::seq::IndexedRandom;
 
-use crate::markov::MelodyMarkov;
+use crate::melody::MelodyMarkov;
 use crate::{Chord, Note};
 
 /// Melody generation strategies

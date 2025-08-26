@@ -1,6 +1,6 @@
 //! Showcase the new advanced rhythm features and pattern library
 
-use lobachevsky::rhythm::PatternLibrary;
+use lobachevsky::library::*;
 
 fn main() {
     println!("🎵 Advanced Rhythm System Showcase");
@@ -10,7 +10,7 @@ fn main() {
     let mut library = PatternLibrary::new();
 
     // Load patterns from directory
-    match library.load_from_directory(std::path::Path::new("patterns")) {
+    match library.load_from_directory(std::path::Path::new(lobachevsky::library::PATTERN_LIB)) {
         Ok(_) => {
             let patterns = library.list();
             println!("✅ Successfully loaded {} patterns!", patterns.len());

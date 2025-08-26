@@ -3,11 +3,11 @@
 
 use super::*;
 use crate::bass::{BassGenerator, BassStrategy};
-use crate::call_response::{CallResponseGenerator, CallResponseType};
 use crate::harmony::TypedHarmonicPattern;
-use crate::melody::{MelodyGenerator, MelodyStrategy};
+use crate::library::{Library, PatternLibrary};
+use crate::melody::{CallResponseGenerator, CallResponseType, MelodyGenerator, MelodyStrategy};
 use crate::midi::Composition;
-use crate::rhythm::{EuclideanPattern, PatternLibrary};
+use crate::rhythm::EuclideanPattern;
 use crate::{Chord, LobachevskyError, ProgressionBuilder, RhythmPattern};
 
 /// Input for the Generate command
@@ -39,13 +39,13 @@ impl GenerateInput {
         let harmony = if let Some(harmony_path) = harmony_file {
             // Load from file
             if harmony_path.ends_with(".toml") {
-                let mut lib = crate::harmony::HarmonicLibrary::new();
+                let mut lib = crate::library::HarmonicLibrary::new();
                 let pattern = lib.load_from_file(std::path::Path::new(harmony_path))?;
                 pattern.to_typed()?
             } else {
                 // Assume it's a pattern name from the harmonics directory
-                let mut lib = crate::harmony::HarmonicLibrary::new();
-                lib.load_from_directory(std::path::Path::new("harmonics"))?;
+                let mut lib = crate::library::HarmonicLibrary::new();
+                lib.load_from_directory(std::path::Path::new(crate::library::HARMONICS_LIB))?;
                 let pattern = lib.get(harmony_path).ok_or_else(|| LobachevskyError::ParseError {
                     message: format!("Harmonic pattern '{}' not found", harmony_path),
                 })?;
@@ -274,7 +274,7 @@ fn calculate_aligned_bars(bars: usize) -> usize {
         32
     } else {
         // Round up to next multiple of 16
-        ((bars + 15) / 16) * 16
+        bars.div_ceil(16)
     }
 }
 

@@ -1,7 +1,5 @@
 //! The pattern data and library read from toml files.
 
-use std::collections::HashMap;
-
 use serde::{Deserialize, Serialize};
 
 use super::*;
@@ -385,63 +383,6 @@ fn pattern_type_to_rhythm(
     }
 }
 
-/// Pattern library for loading predefined patterns
-pub struct PatternLibrary {
-    patterns: HashMap<String, PatternData>,
-}
-
-impl Default for PatternLibrary {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl PatternLibrary {
-    pub fn new() -> Self {
-        PatternLibrary {
-            patterns: HashMap::new(),
-        }
-    }
-
-    /// Load patterns from a directory
-    pub fn load_from_directory(&mut self, path: &std::path::Path) -> Result<(), LobachevskyError> {
-        use std::fs;
-
-        let entries = fs::read_dir(path).map_err(|source| LobachevskyError::DirectoryReadError {
-            path: path.to_path_buf(),
-            source,
-        })?;
-
-        for entry in entries {
-            let entry = entry.map_err(|source| LobachevskyError::DirectoryReadError {
-                path: path.to_path_buf(),
-                source,
-            })?;
-            let file_path = entry.path();
-
-            if file_path.extension().and_then(|s| s.to_str()) == Some("toml") {
-                let contents = fs::read_to_string(&file_path).map_err(|source| LobachevskyError::PatternFileError {
-                    path: file_path.clone(),
-                    source,
-                })?;
-
-                let pattern = PatternData::from_toml(&contents)?;
-                self.patterns.insert(pattern.name.clone(), pattern);
-            }
-        }
-
-        Ok(())
-    }
-
-    pub fn get(&self, name: &str) -> Option<&PatternData> {
-        self.patterns.get(name)
-    }
-
-    pub fn list(&self) -> Vec<&str> {
-        self.patterns.keys().map(|s| s.as_str()).collect()
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -452,7 +393,7 @@ mod tests {
             name = "test_bass"
             description = "Test bass pattern"
             tempo_hint = 120
-            
+
             [[tracks]]
             voice = "kick"
             [tracks.pattern_type]
@@ -460,7 +401,7 @@ mod tests {
             hits = 4
             steps = 4
             velocity = 100
-            
+
             [[bass_tracks]]
             voice = "bass"
             [bass_tracks.pattern]
@@ -468,7 +409,7 @@ mod tests {
             sequence = ["root", "fifth", "octave"]
             note_duration = 0.25
             velocity_pattern = [80, 75, 85]
-            
+
             [[bass_tracks]]
             voice = "bass_staccato"
             [bass_tracks.pattern]

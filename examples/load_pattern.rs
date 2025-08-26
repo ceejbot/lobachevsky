@@ -2,8 +2,9 @@
 
 use std::path::Path;
 
+use lobachevsky::library::{Library, PatternLibrary};
 use lobachevsky::midi::Composition;
-use lobachevsky::rhythm::{PatternData, PatternLibrary};
+use lobachevsky::rhythm::PatternData;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load a single pattern from TOML
@@ -38,7 +39,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     // Then load from the real directory
-    library.load_from_directory(Path::new("patterns"))?;
+    library.load_from_directory(Path::new(lobachevsky::library::PATTERN_LIB))?;
 
     println!("\nAvailable patterns in library:");
     for name in library.list() {

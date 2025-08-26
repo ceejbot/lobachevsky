@@ -1,6 +1,6 @@
 //! Test the new isochronic brainwave entrainment patterns
 
-use lobachevsky::rhythm::PatternLibrary;
+use lobachevsky::library::*;
 
 fn main() {
     println!("🧠 Testing Isochronic Brainwave Entrainment Patterns");

@@ -1,6 +1,6 @@
 //! Test the new advanced rhythm patterns with TOML loading
 
-use lobachevsky::rhythm::PatternLibrary;
+use lobachevsky::library::*;
 
 fn main() {
     println!("Testing Advanced Rhythm Patterns");

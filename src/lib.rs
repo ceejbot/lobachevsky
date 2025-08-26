@@ -7,14 +7,13 @@
 pub mod adaptive;
 pub mod analysis;
 pub mod bass;
-pub mod call_response;
 pub mod core;
 pub mod errors;
 pub mod euclidean;
 pub mod generation;
 pub mod generators;
 pub mod harmony;
-pub mod markov;
+pub mod library;
 pub mod melody;
 pub mod midi;
 pub mod morphing;

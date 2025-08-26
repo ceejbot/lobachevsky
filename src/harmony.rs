@@ -1,8 +1,5 @@
 //! Harmonic pattern definitions and library for TOML serialization
 
-use std::collections::HashMap;
-use std::path::Path;
-
 use serde::{Deserialize, Serialize};
 
 use crate::{Chord, LobachevskyError, Mode, PitchClass, Transform};
@@ -144,88 +141,13 @@ impl HarmonicPattern {
     }
 }
 
-/// Library for managing harmonic patterns
-pub struct HarmonicLibrary {
-    patterns: HashMap<String, HarmonicPattern>,
-}
-
-impl Default for HarmonicLibrary {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl HarmonicLibrary {
-    /// Create a new empty library
-    pub fn new() -> Self {
-        HarmonicLibrary {
-            patterns: HashMap::new(),
-        }
-    }
-
-    /// Load patterns from a directory
-    pub fn load_from_directory(&mut self, path: &Path) -> Result<(), LobachevskyError> {
-        use std::fs;
-
-        let entries = fs::read_dir(path).map_err(|source| LobachevskyError::DirectoryReadError {
-            path: path.to_path_buf(),
-            source,
-        })?;
-
-        for entry in entries {
-            let entry = entry.map_err(|source| LobachevskyError::DirectoryReadError {
-                path: path.to_path_buf(),
-                source,
-            })?;
-            let file_path = entry.path();
-
-            if file_path.extension().and_then(|s| s.to_str()) == Some("toml") {
-                let contents = fs::read_to_string(&file_path).map_err(|source| LobachevskyError::PatternFileError {
-                    path: file_path.clone(),
-                    source,
-                })?;
-
-                let pattern = HarmonicPattern::from_toml(&contents)?;
-                self.patterns.insert(pattern.name.clone(), pattern);
-            }
-        }
-
-        Ok(())
-    }
-
-    /// Load a single pattern from a file
-    pub fn load_from_file(&mut self, path: &Path) -> Result<HarmonicPattern, LobachevskyError> {
-        use std::fs;
-
-        let contents = fs::read_to_string(path).map_err(|source| LobachevskyError::PatternFileError {
-            path: path.to_path_buf(),
-            source,
-        })?;
-
-        let pattern = HarmonicPattern::from_toml(&contents)?;
-        self.patterns.insert(pattern.name.clone(), pattern.clone());
-        Ok(pattern)
-    }
-
-    /// Get a pattern by name
-    pub fn get(&self, name: &str) -> Option<&HarmonicPattern> {
-        self.patterns.get(name)
-    }
-
-    /// List all available patterns
-    pub fn list(&self) -> Vec<&str> {
-        self.patterns.keys().map(|s| s.as_str()).collect()
-    }
-
-    /// Add a pattern to the library
-    pub fn add(&mut self, pattern: HarmonicPattern) {
-        self.patterns.insert(pattern.name.clone(), pattern);
-    }
-}
-
 #[cfg(test)]
 mod tests {
+    use std::path::Path;
+
     use super::*;
+    use crate::library::*;
+
     #[test]
     fn can_parse_harmonic_pattern() {
         let toml_str = r#"
@@ -313,7 +235,7 @@ mod tests {
 
     #[test]
     fn harmonic_library_works() {
-        let mut library = HarmonicLibrary::new();
+        let mut library = crate::library::HarmonicLibrary::new();
 
         let pattern = HarmonicPattern {
             name: "test_pattern".to_string(),
@@ -337,9 +259,9 @@ mod tests {
     #[test]
     fn loading_harmonic_library() {
         // This test assumes the harmonics directory exists with our test patterns
-        if Path::new("harmonics").exists() {
-            let mut library = HarmonicLibrary::new();
-            let result = library.load_from_directory(Path::new("harmonics"));
+        if Path::new(crate::library::HARMONICS_LIB).exists() {
+            let mut library = crate::library::HarmonicLibrary::new();
+            let result = library.load_from_directory(Path::new(crate::library::HARMONICS_LIB));
 
             match result {
                 Ok(_) => {

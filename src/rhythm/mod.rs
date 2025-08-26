@@ -3,13 +3,13 @@
 mod bass_patterns;
 mod beats;
 mod genres;
-mod library;
+mod pattern_types;
 mod patterns;
 
 pub use bass_patterns::*;
 pub use beats::*;
 pub use genres::*;
-pub use library::*;
+pub use pattern_types::*;
 pub use patterns::*;
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
 use lobachevsky::Chord;
-use lobachevsky::call_response::{CallResponseGenerator, CallResponseType};
+use lobachevsky::melody::{CallResponseGenerator, CallResponseType};
 
 fn main() {
     let chords = vec![Chord::c_major(), Chord::f_major(), Chord::g_major(), Chord::c_major()];

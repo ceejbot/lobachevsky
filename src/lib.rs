@@ -4,6 +4,8 @@
 //! generating chord progressions, creating rhythmic patterns, and outputting
 //! MIDI files.
 
+pub mod adaptive;
+pub mod analysis;
 pub mod bass;
 pub mod call_response;
 pub mod core;
@@ -15,6 +17,7 @@ pub mod harmony;
 pub mod markov;
 pub mod melody;
 pub mod midi;
+pub mod morphing;
 pub mod rhythm;
 pub mod theory;
 

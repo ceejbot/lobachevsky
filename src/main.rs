@@ -15,6 +15,12 @@ use lobachevsky::{LobachevskyError, Transform};
 #[derive(Parser)]
 #[command(author, version, about, long_about = None, styles = v3_styles(), max_term_width = 100)]
 struct Cli {
+    /// Quiet output
+    #[arg(long, short, default_value_t = false, global = true)]
+    quiet: bool,
+    /// Verbose output
+    #[arg(long, short, default_value_t = false, global = true)]
+    verbose: bool,
     /// What kind of musical exploration to generate
     #[command(subcommand)]
     command: Commands,
@@ -199,6 +205,24 @@ fn v3_styles() -> Styles {
 fn main() -> miette::Result<()> {
     miette::set_panic_hook();
     let cli = Cli::parse();
+
+    let level = if cli.quiet {
+        log::LevelFilter::Warn
+    } else if cli.verbose {
+        log::LevelFilter::Debug
+    } else {
+        log::LevelFilter::Info
+    };
+
+    let config = lovely_env_logger::Config {
+        with_system_timestamp: false,
+        reltime: false,
+        short_levels: false,
+        with_file_name: false,
+        with_line_number: false,
+        with_padding: true,
+    };
+    lovely_env_logger::formatted_builder(config).filter(None, level).init();
 
     match cli.command {
         Commands::Progression {

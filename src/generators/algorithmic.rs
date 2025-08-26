@@ -274,7 +274,7 @@ fn calculate_aligned_bars(bars: usize) -> usize {
         32
     } else {
         // Round up to next multiple of 16
-        bars.div_ceil(16)
+        bars.div_ceil(16) * 16
     }
 }
 

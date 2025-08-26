@@ -322,18 +322,18 @@ fn generate_ambient(style: &str, bars: usize, tempo: u16, output: &str) -> Resul
         }
     };
 
-    println!("Generating {} techno rhythm ({} bars at {} BPM)", style, bars, tempo);
+    log::info!("Generating {} techno rhythm ({} bars at {} BPM)", style, bars, tempo);
 
     let mut composition = Composition::new(tempo);
     composition.add_rhythm_track(pattern.as_ref(), bars);
 
     composition.save(output)?;
-    println!("Saved to {}", output);
+    log::info!("Saved to {}", output);
     Ok(())
 }
 
 fn generate_composition(bars: usize, tempo: u16, output: &str) {
-    println!("Generating complete composition ({} bars at {} BPM)", bars, tempo);
+    log::info!("Generating complete composition ({} bars at {} BPM)", bars, tempo);
 
     // Generate neo-Riemannian progression
     let progression = ProgressionBuilder::new()
@@ -343,7 +343,7 @@ fn generate_composition(bars: usize, tempo: u16, output: &str) {
         .with_return()
         .build();
 
-    println!("Chord progression:");
+    log::info!("Chord progression:");
     for (i, chord) in progression.iter().enumerate() {
         println!("  Bar {}: {}", i * 4 + 1, chord);
     }
@@ -369,8 +369,8 @@ fn generate_composition(bars: usize, tempo: u16, output: &str) {
     composition.add_melody_track(&melody, 1);
 
     if let Err(e) = composition.save(output) {
-        eprintln!("Failed to save MIDI file: {}", e);
+        log::error!("Failed to save MIDI file: {}", e);
     } else {
-        println!("Saved complete composition to {}", output);
+        log::info!("Saved complete composition to {}", output);
     }
 }

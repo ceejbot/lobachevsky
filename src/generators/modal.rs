@@ -51,9 +51,10 @@ impl ModalInput {
 }
 
 pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), LobachevskyError> {
-    println!(
+    log::info!(
         "Exploring {} {} mode with neo-Riemannian transformations",
-        input.tonic, input.mode
+        input.tonic,
+        input.mode
     );
 
     // Create modal transformer
@@ -61,9 +62,9 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
 
     if input.analyze {
         let analysis = modal_transformer.analyze_mode();
-        println!("\n=== Modal Analysis ===");
-        println!("Mode: {} {}", input.tonic, input.mode);
-        println!("Available chords:");
+        log::info!("\n=== Modal Analysis ===");
+        log::info!("Mode: {} {}", input.tonic, input.mode);
+        log::info!("Available chords:");
         for (i, chord) in analysis.chords.iter().enumerate() {
             let degree = match i {
                 0 => "I",
@@ -75,13 +76,13 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
                 6 => "vii°",
                 _ => "?",
             };
-            println!("  {}: {}", degree, chord);
+            log::info!("  {}: {}", degree, chord);
         }
 
         if !analysis.characteristic_chords.is_empty() {
-            println!("Characteristic chords:");
+            log::info!("Characteristic chords:");
             for chord in &analysis.characteristic_chords {
-                println!("  {}", chord);
+                log::info!("  {}", chord);
             }
         }
     }
@@ -91,9 +92,11 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
         if modal_transformer.valid_chords().contains(&chord) {
             chord
         } else {
-            eprintln!(
+            log::warn!(
                 "Warning: {} is not in {} {} mode, using first chord of mode",
-                chord, input.tonic, input.mode
+                chord,
+                input.tonic,
+                input.mode
             );
             modal_transformer
                 .valid_chords()
@@ -107,7 +110,7 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
         input.mode.triads(input.tonic)[0]
     };
 
-    println!("\nStarting from: {}", start_chord);
+    log::info!("\nStarting from: {}", start_chord);
 
     // Generate modal progression using the transformer directly
     let progression = modal_transformer.apply_sequence(
@@ -115,12 +118,12 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
         &input.transforms[0..input.length.min(input.transforms.len())],
     );
 
-    println!("\nModal progression ({} transformations):", progression.len() - 1);
+    log::info!("\nModal progression ({} transformations):", progression.len() - 1);
     for (i, chord) in progression.iter().enumerate() {
         if i == 0 {
-            println!("  Start: {}", chord);
+            log::info!("  Start: {}", chord);
         } else {
-            println!(
+            log::info!(
                 "  {}: {} (via {})",
                 i,
                 chord,
@@ -139,6 +142,6 @@ pub fn generate_modal(input: modal::ModalInput, output: &str) -> Result<(), Loba
     composition.add_harmony_track(&progression, 4, 2);
 
     composition.save(output)?;
-    println!("\nSaved modal exploration to {}", output);
+    log::info!("\nSaved modal exploration to {}", output);
     Ok(())
 }

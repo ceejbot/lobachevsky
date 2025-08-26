@@ -6,8 +6,8 @@ use lobachevsky::rhythm::{DrumVoice, EuclideanPattern, RhythmPattern};
 use lobachevsky::{Chord, PitchClass, Transform};
 
 fn main() {
-    println!("🎵 Adaptive and Morphing Pattern Demo");
-    println!("=====================================\n");
+    log::info!("🎵 Adaptive and Morphing Pattern Demo");
+    log::info!("=====================================\n");
 
     // Create test chord progressions with different energy levels
     let low_energy_chords = create_low_energy_progression();
@@ -28,7 +28,7 @@ fn main() {
     // Generate a complete composition using adaptive features
     generate_adaptive_composition();
 
-    println!("\n✅ Demo completed! Check the generated MIDI files.");
+    log::info!("\n✅ Demo completed! Check the generated MIDI files.");
 }
 
 /// Create a low-energy chord progression (smooth voice leading)
@@ -48,95 +48,95 @@ fn create_high_energy_progression() -> Vec<Chord> {
 
 /// Demonstrate harmonic energy analysis
 fn demonstrate_energy_analysis(low_energy: &[Chord], high_energy: &[Chord]) {
-    println!("🔍 Harmonic Energy Analysis");
-    println!("---------------------------");
+    log::info!("🔍 Harmonic Energy Analysis");
+    log::info!("---------------------------");
 
     let analyzer = HarmonicAnalyzer::new().with_tonic(PitchClass::C);
 
     let low_energy_value = analyzer.analyze_progression_energy(low_energy);
     let high_energy_value = analyzer.analyze_progression_energy(high_energy);
 
-    println!("Low energy progression (C-F-G-C): {:.3}", low_energy_value);
-    println!("  Energy level: {:?}", EnergyLevel::from(low_energy_value));
-    println!(
+    log::info!("Low energy progression (C-F-G-C): {:.3}", low_energy_value);
+    log::info!("  Energy level: {:?}", EnergyLevel::from(low_energy_value));
+    log::info!(
         "  Chords: {:?}",
         low_energy.iter().map(|c| format!("{}", c)).collect::<Vec<_>>()
     );
 
-    println!("\nHigh energy progression: {:.3}", high_energy_value);
-    println!("  Energy level: {:?}", EnergyLevel::from(high_energy_value));
-    println!(
+    log::info!("\nHigh energy progression: {:.3}", high_energy_value);
+    log::info!("  Energy level: {:?}", EnergyLevel::from(high_energy_value));
+    log::info!(
         "  Chords: {:?}",
         high_energy.iter().map(|c| format!("{}", c)).collect::<Vec<_>>()
     );
 
     // Analyze individual chord energy
-    println!("\nIndividual chord analysis:");
+    log::info!("\nIndividual chord analysis:");
     for (i, chord) in high_energy.iter().enumerate() {
         let prev_chord = if i > 0 { Some(high_energy[i - 1]) } else { None };
         let energy = analyzer.analyze_chord_energy(*chord, prev_chord);
-        println!("  {}: {:.3} energy", chord, energy);
+        log::info!("  {}: {:.3} energy", chord, energy);
     }
-    println!();
+    log::info!();
 }
 
 /// Demonstrate adaptive rhythm patterns
 fn demonstrate_adaptive_rhythm(low_energy: &[Chord], high_energy: &[Chord]) {
-    println!("🥁 Adaptive Rhythm Patterns");
-    println!("---------------------------");
+    log::info!("🥁 Adaptive Rhythm Patterns");
+    log::info!("---------------------------");
 
     let mut adaptive_pattern = AdaptiveRhythmPattern::new("demo_pattern".to_string(), Some(PitchClass::C));
 
     // Test with low energy progression
-    println!("Low energy rhythm response:");
+    log::info!("Low energy rhythm response:");
     adaptive_pattern.update_from_chords(low_energy);
     let low_energy_events = adaptive_pattern.events_for_bar(0);
-    println!("  Generated {} drum events", low_energy_events.len());
-    println!(
+    log::info!("  Generated {} drum events", low_energy_events.len());
+    log::info!(
         "  Average velocity: {:.1}",
         low_energy_events.iter().map(|e| e.velocity as f64).sum::<f64>() / low_energy_events.len() as f64
     );
 
     // Test with high energy progression
-    println!("\nHigh energy rhythm response:");
+    log::info!("\nHigh energy rhythm response:");
     adaptive_pattern.update_from_chords(high_energy);
     let high_energy_events = adaptive_pattern.events_for_bar(0);
-    println!("  Generated {} drum events", high_energy_events.len());
-    println!(
+    log::info!("  Generated {} drum events", high_energy_events.len());
+    log::info!(
         "  Average velocity: {:.1}",
         high_energy_events.iter().map(|e| e.velocity as f64).sum::<f64>() / high_energy_events.len() as f64
     );
 
-    println!("  Pattern should have higher density and velocity for high-energy chords\n");
+    log::info!("  Pattern should have higher density and velocity for high-energy chords\n");
 }
 
 /// Demonstrate adaptive harmony patterns
 fn demonstrate_adaptive_harmony() {
-    println!("🎹 Adaptive Harmony Patterns");
-    println!("----------------------------");
+    log::info!("🎹 Adaptive Harmony Patterns");
+    log::info!("----------------------------");
 
     let base_transforms = vec![Transform::P, Transform::L];
     let mut adaptive_harmony = AdaptiveHarmonyPattern::new(base_transforms, PitchClass::C).with_evolution_factor(0.3);
 
-    println!("Simulating 16-bar evolution:");
+    log::info!("Simulating 16-bar evolution:");
     let mut transformations = Vec::new();
     let current_chord = Chord::c_major();
 
     for bar in 0..16 {
         if let Some(transform) = adaptive_harmony.evolve_pattern(current_chord, bar) {
             transformations.push((bar, transform.clone()));
-            println!("  Bar {}: Apply {:?}", bar + 1, transform);
+            log::info!("  Bar {}: Apply {:?}", bar + 1, transform);
         }
     }
 
-    println!("Generated {} transformations over 16 bars", transformations.len());
-    println!("Pattern evolves over time, occasionally trying new transformations\n");
+    log::info!("Generated {} transformations over 16 bars", transformations.len());
+    log::info!("Pattern evolves over time, occasionally trying new transformations\n");
 }
 
 /// Demonstrate pattern morphing
 fn demonstrate_morphing_patterns() {
-    println!("🌊 Pattern Morphing");
-    println!("-------------------");
+    log::info!("🌊 Pattern Morphing");
+    log::info!("-------------------");
 
     // Create two different rhythm patterns
     let pattern_a = Box::new(EuclideanPattern::new(DrumVoice::Kick, 4, 16));
@@ -144,7 +144,7 @@ fn demonstrate_morphing_patterns() {
 
     let morphing_pattern = MorphingRhythmPattern::new(pattern_a, pattern_b, 8);
 
-    println!("Morphing between two Euclidean patterns over 16 bars:");
+    log::info!("Morphing between two Euclidean patterns over 16 bars:");
     for bar in 0..16 {
         let events = morphing_pattern.events_for_bar(bar);
         let morph_progress = if bar < 8 {
@@ -152,7 +152,7 @@ fn demonstrate_morphing_patterns() {
         } else {
             2.0 - (bar as f64 / 8.0)
         };
-        println!(
+        log::info!(
             "  Bar {}: {} events (morph: {:.2})",
             bar + 1,
             events.len(),
@@ -161,7 +161,7 @@ fn demonstrate_morphing_patterns() {
     }
 
     // Demonstrate harmony morphing
-    println!("\nHarmony pattern morphing:");
+    log::info!("\nHarmony pattern morphing:");
     let transforms_a = vec![Transform::P, Transform::L];
     let transforms_b = vec![Transform::R, Transform::L, Transform::P];
 
@@ -171,16 +171,16 @@ fn demonstrate_morphing_patterns() {
     for progress in [0.0, 0.25, 0.5, 0.75, 1.0] {
         harmony_morph.set_morph_progress(progress);
         if let Some(transform) = harmony_morph.get_transform(0, Chord::c_major()) {
-            println!("  Progress {:.2}: {:?}", progress, transform);
+            log::info!("  Progress {:.2}: {:?}", progress, transform);
         }
     }
-    println!();
+    log::info!();
 }
 
 /// Generate a complete adaptive composition
 fn generate_adaptive_composition() {
-    println!("🎼 Generating Adaptive Composition");
-    println!("----------------------------------");
+    log::info!("🎼 Generating Adaptive Composition");
+    log::info!("----------------------------------");
 
     // Create a progression that changes energy over time
     let progression = create_dynamic_progression();
@@ -232,10 +232,10 @@ fn generate_adaptive_composition() {
 
     // Save composition
     composition.save("adaptive_demo.mid").expect("Failed to save MIDI");
-    println!("Saved adaptive composition to 'adaptive_demo.mid'");
-    println!("  {} chords over {} bars", progression.len(), progression.len());
-    println!("  {} rhythm events total", all_rhythm_events.len());
-    println!("  Patterns adapt to harmonic energy and morph over time");
+    log::info!("Saved adaptive composition to 'adaptive_demo.mid'");
+    log::info!("  {} chords over {} bars", progression.len(), progression.len());
+    log::info!("  {} rhythm events total", all_rhythm_events.len());
+    log::info!("  Patterns adapt to harmonic energy and morph over time");
 }
 
 /// Create a progression with varying energy levels

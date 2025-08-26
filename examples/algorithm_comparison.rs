@@ -5,8 +5,8 @@ use std::time::Instant;
 use lobachevsky::euclidean::{Bjorklund, Breshenham, EuclideanRhythm};
 
 fn main() {
-    println!("Algorithm Comparison: Bjorklund vs Bresenham");
-    println!("=============================================\n");
+    log::info!("Algorithm Comparison: Bjorklund vs Bresenham");
+    log::info!("=============================================\n");
 
     // Complexity Analysis
     print_complexity_analysis();
@@ -19,32 +19,32 @@ fn main() {
 }
 
 fn print_complexity_analysis() {
-    println!("CODE COMPLEXITY ANALYSIS:");
-    println!("========================");
+    log::info!("CODE COMPLEXITY ANALYSIS:");
+    log::info!("========================");
 
-    println!("\n🔹 Bjorklund Algorithm:");
-    println!("   • Lines of code: ~72 (including recursive function)");
-    println!("   • Time complexity: O(log(min(hits, steps)))");
-    println!("   • Space complexity: O(log(min(hits, steps))) for recursion stack");
-    println!("   • Algorithm: Based on Euclidean GCD with recursive pattern building");
-    println!("   • Pros: Mathematically elegant, theoretically optimal distribution");
-    println!("   • Cons: More complex code, uses recursion, harder to understand");
+    log::info!("\n🔹 Bjorklund Algorithm:");
+    log::info!("   • Lines of code: ~72 (including recursive function)");
+    log::info!("   • Time complexity: O(log(min(hits, steps)))");
+    log::info!("   • Space complexity: O(log(min(hits, steps))) for recursion stack");
+    log::info!("   • Algorithm: Based on Euclidean GCD with recursive pattern building");
+    log::info!("   • Pros: Mathematically elegant, theoretically optimal distribution");
+    log::info!("   • Cons: More complex code, uses recursion, harder to understand");
 
-    println!("\n🔹 Bresenham Algorithm:");
-    println!("   • Lines of code: ~43");
-    println!("   • Time complexity: O(steps)");
-    println!("   • Space complexity: O(1) extra space");
-    println!("   • Algorithm: Line-drawing algorithm adapted for rhythm distribution");
-    println!("   • Pros: Simple, fast, easy to understand, no recursion");
-    println!("   • Cons: May produce slightly different distributions than theoretical optimum");
+    log::info!("\n🔹 Bresenham Algorithm:");
+    log::info!("   • Lines of code: ~43");
+    log::info!("   • Time complexity: O(steps)");
+    log::info!("   • Space complexity: O(1) extra space");
+    log::info!("   • Algorithm: Line-drawing algorithm adapted for rhythm distribution");
+    log::info!("   • Pros: Simple, fast, easy to understand, no recursion");
+    log::info!("   • Cons: May produce slightly different distributions than theoretical optimum");
 
-    println!("\n🏆 Winner for SIMPLICITY: Bresenham (much simpler code)");
-    println!("🏆 Winner for PERFORMANCE: Bresenham (O(n) vs O(log n) but simpler operations)");
+    log::info!("\n🏆 Winner for SIMPLICITY: Bresenham (much simpler code)");
+    log::info!("🏆 Winner for PERFORMANCE: Bresenham (O(n) vs O(log n) but simpler operations)");
 }
 
 fn performance_test() {
-    println!("\n\nPERFORMANCE TEST:");
-    println!("================");
+    log::info!("\n\nPERFORMANCE TEST:");
+    log::info!("================");
 
     let test_cases = vec![
         (16, 4),   // Simple case
@@ -54,7 +54,7 @@ fn performance_test() {
     ];
 
     for (steps, pulses) in test_cases {
-        println!("\nTesting E({},{}) - 10,000 iterations:", pulses, steps);
+        log::info!("\nTesting E({},{}) - 10,000 iterations:", pulses, steps);
 
         // Test Bjorklund
         let start = Instant::now();
@@ -70,23 +70,23 @@ fn performance_test() {
         }
         let bres_time = start.elapsed();
 
-        println!("  Bjorklund:  {:?}", bjork_time);
-        println!("  Bresenham:  {:?}", bres_time);
+        log::info!("  Bjorklund:  {:?}", bjork_time);
+        log::info!("  Bresenham:  {:?}", bres_time);
 
         let ratio = bjork_time.as_nanos() as f64 / bres_time.as_nanos() as f64;
         if ratio > 1.1 {
-            println!("  🏆 Bresenham is {:.1}x faster", ratio);
+            log::info!("  🏆 Bresenham is {:.1}x faster", ratio);
         } else if ratio < 0.9 {
-            println!("  🏆 Bjorklund is {:.1}x faster", 1.0 / ratio);
+            log::info!("  🏆 Bjorklund is {:.1}x faster", 1.0 / ratio);
         } else {
-            println!("  ≈ Similar performance");
+            log::info!("  ≈ Similar performance");
         }
     }
 }
 
 fn pattern_comparison() {
-    println!("\n\nPATTERN COMPARISON:");
-    println!("==================");
+    log::info!("\n\nPATTERN COMPARISON:");
+    log::info!("==================");
 
     let test_cases = vec![
         (8, 3, "Tresillo"),

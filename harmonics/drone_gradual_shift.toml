@@ -1,0 +1,36 @@
+# Drone harmonic pattern - Very gradual harmonic shifts
+# Inspired by the slow evolution in ambient drone music
+
+name = "drone_gradual_shift"
+description = "Very slow harmonic progressions with gradual shifts"
+start_chord = "F"
+
+# Minimal transformations creating subtle shifts
+# Using primarily P (parallel) for mode changes that maintain root
+# And L (leading-tone) for smooth voice leading
+transformations = [
+    "L",     # F -> Am (smooth)
+    "R",     # Am -> C (relative)
+    "L",     # C -> Em (smooth)
+    "P",     # Em -> E (brighten)
+    "L",     # E -> G#m (smooth)
+    "R",     # G#m -> B (relative)
+    "P",     # B -> Bm (darken)
+    "L",     # Bm -> D (smooth)
+    "R",     # D -> Bm (back)
+    "PL",    # Bm -> G (compound for larger shift)
+    "L",     # G -> Bm (smooth)
+    "R",     # Bm -> D
+    "L",     # D -> F#m
+    "R",     # F#m -> A
+    "L",     # A -> C#m
+    "PLP",   # C#m -> F (compound to return area)
+]
+
+# Optional modal constraint for even more coherence
+mode = "dorian"
+tonic = "D"
+
+return_to_start = false  # Let it drift
+tempo_hint = 80
+bars_hint = 128  # Very long form

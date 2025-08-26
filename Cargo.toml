@@ -1,5 +1,5 @@
 [package]
-description = "A library and command-line tool for generating neo-Reimannian progressions as midi files"
+description = "A library and command-line tool for generating algorithmic compositions as midi files"
 name = "lobachevsky"
 version = "0.1.0"
 edition = "2024"

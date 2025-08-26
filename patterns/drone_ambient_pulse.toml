@@ -1,0 +1,101 @@
+# Ambient drone pattern with subtle pulsing
+# Inspired by artists like Darren Harper and Porya Hatami
+# Characteristics: No kick drum, subtle rhythmic textures, organic feel
+
+name = "drone_ambient_pulse"
+description = "Subtle pulsing pattern for ambient drone music"
+tempo_hint = 75
+style = "drone"
+
+# No kick drum - pure ambient approach
+
+# Very sparse, breath-like hi-hats
+[[layers]]
+name = "breathing_hats"
+voice = "HiHatClosed"
+
+[layers.pattern]
+type = "Probability"
+length = 32  # Long pattern for organic variation
+probabilities = [
+    0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+velocities = [
+    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.08, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+
+# Shaker creating subtle movement
+[[layers]]
+name = "organic_shaker"
+voice = "Shaker"
+
+[layers.pattern]
+type = "Euclidean"
+pulses = 5
+steps = 32
+rotation = 7
+velocity = 0.08  # Extremely soft
+
+# Rim shots as occasional punctuation
+[[layers]]
+name = "punctuation"
+voice = "Rim"
+
+[layers.pattern]
+type = "Probability"
+length = 64  # Very long pattern for rare events
+probabilities = [
+    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+velocities = [
+    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+
+# Soft kick appearing very rarely for grounding
+[[layers]]
+name = "grounding_pulse"
+voice = "KickSoft"
+
+[layers.pattern]
+type = "Probability"
+length = 64
+probabilities = [
+    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+velocities = [
+    0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]

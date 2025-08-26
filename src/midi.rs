@@ -280,6 +280,19 @@ impl Composition {
         self
     }
 
+    /// Add a bass track with appropriate velocity and channel
+    pub fn add_bass_track(&mut self, notes: &[(Note, f64, f64)], channel: u8) -> &mut Self {
+        let mut track = self.midi_file.add_track();
+
+        for (note, start_beat, duration) in notes {
+            // Bass notes are typically louder and deeper
+            track.add_note(*note, *start_beat, *duration, 85, channel);
+        }
+
+        self.midi_file.add_completed_track(track.build());
+        self
+    }
+
     /// Add a rhythm track from drum events
     pub fn add_rhythm_track_from_events(&mut self, events: &[DrumEvent]) -> &mut Self {
         let mut track = self.midi_file.add_track();

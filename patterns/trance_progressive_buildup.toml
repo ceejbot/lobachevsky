@@ -1,0 +1,189 @@
+# Progressive trance buildup pattern
+# Characteristics: Building energy, adding layers, classic trance structure
+# Tempo range: 128-136 BPM
+
+name = "trance_progressive_buildup"
+description = "Building energy pattern for progressive trance"
+tempo_hint = 132
+style = "trance"
+
+# Four-on-the-floor kick - the foundation
+[[layers]]
+name = "driving_kick"
+voice = "Kick"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    1.0, 0.0, 0.0, 0.0,  # Solid four-on-floor
+    1.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0,
+]
+velocities = [
+    0.9, 0.0, 0.0, 0.0,  # Strong, consistent kick
+    0.85, 0.0, 0.0, 0.0,
+    0.85, 0.0, 0.0, 0.0,
+    0.85, 0.0, 0.0, 0.0,
+]
+
+# Off-beat bass hits (classic trance)
+[[layers]]
+name = "offbeat_bass"
+voice = "KickSoft"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    0.0, 0.0, 0.8, 0.0,  # Off-beat pattern
+    0.0, 0.0, 0.9, 0.0,
+    0.0, 0.0, 0.8, 0.0,
+    0.0, 0.0, 0.9, 0.0,
+]
+velocities = [
+    0.0, 0.0, 0.6, 0.0,
+    0.0, 0.0, 0.65, 0.0,
+    0.0, 0.0, 0.6, 0.0,
+    0.0, 0.0, 0.65, 0.0,
+]
+
+# Driving hi-hats - essential for energy
+[[layers]]
+name = "driving_hats"
+voice = "HiHatClosed"
+
+[layers.pattern]
+type = "Layered"
+
+# Base 16th note pattern
+[[layers.pattern.layers]]
+type = "Probability"
+length = 16
+probabilities = [
+    0.9, 0.7, 0.8, 0.7,
+    0.9, 0.7, 0.8, 0.7,
+    0.9, 0.7, 0.8, 0.7,
+    0.9, 0.7, 0.8, 0.7,
+]
+velocities = [
+    0.5, 0.3, 0.4, 0.3,
+    0.5, 0.3, 0.4, 0.3,
+    0.5, 0.3, 0.4, 0.3,
+    0.5, 0.3, 0.4, 0.3,
+]
+
+# Additional rhythmic variation
+[[layers.pattern.layers]]
+type = "Euclidean"
+pulses = 11
+steps = 16
+rotation = 2
+velocity = 0.25
+
+# Open hats for emphasis
+[[layers]]
+name = "open_hats"
+voice = "HiHatOpen"
+
+[layers.pattern]
+type = "Probability"
+length = 32  # Longer pattern for variation
+probabilities = [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.8, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.9, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.0,
+]
+velocities = [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.6, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0,
+]
+
+# Claps on 2 and 4 (trance staple)
+[[layers]]
+name = "trance_clap"
+voice = "Clap"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    0.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0,  # Beat 2
+    0.0, 0.0, 0.0, 0.0,
+    1.0, 0.0, 0.0, 0.0,  # Beat 4
+]
+velocities = [
+    0.0, 0.0, 0.0, 0.0,
+    0.75, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0,
+    0.75, 0.0, 0.0, 0.0,
+]
+
+# Ride for atmosphere and build
+[[layers]]
+name = "atmospheric_ride"
+voice = "Ride"
+
+[layers.pattern]
+type = "Euclidean"
+pulses = 7
+steps = 32
+rotation = 5
+velocity = 0.3
+
+# Percussion for additional drive
+[[layers]]
+name = "driving_percussion"
+voice = "Percussion"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    0.7, 0.0, 0.4, 0.0,
+    0.6, 0.0, 0.3, 0.0,
+    0.7, 0.0, 0.4, 0.0,
+    0.6, 0.0, 0.5, 0.0,
+]
+velocities = [
+    0.4, 0.0, 0.25, 0.0,
+    0.35, 0.0, 0.2, 0.0,
+    0.4, 0.0, 0.25, 0.0,
+    0.35, 0.0, 0.3, 0.0,
+]
+
+# Shaker for high-frequency energy
+[[layers]]
+name = "energy_shaker"
+voice = "Shaker"
+
+[layers.pattern]
+type = "Layered"
+
+[[layers.pattern.layers]]
+type = "Euclidean"
+pulses = 13
+steps = 16
+rotation = 0
+velocity = 0.2
+
+[[layers.pattern.layers]]
+type = "Probability"
+length = 32
+probabilities = [
+    0.5, 0.3, 0.4, 0.3, 0.5, 0.3, 0.4, 0.3,
+    0.5, 0.3, 0.4, 0.3, 0.5, 0.3, 0.4, 0.3,
+    0.6, 0.4, 0.5, 0.4, 0.6, 0.4, 0.5, 0.4,
+    0.7, 0.5, 0.6, 0.5, 0.7, 0.5, 0.6, 0.5,
+]
+velocities = [
+    0.15, 0.1, 0.12, 0.1, 0.15, 0.1, 0.12, 0.1,
+    0.15, 0.1, 0.12, 0.1, 0.15, 0.1, 0.12, 0.1,
+    0.18, 0.12, 0.15, 0.12, 0.18, 0.12, 0.15, 0.12,
+    0.2, 0.15, 0.18, 0.15, 0.2, 0.15, 0.18, 0.15,
+]

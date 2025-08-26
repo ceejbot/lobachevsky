@@ -2,6 +2,8 @@
 //! algorithms to generate an algorithmic composition.
 
 use super::*;
+use crate::bass::{BassGenerator, BassStrategy};
+use crate::call_response::{CallResponseGenerator, CallResponseType};
 use crate::harmony::TypedHarmonicPattern;
 use crate::melody::{MelodyGenerator, MelodyStrategy};
 use crate::midi::Composition;
@@ -13,6 +15,8 @@ pub struct GenerateInput {
     pub rhythm_name: Option<String>,
     pub harmony: TypedHarmonicPattern,
     pub melody_strategy: MelodyStrategy,
+    pub bass_strategy: Option<BassStrategy>,
+    pub call_response_type: Option<CallResponseType>,
     pub notes_per_chord: usize,
 }
 
@@ -72,6 +76,8 @@ impl GenerateInput {
             rhythm_name: rhythm.map(|s| s.to_string()),
             harmony,
             melody_strategy,
+            bass_strategy: None,      // Can be added to CLI later
+            call_response_type: None, // Can be added to CLI later
             notes_per_chord,
         })
     }
@@ -81,17 +87,22 @@ pub struct AlgorithmicComposition {
     rhythm: Box<dyn RhythmPattern>,
     harmony: TypedHarmonicPattern,
     melody: MelodyStrategy,
+    bass_strategy: Option<BassStrategy>,
+    call_response_type: Option<CallResponseType>,
     bars: usize,
     tempo: u16,
     notes_per_chord: usize,
 }
 
 impl AlgorithmicComposition {
+    #[allow(clippy::too_many_arguments)]
     /// Create a new algorithmic composition with typed inputs
     pub fn new(
         harmony: TypedHarmonicPattern,
         rhythm: Box<dyn RhythmPattern>,
         melody: MelodyStrategy,
+        bass_strategy: Option<BassStrategy>,
+        call_response_type: Option<CallResponseType>,
         bars: usize,
         tempo: u16,
         notes_per_chord: usize,
@@ -100,6 +111,8 @@ impl AlgorithmicComposition {
             rhythm,
             harmony,
             melody,
+            bass_strategy,
+            call_response_type,
             bars,
             tempo,
             notes_per_chord,
@@ -194,14 +207,43 @@ impl AlgorithmicComposition {
             println!("   Generated {} drum events", rhythm_events.len());
         }
 
-        // Generate melody
-        println!("🎵 Generating melody with {} strategy", self.melody);
-        let melody_gen = MelodyGenerator::new(self.melody.clone())
-            .with_octave(5)
-            .with_note_duration(0.25); // Quarter notes by default
+        // Generate melody or call-and-response patterns
+        let melody = if let Some(ref call_response_type) = self.call_response_type {
+            println!(
+                "🎤 Generating call-and-response patterns with {} type",
+                call_response_type
+            );
+            let cr_gen = CallResponseGenerator::new(call_response_type.clone(), self.notes_per_chord)
+                .with_note_duration(0.5)
+                .with_octave_range(4, 6);
+            let phrases = cr_gen.generate(&final_progression);
+            println!("   Generated {} call-response phrases", phrases.len());
 
-        let melody = melody_gen.generate(&final_progression, self.notes_per_chord);
-        println!("   Generated {} notes", melody.len());
+            // Flatten all notes from call-and-response phrases
+            phrases.iter().flat_map(|phrase| phrase.all_notes()).collect()
+        } else {
+            println!("🎵 Generating melody with {} strategy", self.melody);
+            let melody_gen = MelodyGenerator::new(self.melody.clone())
+                .with_octave(5)
+                .with_note_duration(0.25); // Quarter notes by default
+
+            let melody = melody_gen.generate(&final_progression, self.notes_per_chord);
+            println!("   Generated {} notes", melody.len());
+            melody
+        };
+
+        // Generate bass line if strategy is specified
+        let bass_line = if let Some(ref bass_strategy) = self.bass_strategy {
+            println!("🎸 Generating bass line with {} strategy", bass_strategy);
+            let bass_gen = BassGenerator::new(bass_strategy.clone())
+                .with_octave(2)
+                .with_note_duration(1.0); // Whole notes by default
+            let bass = bass_gen.generate(&final_progression, 1); // One bass note per chord
+            println!("   Generated {} bass notes", bass.len());
+            Some(bass)
+        } else {
+            None
+        };
 
         // Create composition
         println!("💿 Creating MIDI composition at {} BPM", self.tempo);
@@ -210,6 +252,10 @@ impl AlgorithmicComposition {
         // Add tracks
         composition.add_harmony_track(&final_progression, 4, 3); // Each chord for 1 bar, octave 3
         composition.add_melody_track(&melody, 1); // Channel 1 for melody
+
+        if let Some(bass) = bass_line {
+            composition.add_bass_track(&bass, 2); // Channel 2 for bass
+        }
 
         if !rhythm_events.is_empty() {
             composition.add_rhythm_track_from_events(&rhythm_events);
@@ -237,7 +283,8 @@ pub fn generate_algorithmic(
     };
 
     let composition = AlgorithmicComposition::new(
-        input.harmony, rhythm, input.melody_strategy, bars, tempo, input.notes_per_chord,
+        input.harmony, rhythm, input.melody_strategy, input.bass_strategy, input.call_response_type, bars, tempo,
+        input.notes_per_chord,
     );
 
     composition.generate(output)

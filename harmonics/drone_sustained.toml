@@ -1,0 +1,11 @@
+# Drone harmonic pattern - Long sustained chords with minimal movement
+# Perfect for creating drone music atmospheres
+
+name = "drone_sustained"
+description = "Long-held chords with minimal harmonic movement for drone music"
+start_chord = "Am"
+# Very few transformations - each chord lasts many bars
+transformations = ["L", "P", "L"]  # Only 3 transformations for entire piece
+return_to_start = true
+tempo_hint = 75
+bars_hint = 64  # Each chord gets 16 bars!

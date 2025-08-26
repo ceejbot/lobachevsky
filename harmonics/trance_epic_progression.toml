@@ -1,0 +1,28 @@
+# Epic trance progression - Classic uplifting trance chord progression
+# Inspired by the golden era of trance (1999-2005)
+
+name = "trance_epic_progression"
+description = "Classic epic trance progression for uplifting energy"
+start_chord = "Am"
+
+# Epic trance progressions often follow patterns that create emotional peaks
+# Using transformations that create strong harmonic movement and resolution
+transformations = [
+    "R",     # Am -> C (relative major - uplift)
+    "L",     # C -> Em (smooth descent)
+    "P",     # Em -> E (major brightness!)
+    "L",     # E -> G#m (smooth but darker)
+    "R",     # G#m -> B (major resolution)
+    "P",     # B -> Bm (darken for tension)
+    "L",     # Bm -> D (major resolution)
+    "R",     # D -> Bm (back to minor)
+    "L",     # Bm -> D (major again - building)
+    "P",     # D -> Dm (minor for tension)
+    "R",     # Dm -> F (relative major)
+    "L",     # F -> Am (back to start - perfect loop!)
+]
+
+# No modal constraints - trance often moves freely
+return_to_start = true
+tempo_hint = 136
+bars_hint = 64

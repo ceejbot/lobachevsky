@@ -1,0 +1,82 @@
+# Drone pattern inspired by The Field's microhouse-influenced drone music
+# Characteristics: Subtle 4/4 pulse, ambient textures, evolving patterns
+
+name = "drone_field_style"
+description = "Microhouse-influenced drone pattern inspired by The Field"
+tempo_hint = 120
+style = "drone"
+
+# Very subtle kick pattern - almost subliminal pulse
+[[layers]]
+name = "subtle_kick"
+voice = "Kick"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    1.0, 0.0, 0.0, 0.0,  # Beat 1 - strong but soft
+    0.3, 0.0, 0.0, 0.0,  # Beat 2 - occasional ghost
+    0.6, 0.0, 0.0, 0.0,  # Beat 3 - medium presence
+    0.2, 0.0, 0.0, 0.0,  # Beat 4 - very subtle
+]
+velocities = [
+    0.4, 0.0, 0.0, 0.0,  # Very soft dynamics
+    0.2, 0.0, 0.0, 0.0,
+    0.3, 0.0, 0.0, 0.0,
+    0.2, 0.0, 0.0, 0.0,
+]
+
+# Sparse, textural hi-hats
+[[layers]]
+name = "texture_hats"
+voice = "HiHatClosed"
+
+[layers.pattern]
+type = "Euclidean"
+pulses = 3
+steps = 16
+rotation = 5
+velocity = 0.15  # Very quiet, textural
+
+# Ambient percussion - like found sounds
+[[layers]]
+name = "ambient_texture"
+voice = "Shaker"
+
+[layers.pattern]
+type = "Probability"
+length = 16
+probabilities = [
+    0.0, 0.1, 0.0, 0.2,
+    0.0, 0.0, 0.1, 0.0,
+    0.1, 0.0, 0.0, 0.1,
+    0.0, 0.2, 0.0, 0.0,
+]
+velocities = [
+    0.0, 0.1, 0.0, 0.15,
+    0.0, 0.0, 0.1, 0.0,
+    0.1, 0.0, 0.0, 0.1,
+    0.0, 0.15, 0.0, 0.0,
+]
+
+# Occasional ride cymbal for atmosphere
+[[layers]]
+name = "atmospheric_ride"
+voice = "Ride"
+
+[layers.pattern]
+type = "Probability"
+length = 32  # Longer pattern for variation
+probabilities = [
+    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.15, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]
+velocities = [
+    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+]

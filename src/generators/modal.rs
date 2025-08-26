@@ -1,7 +1,8 @@
 //! Implementation for the modal command.
 
 use super::*;
-use crate::{Chord, ModalNeoRiemannian, midi::Composition};
+use crate::midi::Composition;
+use crate::{Chord, ModalNeoRiemannian};
 
 /// Input for the Modal command
 pub struct ModalInput {

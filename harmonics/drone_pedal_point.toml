@@ -1,0 +1,31 @@
+# Drone harmonic pattern - Static bass with evolving upper harmonies
+# Creates a pedal point effect common in drone music
+
+name = "drone_pedal_point"
+description = "Static bass note with evolving upper harmonies for pedal point effect"
+start_chord = "Dm"
+
+# Transformations that tend to return to D-based chords
+# Creating a D pedal point effect
+transformations = [
+    "R",     # Dm -> F (D still works as pedal)
+    "L",     # F -> Am (D pedal continues)
+    "R",     # Am -> C (D creates tension)
+    "L",     # C -> Em (D works well)
+    "P",     # Em -> E (D creates interesting dissonance)
+    "L",     # E -> G#m (D very dissonant - peak tension)
+    "RP",    # G#m -> C# -> C#m (moving away)
+    "LPL",   # C#m -> A -> Am -> C#m (compound movement)
+    "RL",    # C#m -> E -> G#m
+    "PR",    # G#m -> G# -> B (brightening)
+    "LP",    # B -> D#m -> D# (chromatic movement)
+    "RPL",   # D# -> F# -> F#m -> A#m
+    "PLR",   # A#m -> A# -> D -> Dm (returning home)
+]
+
+# The pedal point nature means we don't want modal constraints
+# as the bass note provides the tonal center
+
+return_to_start = true
+tempo_hint = 70
+bars_hint = 96

@@ -1,0 +1,44 @@
+# Trance tension and release progression
+# Creates buildup and breakdown sections typical in trance structure
+
+name = "trance_tension_release"
+description = "Tension-building progression with climactic release for trance"
+start_chord = "Dm"
+
+# This progression is designed to create maximum tension then release
+# Phase 1: Build tension (minor chords, compound transforms)
+# Phase 2: Peak tension (dissonant/chromatic movement)  
+# Phase 3: Resolution and release (major chords, simple transforms)
+
+transformations = [
+    # Phase 1: Building tension
+    "L",     # Dm -> F (relative major - mild tension)
+    "P",     # F -> Fm (darken - tension increases)
+    "L",     # Fm -> G#m (chromatic movement)
+    "R",     # G#m -> B (major but unexpected)
+    "P",     # B -> Bm (back to minor - more tension)
+    
+    # Phase 2: Peak tension - compound transforms for complexity
+    "PL",    # Bm -> D -> F#m (compound movement)
+    "RP",    # F#m -> A -> Am (major to minor)
+    "LPL",   # Am -> C -> Cm -> Em (complex journey)
+    "RPR",   # Em -> G -> Gm -> Em (circular tension)
+    
+    # Phase 3: Resolution begins
+    "R",     # Em -> G (major resolution!)
+    "L",     # G -> Bm (smooth movement)
+    "R",     # Bm -> D (major resolution)
+    "L",     # D -> F#m (smooth descent)
+    "R",     # F#m -> A (major!)
+    "L",     # A -> C#m (smooth)
+    "R",     # C#m -> E (major resolution)
+    "P",     # E -> Em (slight darkening)
+    "L",     # Em -> G (major again)
+    "P",     # G -> Gm (darken)
+    "R",     # Gm -> Bb (major resolution)
+    "L",     # Bb -> Dm (return home!)
+]
+
+return_to_start = true
+tempo_hint = 138
+bars_hint = 96  # Longer form for full tension/release cycle

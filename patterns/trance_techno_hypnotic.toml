@@ -1,0 +1,155 @@
+# Trance techno hypnotic pattern
+# Inspired by artists like Stephan Bodzin and Oliver Lieb
+# Characteristics: Hypnotic, repetitive, driving
+# Tempo range: 130-145 BPM
+
+name = "trance_techno_hypnotic"
+description = "Hypnotic and repetitive pattern for trance techno"
+tempo_hint = 140
+style = "trance_techno"
+
+# Relentless kick drum
+[[tracks]]
+name = "relentless_kick"
+voice = "Kick"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 1.0, probability = 1.0 },
+    { beat = 2.0, probability = 1.0 },
+    { beat = 3.0, probability = 1.0 },
+]
+velocity_range = [121, 127]
+
+# Minimal but effective snare/clap
+[[tracks]]
+name = "minimal_clap"
+voice = "Clap"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 1.0 },
+    { beat = 3.0, probability = 1.0 },
+]
+velocity_range = [108, 108]
+
+# Hypnotic hi-hat pattern - Main repetitive pattern
+[[tracks]]
+name = "hypnotic_hats_main"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 0.5, probability = 0.9 },
+    { beat = 1.0, probability = 0.8 },
+    { beat = 1.5, probability = 0.9 },
+    { beat = 2.0, probability = 1.0 },
+    { beat = 2.5, probability = 0.9 },
+    { beat = 3.0, probability = 0.8 },
+    { beat = 3.5, probability = 0.9 },
+]
+velocity_range = [57, 76]
+
+# Hypnotic hi-hat pattern - Subtle variation layer
+[[tracks]]
+name = "hypnotic_hats_variation"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 7
+steps = 16
+rotation = 1
+velocity = 38
+
+# Minimal open hats for space
+[[tracks]]
+name = "space_open_hats"
+voice = "HiHatOpen"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 3.5, probability = 1.0 },
+    { beat = 7.5, probability = 0.8 },
+]
+velocity_range = [76, 89]
+
+# Rim for additional texture
+[[tracks]]
+name = "texture_rim"
+voice = "Rim"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 3
+steps = 16
+rotation = 5
+velocity = 51
+
+# Ride for atmosphere - sparse but present
+[[tracks]]
+name = "atmospheric_ride"
+voice = "Ride"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.3 },
+    { beat = 6.0, probability = 0.4 },
+    { beat = 12.0, probability = 0.5 },
+]
+velocity_range = [32, 45]
+
+# Techno-style percussion - Main groove
+[[tracks]]
+name = "techno_percussion_groove"
+voice = "Percussion"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.8 },
+    { beat = 0.75, probability = 0.4 },
+    { beat = 1.25, probability = 0.3 },
+    { beat = 2.0, probability = 0.7 },
+    { beat = 2.75, probability = 0.5 },
+    { beat = 3.25, probability = 0.4 },
+]
+velocity_range = [32, 64]
+
+# Techno-style percussion - Additional syncopation
+[[tracks]]
+name = "techno_percussion_syncopation"
+voice = "Percussion"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 7
+velocity = 32
+
+# Shaker for continuous energy
+[[tracks]]
+name = "energy_shaker"
+voice = "Shaker"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.7 },
+    { beat = 0.25, probability = 0.4 },
+    { beat = 0.5, probability = 0.6 },
+    { beat = 0.75, probability = 0.3 },
+    { beat = 1.0, probability = 0.7 },
+    { beat = 1.25, probability = 0.4 },
+    { beat = 1.5, probability = 0.6 },
+    { beat = 1.75, probability = 0.3 },
+]
+velocity_range = [13, 32]

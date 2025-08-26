@@ -1,0 +1,93 @@
+# Evolving drone pattern with gradually shifting rhythmic textures
+# Inspired by Mountains and similar evolving ambient drone artists
+# Characteristics: Long patterns that create slow rhythmic evolution
+
+name = "drone_evolving"
+description = "Gradually shifting rhythmic textures for evolving drone"
+tempo_hint = 85
+style = "drone"
+
+# Evolving kick pattern - changes over time
+[[tracks]]
+name = "evolving_kick"
+voice = "Kick"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.5 },
+    { beat = 4.0, probability = 0.2 },
+    { beat = 8.0, probability = 0.6 },
+    { beat = 10.0, probability = 0.3 },
+    { beat = 12.0, probability = 0.4 },
+    { beat = 15.0, probability = 0.1 },
+    { beat = 16.0, probability = 0.7 },
+    { beat = 17.0, probability = 0.2 },
+    { beat = 18.0, probability = 0.4 },
+    { beat = 20.0, probability = 0.5 },
+    { beat = 21.0, probability = 0.1 },
+    { beat = 22.0, probability = 0.3 },
+    { beat = 24.0, probability = 0.4 },
+    { beat = 28.0, probability = 0.2 },
+]
+velocity_range = [19, 51]
+
+# Morphing hi-hat pattern - Layer 1
+[[tracks]]
+name = "morphing_hats_euclidean_1"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 7
+steps = 64
+rotation = 0
+velocity = 13
+
+# Morphing hi-hat pattern - Layer 2
+[[tracks]]
+name = "morphing_hats_euclidean_2"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 48
+rotation = 12
+velocity = 10
+
+# Textural percussion that evolves
+[[tracks]]
+name = "evolving_texture"
+voice = "Percussion"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.1 },
+    { beat = 0.75, probability = 0.05 },
+    { beat = 4.5, probability = 0.15 },
+    { beat = 7.25, probability = 0.1 },
+    { beat = 9.0, probability = 0.2 },
+    { beat = 11.75, probability = 0.15 },
+    { beat = 14.0, probability = 0.1 },
+    { beat = 16.5, probability = 0.2 },
+    { beat = 20.25, probability = 0.15 },
+    { beat = 23.0, probability = 0.1 },
+]
+velocity_range = [4, 15]
+
+# Open hat creating space
+[[tracks]]
+name = "space_creator"
+voice = "HiHatOpen"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 3.75, probability = 0.1 },
+    { beat = 12.0, probability = 0.15 },
+    { beat = 23.0, probability = 0.2 },
+    { beat = 31.75, probability = 0.15 },
+]
+velocity_range = [19, 32]

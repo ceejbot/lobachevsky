@@ -1,0 +1,153 @@
+# Trance rolling bassline pattern
+# Classic rolling bass pattern found in trance and progressive house
+# Tempo range: 130-138 BPM
+
+name = "trance_rolling_bassline"
+description = "Classic rolling bass pattern for trance"
+tempo_hint = 135
+style = "trance"
+
+# Standard 4/4 kick
+[[tracks]]
+name = "four_four_kick"
+voice = "Kick"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 1.0, probability = 1.0 },
+    { beat = 2.0, probability = 1.0 },
+    { beat = 3.0, probability = 1.0 },
+]
+velocity_range = [114, 121]
+
+# Rolling bass pattern - the signature sound
+[[tracks]]
+name = "rolling_bass"
+voice = "KickSoft"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.9 },
+    { beat = 0.75, probability = 0.8 },
+    { beat = 1.25, probability = 0.9 },
+    { beat = 1.75, probability = 0.7 },
+    { beat = 2.25, probability = 0.9 },
+    { beat = 2.75, probability = 0.8 },
+    { beat = 3.25, probability = 0.9 },
+    { beat = 3.75, probability = 0.6 },
+]
+velocity_range = [57, 89]
+
+# Snare on 2 and 4 with occasional variations
+[[tracks]]
+name = "snare_hits"
+voice = "Snare"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 1.0 },
+    { beat = 1.75, probability = 0.1 },
+    { beat = 3.0, probability = 1.0 },
+    { beat = 5.0, probability = 1.0 },
+    { beat = 5.75, probability = 0.15 },
+    { beat = 7.0, probability = 1.0 },
+    { beat = 6.5, probability = 0.1 },
+]
+velocity_range = [38, 102]
+
+# Constant hi-hat energy - Base pattern
+[[tracks]]
+name = "constant_hats_base"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 0.25, probability = 0.8 },
+    { beat = 0.5, probability = 0.9 },
+    { beat = 0.75, probability = 0.8 },
+    { beat = 1.0, probability = 1.0 },
+    { beat = 1.25, probability = 0.8 },
+    { beat = 1.5, probability = 0.9 },
+    { beat = 1.75, probability = 0.8 },
+]
+velocity_range = [38, 57]
+
+# Constant hi-hat energy - Syncopation layer
+[[tracks]]
+name = "constant_hats_syncopation"
+voice = "HiHatClosed"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 9
+steps = 16
+rotation = 3
+velocity = 32
+
+# Open hat accents
+[[tracks]]
+name = "accent_open_hats"
+voice = "HiHatOpen"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.75, probability = 0.9 },
+    { beat = 5.75, probability = 0.8 },
+    { beat = 9.75, probability = 0.7 },
+    { beat = 13.75, probability = 0.95 },
+    { beat = 15.75, probability = 0.3 },
+]
+velocity_range = [32, 89]
+
+# Ride for wash and atmosphere
+[[tracks]]
+name = "wash_ride"
+voice = "Ride"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.6 },
+    { beat = 0.5, probability = 0.3 },
+    { beat = 1.0, probability = 0.5 },
+    { beat = 1.5, probability = 0.2 },
+    { beat = 2.0, probability = 0.6 },
+    { beat = 2.5, probability = 0.3 },
+    { beat = 3.0, probability = 0.5 },
+    { beat = 3.5, probability = 0.4 },
+]
+velocity_range = [19, 45]
+
+# Additional percussion for groove - Layer 1
+[[tracks]]
+name = "groove_percussion_euclidean"
+voice = "Percussion"
+
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 2
+velocity = 35
+
+# Additional percussion for groove - Layer 2
+[[tracks]]
+name = "groove_percussion_probability"
+voice = "Percussion"
+
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.4 },
+    { beat = 1.5, probability = 0.3 },
+    { beat = 2.25, probability = 0.5 },
+    { beat = 3.5, probability = 0.4 },
+]
+velocity_range = [32, 45]

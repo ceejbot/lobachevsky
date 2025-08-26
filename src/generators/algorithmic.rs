@@ -121,7 +121,7 @@ impl AlgorithmicComposition {
 
     /// Load a rhythm pattern from a file
     pub fn load_rhythm_pattern(rhythm_file: &str) -> Result<Box<dyn RhythmPattern>, LobachevskyError> {
-        println!("🥁 Loading rhythm pattern: {}", rhythm_file);
+        log::info!("🥁 Loading rhythm pattern: {}", rhythm_file);
         let mut pattern_lib = PatternLibrary::new();
         pattern_lib.load_from_directory(std::path::Path::new("patterns"))?;
 
@@ -136,8 +136,8 @@ impl AlgorithmicComposition {
 
     /// Generate the composition and save it in a MIDI file
     pub fn generate(&self, output: &str) -> Result<(), LobachevskyError> {
-        println!("🎵 Generating Algorithmic Composition");
-        println!("=====================================");
+        log::info!("🎵 Generating Algorithmic Composition");
+        log::info!("=====================================");
 
         // Align bars to 16 or 32 bar multiples
         let aligned_bars = if self.bars <= 16 {
@@ -149,9 +149,10 @@ impl AlgorithmicComposition {
         };
 
         if aligned_bars != self.bars {
-            println!(
+            log::info!(
                 "📏 Aligning from {} to {} bars for better musical structure",
-                self.bars, aligned_bars
+                self.bars,
+                aligned_bars
             );
         }
 
@@ -173,13 +174,13 @@ impl AlgorithmicComposition {
         // Apply modal constraints if specified
         if let (Some(mode), Some(tonic)) = (self.harmony.mode, self.harmony.tonic) {
             builder = builder.with_mode(mode, tonic);
-            println!("🎵 Modal constraint: {} {}", tonic, mode);
+            log::info!("🎵 Modal constraint: {} {}", tonic, mode);
         }
 
         // Force return to start if needed for alignment
         if self.harmony.return_to_start || (total_chords_needed % chords_per_pattern != 0) {
             builder = builder.with_return();
-            println!("🔄 Returning to starting chord for structural alignment");
+            log::info!("🔄 Returning to starting chord for structural alignment");
         }
 
         let progression = builder.build();
@@ -187,7 +188,7 @@ impl AlgorithmicComposition {
         // Trim or extend to exact bar count
         let final_progression: Vec<Chord> = progression.into_iter().cycle().take(aligned_bars).collect();
 
-        println!(
+        log::info!(
             "🎹 Generated {} chords for {} bars",
             final_progression.len(),
             aligned_bars
@@ -204,12 +205,12 @@ impl AlgorithmicComposition {
             }
         }
         if !rhythm_events.is_empty() {
-            println!("   Generated {} drum events", rhythm_events.len());
+            log::info!("   Generated {} drum events", rhythm_events.len());
         }
 
         // Generate melody or call-and-response patterns
         let melody = if let Some(ref call_response_type) = self.call_response_type {
-            println!(
+            log::info!(
                 "🎤 Generating call-and-response patterns with {} type",
                 call_response_type
             );
@@ -217,36 +218,36 @@ impl AlgorithmicComposition {
                 .with_note_duration(0.5)
                 .with_octave_range(4, 6);
             let phrases = cr_gen.generate(&final_progression);
-            println!("   Generated {} call-response phrases", phrases.len());
+            log::info!("   Generated {} call-response phrases", phrases.len());
 
             // Flatten all notes from call-and-response phrases
             phrases.iter().flat_map(|phrase| phrase.all_notes()).collect()
         } else {
-            println!("🎵 Generating melody with {} strategy", self.melody);
+            log::info!("🎵 Generating melody with {} strategy", self.melody);
             let melody_gen = MelodyGenerator::new(self.melody.clone())
                 .with_octave(5)
                 .with_note_duration(0.25); // Quarter notes by default
 
             let melody = melody_gen.generate(&final_progression, self.notes_per_chord);
-            println!("   Generated {} notes", melody.len());
+            log::info!("   Generated {} notes", melody.len());
             melody
         };
 
         // Generate bass line if strategy is specified
         let bass_line = if let Some(ref bass_strategy) = self.bass_strategy {
-            println!("🎸 Generating bass line with {} strategy", bass_strategy);
+            log::info!("🎸 Generating bass line with {} strategy", bass_strategy);
             let bass_gen = BassGenerator::new(bass_strategy.clone())
                 .with_octave(2)
                 .with_note_duration(1.0); // Whole notes by default
             let bass = bass_gen.generate(&final_progression, 1); // One bass note per chord
-            println!("   Generated {} bass notes", bass.len());
+            log::info!("   Generated {} bass notes", bass.len());
             Some(bass)
         } else {
             None
         };
 
         // Create composition
-        println!("💿 Creating MIDI composition at {} BPM", self.tempo);
+        log::info!("💿 Creating MIDI composition at {} BPM", self.tempo);
         let mut composition = Composition::new(self.tempo);
 
         // Add tracks
@@ -263,8 +264,8 @@ impl AlgorithmicComposition {
 
         // Save
         composition.save(output)?;
-        println!("✅ Saved algorithmic composition to {}", output);
-        println!("   {} bars at {} BPM", aligned_bars, self.tempo);
+        log::info!("✅ Saved algorithmic composition to {}", output);
+        log::info!("   {} bars at {} BPM", aligned_bars, self.tempo);
         Ok(())
     }
 }

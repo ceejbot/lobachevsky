@@ -44,7 +44,7 @@ fn main() {
             if let Some(tempo) = pattern_data.tempo_hint {
                 println!("   Suggested tempo: {} BPM", tempo);
             }
-            println!("   Layers: {}", pattern_data.layers.len());
+            println!("   Tracks: {}", pattern_data.tracks.len());
 
             // Test pattern conversion
             match pattern_data.to_pattern() {

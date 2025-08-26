@@ -345,7 +345,7 @@ fn generate_composition(bars: usize, tempo: u16, output: &str) {
 
     log::info!("Chord progression:");
     for (i, chord) in progression.iter().enumerate() {
-        println!("  Bar {}: {}", i * 4 + 1, chord);
+        log::info!("  Bar {}: {}", i * 4 + 1, chord);
     }
 
     // Generate melody

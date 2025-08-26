@@ -3,18 +3,18 @@ description = "Stripped-down minimal pattern with 40Hz gamma waves for peak cogn
 tempo_hint = 118
 
 # Ultra-minimal kick pattern
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 65
 
 # Minimal snare on 3
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.9 },
@@ -22,9 +22,9 @@ points = [
 velocity_range = [45, 55]
 
 # Very sparse hi-hat
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 16
@@ -32,9 +32,9 @@ rotation = 2
 velocity = 30
 
 # Gamma wave isochronic enhancement (40 Hz for high-level focus)
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 40.0
 velocity = 18

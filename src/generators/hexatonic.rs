@@ -34,9 +34,9 @@ pub fn generate_hexatonic(input: HexatonicInput, output: &str) -> Result<(), Lob
     let explorer = HexatonicExplorer::new();
 
     if let Some(chords) = explorer.get_cycle(input.cycle, input.start_chord) {
-        println!("Hexatonic cycle starting from {}:", input.start_chord);
+        log::info!("Hexatonic cycle starting from {}:", input.start_chord);
         for (i, chord) in chords.iter().enumerate() {
-            println!("  {}: {}", i + 1, chord);
+            log::info!("  {}: {}", i + 1, chord);
         }
 
         // Generate MIDI - repeat the cycle several times
@@ -49,7 +49,7 @@ pub fn generate_hexatonic(input: HexatonicInput, output: &str) -> Result<(), Lob
         composition.add_harmony_track(&full_progression, 4, 2);
 
         composition.save(output)?;
-        println!("Saved to {}", output);
+        log::info!("Saved to {}", output);
         Ok(())
     } else {
         Err(LobachevskyError::ParseError {

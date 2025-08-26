@@ -77,7 +77,6 @@ fn demonstrate_energy_analysis(low_energy: &[Chord], high_energy: &[Chord]) {
         let energy = analyzer.analyze_chord_energy(*chord, prev_chord);
         log::info!("  {}: {:.3} energy", chord, energy);
     }
-    log::info!();
 }
 
 /// Demonstrate adaptive rhythm patterns
@@ -174,7 +173,6 @@ fn demonstrate_morphing_patterns() {
             log::info!("  Progress {:.2}: {:?}", progress, transform);
         }
     }
-    log::info!();
 }
 
 /// Generate a complete adaptive composition

@@ -130,7 +130,7 @@ The rhythm generator supports multiple styles, each with distinct characteristic
 - **2000s**: Shuffled microhouse with ghost notes and soft kick variations
 - **2010s**: Complex Euclidean patterns with mathematical rhythm distribution
 
-### Regional/Genre Styles  
+### Regional/Genre Styles
 - **detroit**: Raw, driving 4/4 with boomy kicks and sparse percussion, emphasizing the off-beats
 - **berlin**: Deep, atmospheric dub techno with spacious arrangements and delayed elements
 - **minimal**: Stripped-down, hypnotic patterns focusing on rolling hi-hat grooves
@@ -139,7 +139,7 @@ The rhythm generator supports multiple styles, each with distinct characteristic
 
 Each style uses different combinations of:
 - **EuclideanPattern**: Mathematical distribution of hits across time steps
-- **ProbabilityPattern**: Stochastic variations with per-beat hit probabilities  
+- **ProbabilityPattern**: Stochastic variations with per-beat hit probabilities
 - **LayeredPattern**: Multiple synchronized rhythm layers
 
 ### Create complete compositions
@@ -213,7 +213,7 @@ tempo_hint = 128  # Optional suggested BPM
 [[layers]]
 voice = "kick"
 [layers.pattern_type]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 4
 steps = 16
 rotation = 0    # Optional
@@ -226,9 +226,9 @@ velocity = 80   # Optional
 Mathematical distribution of hits across time steps:
 ```toml
 [layers.pattern_type]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 5        # Number of hits to distribute
-steps = 8       # Total time steps  
+steps = 8       # Total time steps
 rotation = 2    # Optional: rotate pattern
 velocity = 70   # Optional: MIDI velocity
 ```
@@ -237,19 +237,19 @@ velocity = 70   # Optional: MIDI velocity
 Stochastic patterns with per-beat hit probabilities:
 ```toml
 [layers.pattern_type]
-type = "Probability"
+pattern_type = "Probability"
 velocity_range = [40, 80]  # Optional: min/max velocity range
 [[layers.pattern_type.points]]
 beat = 0.0
 probability = 0.9
-[[layers.pattern_type.points]]  
+[[layers.pattern_type.points]]
 beat = 1.5
 probability = 0.6
 ```
 
 ### Valid Drum Voices
 - `kick`, `kick_soft`: Kick drums (GM notes 36, 35)
-- `snare`, `rim`, `clap`: Snare family (GM notes 38, 37, 39) 
+- `snare`, `rim`, `clap`: Snare family (GM notes 38, 37, 39)
 - `hihat_closed`, `hihat_open`: Hi-hats (GM notes 42, 46)
 - `shaker`, `ride`, `percussion`: Other percussion (GM notes 70, 51, 69)
 
@@ -262,7 +262,7 @@ tempo_hint = 138
 [[layers]]
 voice = "kick"
 [layers.pattern_type]
-type = "Probability" 
+pattern_type = "Probability"
 points = [
     { beat = 0.0, probability = 1.0 },
     { beat = 1.5, probability = 0.8 },
@@ -274,16 +274,16 @@ velocity_range = [80, 90]
 [[layers]]
 voice = "snare"
 [layers.pattern_type]
-type = "Probability"
+pattern_type = "Probability"
 points = [
     { beat = 1.0, probability = 0.9 },
     { beat = 3.0, probability = 0.95 },
 ]
 
 [[layers]]
-voice = "hihat_closed" 
+voice = "hihat_closed"
 [layers.pattern_type]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 13
 steps = 16
 rotation = 2

@@ -353,7 +353,7 @@ mod tests {
                     }
                 }
                 Err(e) => {
-                    println!("Warning: Could not load harmonics directory: {:?}", e);
+                    log::info!("Warning: Could not load harmonics directory: {:?}", e);
                 }
             }
         }

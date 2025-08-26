@@ -2,17 +2,17 @@ name = "dub_techno_complex"
 description = "Complex dub techno with polyrhythmic elements"
 tempo_hint = 125
 
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 78
 
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.3 },
@@ -22,9 +22,9 @@ points = [
 ]
 velocity_range = [45, 55]
 
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.15 },
@@ -32,27 +32,27 @@ points = [
 ]
 velocity_range = [50, 60]
 
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 5
 steps = 16
 rotation = 3
 velocity = 40
 
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 3
 steps = 8
 rotation = 1
 velocity = 35
 
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.25 },

@@ -2,9 +2,9 @@ name = "breakbeat"
 description = "Classic breakbeat pattern with chopped-up drums"
 tempo_hint = 140
 
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 1.0 },
@@ -13,9 +13,9 @@ points = [
 ]
 velocity_range = [85, 95]
 
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.95 },
@@ -25,18 +25,18 @@ points = [
 ]
 velocity_range = [70, 80]
 
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 7
 steps = 8
 rotation = 0
 velocity = 50
 
-[[layers]]
+[[tracks]]
 voice = "hihat_open"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.5, probability = 0.6 },

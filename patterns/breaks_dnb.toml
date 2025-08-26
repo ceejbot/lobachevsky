@@ -3,9 +3,9 @@ description = "Amen break variations and drum-n-bass patterns - classic breakbea
 tempo_hint = 175
 
 # Main kick pattern from Amen break
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 1.0 },
@@ -14,9 +14,9 @@ points = [
 velocity_range = [80, 90]
 
 # Classic Amen snare pattern
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 1.0 },
@@ -28,9 +28,9 @@ points = [
 velocity_range = [70, 85]
 
 # Ghost snares for complexity
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.4 },
@@ -40,9 +40,9 @@ points = [
 velocity_range = [40, 60]
 
 # Fast hi-hats typical of dnb
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 12
 steps = 16
@@ -50,9 +50,9 @@ rotation = 1
 velocity = 45
 
 # Occasional open hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_open"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.3 },

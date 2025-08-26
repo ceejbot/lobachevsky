@@ -3,30 +3,30 @@ description = "Ethereal, slow-moving ambient techno with textural elements"
 tempo_hint = 115
 
 # Soft, deep ambient kick
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.3
 humanization = 0.025
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 65
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.groove_type.timing_map]
+[tracks.pattern_type.groove_type.timing_map]
 "0.0" = 0.01
 "1.0" = -0.005
 "2.0" = 0.015
 "3.0" = -0.01
 
 # Ghost kicks for ambient texture
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.2 },
@@ -37,9 +37,9 @@ points = [
 velocity_range = [25, 35]
 
 # Very minimal snare
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.6 },
@@ -47,13 +47,13 @@ points = [
 velocity_range = [40, 50]
 
 # Ethereal hi-hat pattern with polyrhythm
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [11, 8]
 pattern_length = 2
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 6
 steps = 22
@@ -61,9 +61,9 @@ rotation = 5
 velocity = 25
 
 # Atmospheric ride
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.2 },
@@ -74,9 +74,9 @@ points = [
 velocity_range = [20, 30]
 
 # Subtle percussion textures
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.08 },
@@ -86,9 +86,9 @@ points = [
 velocity_range = [18, 28]
 
 # Very sparse shaker for movement
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.05 },

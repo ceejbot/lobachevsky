@@ -3,36 +3,36 @@ description = "Stuttering patterns and broken rhythms with glitchy micro-timing"
 tempo_hint = 122
 
 # Main kick with glitchy timing
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.8
 humanization = 0.04
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 72
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.groove_type.timing_map]
+[tracks.pattern_type.groove_type.timing_map]
 "0.0" = 0.02
 "1.0" = -0.03
 "2.0" = 0.05
 "3.0" = -0.02
 
-[layers.pattern_type.groove_type.velocity_map]
+[tracks.pattern_type.groove_type.velocity_map]
 "0.0" = 1.1
 "1.0" = 0.8
 "2.0" = 1.2
 "3.0" = 0.9
 
 # Stuttering kick pattern
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.125, probability = 0.6 },
@@ -45,12 +45,12 @@ points = [
 velocity_range = [40, 60]
 
 # Broken snare pattern
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.9
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.8 },
@@ -59,29 +59,29 @@ points = [
     { beat = 2.9375, probability = 0.3 },
 ]
 velocity_range = [45, 65]
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.groove_type.timing_map]
+[tracks.pattern_type.groove_type.timing_map]
 "1.0" = 0.03
 "3.0" = -0.02
 
 # Glitchy hi-hats with micro-stutters
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.7
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 11
 steps = 16
 rotation = 1
 velocity = 38
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.groove_type.timing_map]
+[tracks.pattern_type.groove_type.timing_map]
 "0.25" = 0.015
 "0.5" = -0.02
 "0.75" = 0.025
@@ -91,9 +91,9 @@ groove_type = "Custom"
 "3.75" = -0.03
 
 # Scattered percussion
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.3125, probability = 0.25 },

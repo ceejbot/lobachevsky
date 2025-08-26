@@ -3,30 +3,30 @@ description = "Very slow, evolving, textural patterns - meditation and deep focu
 tempo_hint = 88
 
 # Extremely slow, deep kick
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.2
 humanization = 0.03
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 58
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.groove_type.timing_map]
+[tracks.pattern_type.groove_type.timing_map]
 "0.0" = 0.02
 "1.0" = -0.01
 "2.0" = 0.025
 "3.0" = -0.015
 
 # Very sparse ghost kicks
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.08 },
@@ -37,9 +37,9 @@ points = [
 velocity_range = [20, 30]
 
 # Minimal snare - very rare
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.4 },
@@ -47,13 +47,13 @@ points = [
 velocity_range = [30, 40]
 
 # Slow polyrhythmic hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [9, 8]
 pattern_length = 4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 3
 steps = 18
@@ -61,9 +61,9 @@ rotation = 7
 velocity = 18
 
 # Atmospheric ride - very spacious
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.15 },
@@ -74,13 +74,13 @@ points = [
 velocity_range = [15, 25]
 
 # Textural percussion - extremely sparse
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [23, 16]
 pattern_length = 1
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 0.6 },
@@ -90,9 +90,9 @@ points = [
 velocity_range = [12, 22]
 
 # Ultra-sparse shaker texture
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.05 },

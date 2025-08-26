@@ -3,24 +3,24 @@ description = "Beta wave entrainment (13-25 Hz) for active concentration and ana
 tempo_hint = 110
 
 # Steady kick pattern for focus
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.2
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 65
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "deep_house_shuffle"
 
 # Consistent snare backbeat
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 2
 steps = 4
@@ -28,27 +28,27 @@ rotation = 1
 velocity = 50
 
 # Low beta entrainment (15 Hz - alert relaxation)
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 15.0
 velocity = 28
 brainwave_type = "beta"
 
 # Mid beta (20 Hz - active thinking)
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 20.0
 velocity = 25
 brainwave_type = "beta"
 
 # Upper beta (24 Hz - analytical processing)
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 24.0
 velocity = 22

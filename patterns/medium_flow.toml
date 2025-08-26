@@ -3,25 +3,25 @@ description = "General programming flow - balanced energy and focus"
 tempo_hint = 115
 
 # Steady, reliable kick
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.3
 humanization = 0.015
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 74
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "deep_house_shuffle"
 
 # Subtle off-beat kicks
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.25 },
@@ -31,9 +31,9 @@ points = [
 velocity_range = [40, 50]
 
 # Balanced snare pattern
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.9 },
@@ -42,13 +42,13 @@ points = [
 velocity_range = [60, 70]
 
 # Medium-complexity hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.6
 subdivision = 0.25
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 9
 steps = 16
@@ -56,9 +56,9 @@ rotation = 1
 velocity = 42
 
 # Occasional texture elements
-[[layers]]
+[[tracks]]
 voice = "hihat_open"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.3 },
@@ -67,9 +67,9 @@ points = [
 velocity_range = [38, 48]
 
 # Gentle shaker groove
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 7
 steps = 16

@@ -22,7 +22,7 @@ mod tests {
 
         // Check that events are spread evenly
         let positions: Vec<f64> = events.iter().map(|e| e.beat.0).collect();
-        println!("3/8 pattern positions: {:?}", positions);
+        log::info!("3/8 pattern positions: {:?}", positions);
         assert!(positions.len() == 3);
     }
 
@@ -61,7 +61,7 @@ mod tests {
         ];
 
         for (hits, steps) in test_cases {
-            println!("Testing ({}, {})", hits, steps);
+            log::info!("Testing ({}, {})", hits, steps);
             let pattern = EuclideanPattern::new(DrumVoice::Kick, hits, steps);
             let events = pattern.events_for_bar(0);
 
@@ -104,8 +104,8 @@ mod tests {
         let base_positions: Vec<f64> = base_events.iter().map(|e| e.beat.0).collect();
         let rotated_positions: Vec<f64> = rotated_events.iter().map(|e| e.beat.0).collect();
 
-        println!("Base positions: {:?}", base_positions);
-        println!("Rotated positions: {:?}", rotated_positions);
+        log::info!("Base positions: {:?}", base_positions);
+        log::info!("Rotated positions: {:?}", rotated_positions);
     }
 
     #[test]
@@ -313,9 +313,9 @@ mod tests {
             description = "Test alpha wave pattern"
             tempo_hint = 120
 
-            [[layers]]
+            [[tracks]]
             voice = "percussion"
-            [layers.pattern_type]
+            [tracks.pattern_type]
             type = "Isochronic"
             frequency_hz = 10.0
             velocity = 30
@@ -324,7 +324,7 @@ mod tests {
 
         let pattern_data = PatternData::from_toml(toml_str).expect("Should parse TOML");
         assert_eq!(pattern_data.name, "test_alpha");
-        assert_eq!(pattern_data.layers.len(), 1);
+        assert_eq!(pattern_data.tracks.len(), 1);
 
         // Convert to actual pattern and test
         let rhythm_pattern = pattern_data.to_pattern().expect("Should convert to pattern");
@@ -342,13 +342,13 @@ mod tests {
             description = "Test isochronic with base pattern"
             tempo_hint = 120
 
-            [[layers]]
+            [[tracks]]
             voice = "shaker"
-            [layers.pattern_type]
+            [tracks.pattern_type]
             type = "Isochronic"
             frequency_hz = 6.0
             velocity = 25
-            [layers.pattern_type.base_pattern]
+            [tracks.pattern_type.base_pattern]
             type = "Euclidean"
             hits = 4
             steps = 4
@@ -376,23 +376,23 @@ mod tests {
             description = "Multi-frequency entrainment"
             tempo_hint = 120
 
-            [[layers]]
+            [[tracks]]
             voice = "hihat_closed"
-            [layers.pattern_type]
+            [tracks.pattern_type]
             type = "Isochronic"
             frequency_hz = 10.0
             velocity = 30
 
-            [[layers]]
+            [[tracks]]
             voice = "shaker"
-            [layers.pattern_type]
+            [tracks.pattern_type]
             type = "Isochronic"
             frequency_hz = 6.0
             velocity = 25
         "#;
 
         let pattern_data = PatternData::from_toml(toml_str).expect("Should parse TOML");
-        assert_eq!(pattern_data.layers.len(), 2, "Should have two layers");
+        assert_eq!(pattern_data.tracks.len(), 2, "Should have two tracks");
 
         let rhythm_pattern = pattern_data.to_pattern().expect("Should convert to pattern");
         let events = rhythm_pattern.events_for_bar(0);

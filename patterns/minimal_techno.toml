@@ -3,18 +3,18 @@ description = "Repetitive, hypnotic minimal techno with subtle variations"
 tempo_hint = 130
 
 # Clean, precise minimal kick
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 80
 
 # Very subtle kick variations
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.15 },
@@ -23,9 +23,9 @@ points = [
 velocity_range = [35, 45]
 
 # Minimal snare - very sparse
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.7 },
@@ -33,9 +33,9 @@ points = [
 velocity_range = [50, 60]
 
 # Hypnotic hi-hat pattern
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 7
 steps = 16
@@ -43,22 +43,22 @@ rotation = 1
 velocity = 35
 
 # Polyrhythmic percussion for subtle complexity
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [3, 4]
 pattern_length = 4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 2
 steps = 3
 velocity = 25
 
 # Very occasional shaker
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.25, probability = 0.1 },

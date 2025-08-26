@@ -13,7 +13,7 @@ pub struct PatternData {
     pub name: String,
     pub description: Option<String>,
     pub tempo_hint: Option<u16>,
-    pub layers: Vec<LayerData>,
+    pub tracks: Vec<LayerData>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -106,7 +106,7 @@ impl PatternData {
     pub fn to_pattern(&self) -> Result<Box<dyn RhythmPattern>, LobachevskyError> {
         let mut layered = LayeredPattern::new();
 
-        for layer in &self.layers {
+        for layer in &self.tracks {
             let voice = parse_voice(&layer.voice)?;
             let pattern: Box<dyn RhythmPattern> = match &layer.pattern_type {
                 PatternType::Euclidean {

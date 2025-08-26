@@ -10,92 +10,54 @@ style = "drone"
 # No kick drum - pure ambient approach
 
 # Very sparse, breath-like hi-hats
-[[layers]]
+[[tracks]]
 name = "breathing_hats"
 voice = "HiHatClosed"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 32  # Long pattern for organic variation
-probabilities = [
-    0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0,
+points = [
+    { beat = 0.0, probability = 0.3 },
+    { beat = 1.5, probability = 0.1 },
+    { beat = 4.0, probability = 0.2 },
+    { beat = 6.5, probability = 0.1 },
 ]
-velocities = [
-    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.08, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0,
-]
+velocity_range = [6, 13]
 
 # Shaker creating subtle movement
-[[layers]]
+[[tracks]]
 name = "organic_shaker"
 voice = "Shaker"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Euclidean"
-pulses = 5
+hits = 5
 steps = 32
 rotation = 7
-velocity = 0.08  # Extremely soft
+velocity = 10  # Extremely soft
 
 # Rim shots as occasional punctuation
-[[layers]]
+[[tracks]]
 name = "punctuation"
 voice = "Rim"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 64  # Very long pattern for rare events
-probabilities = [
-    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+points = [
+    { beat = 0.0, probability = 0.1 },
+    { beat = 10.0, probability = 0.15 },
 ]
-velocities = [
-    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-]
+velocity_range = [19, 25]
 
 # Soft kick appearing very rarely for grounding
-[[layers]]
+[[tracks]]
 name = "grounding_pulse"
 voice = "KickSoft"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 64
-probabilities = [
-    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+points = [
+    { beat = 0.0, probability = 0.2 },
+    { beat = 8.0, probability = 0.1 },
 ]
-velocities = [
-    0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-]
+velocity_range = [19, 32]

@@ -2,9 +2,9 @@ name = "uk_garage"
 description = "UK Garage pattern with shuffled hi-hats and syncopated kicks"
 tempo_hint = 138
 
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 1.0 },
@@ -14,9 +14,9 @@ points = [
 ]
 velocity_range = [80, 90]
 
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.9 },
@@ -24,18 +24,18 @@ points = [
 ]
 velocity_range = [70, 75]
 
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 13
 steps = 16
 rotation = 2
 velocity = 45
 
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.4 },

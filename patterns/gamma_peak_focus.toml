@@ -3,18 +3,18 @@ description = "High-frequency gamma entrainment (30-45 Hz) for peak cognitive pe
 tempo_hint = 125
 
 # Steady rhythmic foundation
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 68
 
 # Minimal backbeat
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 2
 steps = 4
@@ -22,27 +22,27 @@ rotation = 1
 velocity = 45
 
 # Primary gamma entrainment (40 Hz - peak awareness)
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 40.0
 velocity = 25
 brainwave_type = "gamma"
 
 # High gamma (43 Hz) for enhanced binding
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 43.0
 velocity = 20
 brainwave_type = "gamma"
 
 # Lower gamma (35 Hz) for sustained attention
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 35.0
 velocity = 22

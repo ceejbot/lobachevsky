@@ -35,25 +35,25 @@ impl ExtendedInput {
 pub fn generate_extended(input: ExtendedInput, output: &str) -> Result<(), LobachevskyError> {
     use crate::theory::{NeoRiemannian, Transformable};
 
-    println!("Exploring extended chord transformations");
+    log::info!("Exploring extended chord transformations");
 
     if input.analyze {
-        println!("\n=== Extended Chord Analysis ===");
-        println!("Starting chord: {}", input.start_chord);
-        println!("Chord type: {:?}", input.start_chord.quality);
-        println!("Is triad: {}", input.start_chord.quality.is_triad());
-        println!("Is seventh chord: {}", input.start_chord.quality.is_seventh());
-        println!("Is suspended: {}", input.start_chord.quality.is_suspended());
+        log::info!("\n=== Extended Chord Analysis ===");
+        log::info!("Starting chord: {}", input.start_chord);
+        log::info!("Chord type: {:?}", input.start_chord.quality);
+        log::info!("Is triad: {}", input.start_chord.quality.is_triad());
+        log::info!("Is seventh chord: {}", input.start_chord.quality.is_seventh());
+        log::info!("Is suspended: {}", input.start_chord.quality.is_suspended());
 
         if let Some(underlying) = input.start_chord.underlying_triad() {
-            println!("Underlying triad: {}", underlying);
+            log::info!("Underlying triad: {}", underlying);
         }
 
-        println!(
+        log::info!(
             "Supports basic transforms (P, R, L): {}",
             input.start_chord.supports_basic_transforms()
         );
-        println!(
+        log::info!(
             "Supports P3,0 transforms: {}",
             input.start_chord.supports_p3_transforms()
         );
@@ -66,13 +66,13 @@ pub fn generate_extended(input: ExtendedInput, output: &str) -> Result<(), Lobac
         &input.transforms[0..input.length.min(input.transforms.len())],
     );
 
-    println!(
+    log::info!(
         "\nExtended chord progression ({} transformations):",
         progression.len() - 1
     );
     for (i, chord) in progression.iter().enumerate() {
         if i == 0 {
-            println!("  Start: {} ({:?})", chord, chord.quality);
+            log::info!("  Start: {} ({:?})", chord, chord.quality);
         } else {
             let transform = &input.transforms[(i - 1) % input.transforms.len()];
             let transform_name = match transform {
@@ -83,12 +83,12 @@ pub fn generate_extended(input: ExtendedInput, output: &str) -> Result<(), Lobac
             };
 
             if input.analyze {
-                println!("  {}: {} ({:?}) (via {})", i, chord, chord.quality, transform_name);
+                log::info!("  {}: {} ({:?}) (via {})", i, chord, chord.quality, transform_name);
                 if let Some(underlying) = chord.underlying_triad() {
-                    println!("      Underlying: {}", underlying);
+                    log::info!("      Underlying: {}", underlying);
                 }
             } else {
-                println!("  {}: {} (via {})", i, chord, transform_name);
+                log::info!("  {}: {} (via {})", i, chord, transform_name);
             }
         }
     }
@@ -98,6 +98,6 @@ pub fn generate_extended(input: ExtendedInput, output: &str) -> Result<(), Lobac
     composition.add_harmony_track(&progression, 4, 2);
 
     composition.save(output)?;
-    println!("\nSaved extended chord exploration to {}", output);
+    log::info!("\nSaved extended chord exploration to {}", output);
     Ok(())
 }

@@ -3,25 +3,25 @@ description = "Deep hypnotic pattern enhanced with 10Hz alpha isochronic tones f
 tempo_hint = 126
 
 # Main deep kick pattern - steady but not mechanical
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.3
 humanization = 0.02
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 75
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "deep_house_shuffle"
 
 # Very subtle off-beat kicks for texture
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.15 },
@@ -30,9 +30,9 @@ points = [
 velocity_range = [35, 45]
 
 # Minimal snare/clap - very sparse
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.85 },
@@ -40,13 +40,13 @@ points = [
 velocity_range = [50, 60]
 
 # Subtle rolling hi-hats with swing
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.6
 subdivision = 0.25
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 6
 steps = 16
@@ -54,9 +54,9 @@ rotation = 2
 velocity = 35
 
 # Very sparse percussive texture
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.08 },
@@ -66,9 +66,9 @@ points = [
 velocity_range = [25, 35]
 
 # Alpha wave isochronic enhancement (10 Hz for focused relaxation)
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 10.0
 velocity = 25

@@ -58,15 +58,15 @@ pub fn generate_progression(input: progression::ProgressionInput, output: &str) 
     // Apply modal constraints if specified
     if let (Some(mode), Some(tonic)) = (input.mode, input.tonic) {
         builder = builder.with_mode(mode, tonic);
-        println!("Using modal constraint: {} {}", tonic, mode);
+        log::info!("Using modal constraint: {} {}", tonic, mode);
     }
 
     let progression = builder.build();
 
     // Print the progression
-    println!("Generated progression:");
+    log::info!("Generated progression:");
     for (i, chord) in progression.iter().enumerate() {
-        println!("  {}: {}", i + 1, chord);
+        log::info!("  {}: {}", i + 1, chord);
     }
 
     // Generate MIDI
@@ -74,6 +74,6 @@ pub fn generate_progression(input: progression::ProgressionInput, output: &str) 
     composition.add_harmony_track(&progression, 4, 4);
 
     composition.save(output)?;
-    println!("Saved to {}", output);
+    log::info!("Saved to {}", output);
     Ok(())
 }

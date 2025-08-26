@@ -3,9 +3,9 @@ description = "Pure alpha wave entrainment (8-12 Hz) with minimal rhythm for rel
 tempo_hint = 100
 
 # Very minimal kick for grounding
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 0.7 },
@@ -14,27 +14,27 @@ points = [
 velocity_range = [45, 55]
 
 # Primary alpha entrainment layer (10 Hz)
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 10.0
 velocity = 30
 brainwave_type = "alpha"
 
 # Secondary alpha layer (8.5 Hz) for harmonic reinforcement
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 8.5
 velocity = 25
 brainwave_type = "alpha"
 
 # Subtle ride layer for depth
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 12.0
 velocity = 20

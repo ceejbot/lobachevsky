@@ -7,76 +7,58 @@ tempo_hint = 120
 style = "drone"
 
 # Very subtle kick pattern - almost subliminal pulse
-[[layers]]
+[[tracks]]
 name = "subtle_kick"
 voice = "Kick"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 16
-probabilities = [
-    1.0, 0.0, 0.0, 0.0,  # Beat 1 - strong but soft
-    0.3, 0.0, 0.0, 0.0,  # Beat 2 - occasional ghost
-    0.6, 0.0, 0.0, 0.0,  # Beat 3 - medium presence
-    0.2, 0.0, 0.0, 0.0,  # Beat 4 - very subtle
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 1.0, probability = 0.3 },
+    { beat = 2.0, probability = 0.6 },
+    { beat = 3.0, probability = 0.2 },
 ]
-velocities = [
-    0.4, 0.0, 0.0, 0.0,  # Very soft dynamics
-    0.2, 0.0, 0.0, 0.0,
-    0.3, 0.0, 0.0, 0.0,
-    0.2, 0.0, 0.0, 0.0,
-]
+velocity_range = [25, 51]
 
 # Sparse, textural hi-hats
-[[layers]]
+[[tracks]]
 name = "texture_hats"
 voice = "HiHatClosed"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Euclidean"
-pulses = 3
+hits = 3
 steps = 16
 rotation = 5
-velocity = 0.15  # Very quiet, textural
+velocity = 19  # Very quiet, textural
 
 # Ambient percussion - like found sounds
-[[layers]]
+[[tracks]]
 name = "ambient_texture"
 voice = "Shaker"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 16
-probabilities = [
-    0.0, 0.1, 0.0, 0.2,
-    0.0, 0.0, 0.1, 0.0,
-    0.1, 0.0, 0.0, 0.1,
-    0.0, 0.2, 0.0, 0.0,
+points = [
+    { beat = 0.25, probability = 0.1 },
+    { beat = 0.75, probability = 0.2 },
+    { beat = 1.5, probability = 0.1 },
+    { beat = 2.0, probability = 0.1 },
+    { beat = 2.75, probability = 0.1 },
+    { beat = 3.25, probability = 0.2 },
 ]
-velocities = [
-    0.0, 0.1, 0.0, 0.15,
-    0.0, 0.0, 0.1, 0.0,
-    0.1, 0.0, 0.0, 0.1,
-    0.0, 0.15, 0.0, 0.0,
-]
+velocity_range = [13, 19]
 
 # Occasional ride cymbal for atmosphere
-[[layers]]
+[[tracks]]
 name = "atmospheric_ride"
 voice = "Ride"
 
-[layers.pattern]
+[tracks.pattern_type]
 type = "Probability"
-length = 32  # Longer pattern for variation
-probabilities = [
-    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.15, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+points = [
+    { beat = 0.0, probability = 0.1 },
+    { beat = 5.0, probability = 0.15 },
 ]
-velocities = [
-    0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0,
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-]
+velocity_range = [25, 32]

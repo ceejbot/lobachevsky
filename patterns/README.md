@@ -8,7 +8,7 @@ This directory contains 30+ high-quality rhythm patterns designed for flow-state
 Perfect for long coding sessions with hypnotic, non-jarring grooves:
 - **deep_hypnotic** (126 BPM) - Extended focus sessions with minimal evolution
 - **coding_flow** (120 BPM) - Steady, non-distracting groove for programming
-- **focus_minimal** (118 BPM) - Stripped down for deep concentration  
+- **focus_minimal** (118 BPM) - Stripped down for deep concentration
 - **ambient_progressive** (110 BPM) - Slow builds with atmospheric textures
 - **trance_builder** (132 BPM) - Progressive builds without drops
 
@@ -21,7 +21,7 @@ Flow-state patterns enhanced with isochronic tones for deeper focus:
 ### 🎵 Pure Brainwave Entrainment
 Dedicated patterns for specific cognitive states:
 - **pure_alpha_entrainment** (100 BPM) - Multi-frequency alpha (8-12 Hz) for relaxed focus
-- **theta_deep_work** (90 BPM) - Theta waves (4-7 Hz) for creative problem-solving  
+- **theta_deep_work** (90 BPM) - Theta waves (4-7 Hz) for creative problem-solving
 - **gamma_peak_focus** (125 BPM) - Gamma waves (30-45 Hz) for peak cognitive performance
 - **beta_active_concentration** (110 BPM) - Beta waves (13-25 Hz) for analytical thinking
 - **mixed_entrainment_flow** (115 BPM) - Multi-frequency alpha/theta for optimal flow
@@ -88,9 +88,9 @@ let swing = SwingPattern::new(base, 0.67, 0.25) // 67% swing on 16th notes
 **Euclidean Patterns**
 ```toml
 [layers.pattern_type]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 5        # Number of hits to distribute
-steps = 8       # Total time steps  
+steps = 8       # Total time steps
 rotation = 2    # Optional: rotate pattern
 velocity = 70   # MIDI velocity
 ```
@@ -98,7 +98,7 @@ velocity = 70   # MIDI velocity
 **Probability Patterns**
 ```toml
 [layers.pattern_type]
-type = "Probability"
+pattern_type = "Probability"
 points = [
     { beat = 0.0, probability = 0.9 },
     { beat = 1.5, probability = 0.6 },
@@ -109,12 +109,12 @@ velocity_range = [40, 80]  # Random velocity range
 **Swing Patterns**
 ```toml
 [layers.pattern_type]
-type = "Swing"
+pattern_type = "Swing"
 swing_ratio = 0.67      # 0.5 = straight, 0.67 = heavy swing
 subdivision = 0.25      # 16th notes
 swing_accent = 8        # Optional velocity boost for off-beats
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 4
 steps = 8
 ```
@@ -122,11 +122,11 @@ steps = 8
 **Polyrhythmic Patterns**
 ```toml
 [layers.pattern_type]
-type = "Polyrhythmic"
+pattern_type = "Polyrhythmic"
 time_signature = [7, 8]    # 7/8 time
 pattern_length = 2         # Bars before repeat
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 5
 steps = 7
 ```
@@ -134,7 +134,7 @@ steps = 7
 **Groove Patterns**
 ```toml
 [layers.pattern_type]
-type = "Groove"
+pattern_type = "Groove"
 intensity = 0.6            # Groove effect strength
 humanization = 0.02        # Random timing variation
 
@@ -154,14 +154,14 @@ groove_type = "Custom"
 **Isochronic Patterns**
 ```toml
 [layers.pattern_type]
-type = "Isochronic"
+pattern_type = "Isochronic"
 frequency_hz = 10.0        # Pulse frequency in Hz
 velocity = 30              # MIDI velocity (0-127)
 brainwave_type = "alpha"   # Optional: alpha, beta, gamma, theta, delta
 
 # Optional: layer over existing pattern
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 4
 steps = 4
 ```
@@ -183,10 +183,10 @@ tempo_hint = 120
 [[layers]]
 voice = "kick"
 [layers.pattern_type]
-type = "Groove"
+pattern_type = "Groove"
 intensity = 0.4
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 75
@@ -198,11 +198,11 @@ name = "deep_house_shuffle"
 [[layers]]
 voice = "hihat_closed"
 [layers.pattern_type]
-type = "Swing"
+pattern_type = "Swing"
 swing_ratio = 0.62
 subdivision = 0.125
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 8
 steps = 16
 velocity = 40
@@ -211,11 +211,11 @@ velocity = 40
 [[layers]]
 voice = "ride"
 [layers.pattern_type]
-type = "Polyrhythmic"
+pattern_type = "Polyrhythmic"
 time_signature = [5, 4]
 pattern_length = 4
 [layers.pattern_type.base_pattern]
-type = "Probability"
+pattern_type = "Probability"
 points = [
     { beat = 0.0, probability = 0.7 },
     { beat = 1.2, probability = 0.5 },
@@ -282,11 +282,11 @@ Isochronic tones are evenly-spaced pulses of sound designed to synchronize brain
 [[layers]]
 voice = "percussion"
 [layers.pattern_type]
-type = "Isochronic"
+pattern_type = "Isochronic"
 frequency_hz = 10.0
 velocity = 25
 [layers.pattern_type.base_pattern]
-type = "Euclidean"
+pattern_type = "Euclidean"
 hits = 4
 steps = 4
 ```
@@ -298,7 +298,7 @@ steps = 4
 [[layers]]
 voice = "shaker"
 [layers.pattern_type]
-type = "Isochronic"
+pattern_type = "Isochronic"
 frequency_hz = 10.0
 velocity = 30
 
@@ -306,7 +306,7 @@ velocity = 30
 [[layers]]
 voice = "ride"
 [layers.pattern_type]
-type = "Isochronic"
+pattern_type = "Isochronic"
 frequency_hz = 6.0
 velocity = 25
 ```

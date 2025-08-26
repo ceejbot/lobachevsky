@@ -16,7 +16,7 @@ fn main() {
             println!("✅ Successfully loaded {} patterns!", patterns.len());
         }
         Err(e) => {
-            println!("❌ Failed to load patterns: {:?}", e);
+            println!("❌ Failed to load patterns: {:#?}", e);
             return;
         }
     }

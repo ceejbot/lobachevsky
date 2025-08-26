@@ -19,8 +19,8 @@ pub fn print_pattern(pattern: &[bool]) {
     // Print as X and . for readability
     let visual: String = pattern.iter().map(|&x| if x { 'X' } else { '.' }).collect();
 
-    println!("  Pattern: {}", visual);
-    println!("  Debug:  {:?}", pattern);
+    log::info!("  Pattern: {}", visual);
+    log::info!("  Debug:  {:?}", pattern);
 
     // Show pulse positions
     let positions: Vec<usize> = pattern
@@ -28,5 +28,5 @@ pub fn print_pattern(pattern: &[bool]) {
         .enumerate()
         .filter_map(|(i, &x)| if x { Some(i) } else { None })
         .collect();
-    println!("  Pulses at positions: {:?}", positions);
+    log::info!("  Pulses at positions: {:?}", positions);
 }

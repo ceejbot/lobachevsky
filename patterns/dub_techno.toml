@@ -3,28 +3,28 @@ description = "Spacious, reverb-heavy dub techno with atmospheric delays"
 tempo_hint = 125
 
 # Deep, spacious kick pattern
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.5
 humanization = 0.02
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 74
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "dub_delay"
 
 # Subtle kick variations with dub timing
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.2 },
@@ -32,31 +32,31 @@ points = [
     { beat = 3.25, probability = 0.15 },
 ]
 velocity_range = [40, 50]
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "dub_delay"
 
 # Sparse, delayed snare
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.6
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.15 },
     { beat = 3.0, probability = 0.2 },
 ]
 velocity_range = [45, 55]
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "dub_delay"
 
 # Atmospheric hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 5
 steps = 16
@@ -64,9 +64,9 @@ rotation = 3
 velocity = 30
 
 # Spacious ride pattern
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.3 },
@@ -77,9 +77,9 @@ points = [
 velocity_range = [28, 38]
 
 # Textural percussion
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.25, probability = 0.15 },

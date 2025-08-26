@@ -3,29 +3,29 @@ description = "Long builds and evolving patterns perfect for extended listening"
 tempo_hint = 124
 
 # Steady progressive kick
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.25
 humanization = 0.01
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 76
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "deep_house_shuffle"
 
 # Evolving kick pattern using polyrhythm
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [7, 4]
 pattern_length = 4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.3 },
@@ -35,9 +35,9 @@ points = [
 velocity_range = [45, 55]
 
 # Minimal snare/clap
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.85 },
@@ -46,17 +46,17 @@ points = [
 velocity_range = [58, 68]
 
 # Complex hi-hat pattern with subtle swing
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.6
 subdivision = 0.125
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Polyrhythmic"
 time_signature = [5, 4]
 pattern_length = 3
-[layers.pattern_type.base_pattern.base_pattern]
+[tracks.pattern_type.base_pattern.base_pattern]
 type = "Euclidean"
 hits = 8
 steps = 15
@@ -64,9 +64,9 @@ rotation = 2
 velocity = 40
 
 # Open hi-hats for dynamics
-[[layers]]
+[[tracks]]
 voice = "hihat_open"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.4 },
@@ -76,9 +76,9 @@ points = [
 velocity_range = [42, 52]
 
 # Ride for atmospheric texture
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.25, probability = 0.2 },

@@ -3,18 +3,18 @@ description = "Multi-frequency brainwave entrainment combining alpha and theta f
 tempo_hint = 115
 
 # Solid rhythmic foundation
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 70
 
 # Subtle off-beat elements
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.3 },
@@ -23,9 +23,9 @@ points = [
 velocity_range = [40, 50]
 
 # Minimal snare
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 2.0, probability = 0.8 },
@@ -33,36 +33,36 @@ points = [
 velocity_range = [50, 60]
 
 # Alpha-theta bridge (8 Hz - relaxed awareness)
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 8.0
 velocity = 30
 brainwave_type = "alpha"
 
 # Theta creativity (6 Hz - insight and intuition)
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 6.0
 velocity = 25
 brainwave_type = "theta"
 
 # Alpha focus (10 Hz - calm concentration)
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 10.0
 velocity = 28
 brainwave_type = "alpha"
 
 # Deep theta (5 Hz - subconscious processing)
-[[layers]]
+[[tracks]]
 voice = "ride"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Isochronic"
 frequency_hz = 5.0
 velocity = 20

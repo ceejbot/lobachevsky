@@ -3,26 +3,26 @@ description = "Downtempo trip hop with heavy swing and laid-back groove"
 tempo_hint = 95
 
 # Laid-back kick with swing
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.7
 subdivision = 0.5
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 75
 
 # Trip hop snare - classic backbeat with swing
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.68
 subdivision = 0.5
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.95 },
@@ -31,9 +31,9 @@ points = [
 velocity_range = [65, 75]
 
 # Ghost snares for texture
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.3 },
@@ -44,13 +44,13 @@ points = [
 velocity_range = [35, 50]
 
 # Sparse, swinging hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.65
 subdivision = 0.25
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 6
 steps = 16
@@ -58,13 +58,13 @@ rotation = 2
 velocity = 40
 
 # Occasional shaker for groove
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.72
 subdivision = 0.125
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.4 },

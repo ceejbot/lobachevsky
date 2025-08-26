@@ -3,22 +3,22 @@ description = "Complex, intricate rhythmic patterns inspired by intelligent danc
 tempo_hint = 140
 
 # Base kick in 4/4 for grounding
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 72
 
 # Polyrhythmic kick variations in 7/8
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [7, 8]
 pattern_length = 2
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 7
@@ -26,13 +26,13 @@ rotation = 1
 velocity = 55
 
 # Complex snare pattern in 5/4
-[[layers]]
+[[tracks]]
 voice = "snare"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [5, 4]
 pattern_length = 4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Probability"
 points = [
     { beat = 0.0, probability = 0.8 },
@@ -44,17 +44,17 @@ points = [
 velocity_range = [60, 75]
 
 # Intricate hi-hat work with swing and polyrhythm
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.63
 subdivision = 0.0625
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Polyrhythmic"
 time_signature = [11, 16]
 pattern_length = 1
-[layers.pattern_type.base_pattern.base_pattern]
+[tracks.pattern_type.base_pattern.base_pattern]
 type = "Euclidean"
 hits = 8
 steps = 11
@@ -62,52 +62,52 @@ rotation = 3
 velocity = 45
 
 # Rim shots in 3/4 time
-[[layers]]
+[[tracks]]
 voice = "rim"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [3, 4]
 pattern_length = 4
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 2
 steps = 3
 velocity = 40
 
 # Complex percussion layer
-[[layers]]
+[[tracks]]
 voice = "percussion"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Polyrhythmic"
 time_signature = [13, 8]
 pattern_length = 2
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Groove"
 intensity = 0.6
-[layers.pattern_type.base_pattern.base_pattern]
+[tracks.pattern_type.base_pattern.base_pattern]
 type = "Euclidean"
 hits = 6
 steps = 13
 rotation = 4
 velocity = 35
-[layers.pattern_type.base_pattern.groove_type]
+[tracks.pattern_type.base_pattern.groove_type]
 groove_type = "Custom"
 
-[layers.pattern_type.base_pattern.groove_type.timing_map]
+[tracks.pattern_type.base_pattern.groove_type.timing_map]
 "0.0" = 0.02
 "0.77" = -0.015
 "1.54" = 0.01
 "2.31" = -0.01
 
 # Additional textural shaker
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.67
 subdivision = 0.125
 swing_accent = 5
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 9
 steps = 16

@@ -3,25 +3,25 @@ description = "High energy work music - driving but not distracting"
 tempo_hint = 130
 
 # Energetic kick pattern
-[[layers]]
+[[tracks]]
 voice = "kick"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Groove"
 intensity = 0.25
 humanization = 0.01
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 4
 steps = 4
 velocity = 80
-[layers.pattern_type.groove_type]
+[tracks.pattern_type.groove_type]
 groove_type = "Template"
 name = "deep_house_shuffle"
 
 # Driving off-beat kicks
-[[layers]]
+[[tracks]]
 voice = "kick_soft"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.5, probability = 0.4 },
@@ -32,9 +32,9 @@ points = [
 velocity_range = [50, 60]
 
 # Strong snare backbeat
-[[layers]]
+[[tracks]]
 voice = "clap"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 1.0, probability = 0.95 },
@@ -43,13 +43,13 @@ points = [
 velocity_range = [70, 80]
 
 # Driving hi-hat pattern
-[[layers]]
+[[tracks]]
 voice = "hihat_closed"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Swing"
 swing_ratio = 0.58
 subdivision = 0.125
-[layers.pattern_type.base_pattern]
+[tracks.pattern_type.base_pattern]
 type = "Euclidean"
 hits = 14
 steps = 16
@@ -57,9 +57,9 @@ rotation = 1
 velocity = 50
 
 # Energetic open hi-hats
-[[layers]]
+[[tracks]]
 voice = "hihat_open"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Probability"
 points = [
     { beat = 0.75, probability = 0.5 },
@@ -68,9 +68,9 @@ points = [
 velocity_range = [45, 60]
 
 # Continuous shaker energy
-[[layers]]
+[[tracks]]
 voice = "shaker"
-[layers.pattern_type]
+[tracks.pattern_type]
 type = "Euclidean"
 hits = 11
 steps = 16

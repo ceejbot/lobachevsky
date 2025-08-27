@@ -1,0 +1,74 @@
+# Minimal techno bass pattern
+# Hypnotic, repetitive bassline for minimal and deep techno
+# Tempo range: 125-135 BPM
+
+name = "minimal_techno_bass"
+description = "Hypnotic minimal techno bassline with subtle variations"
+tempo_hint = 128
+style = "minimal_techno"
+
+[voicing]
+synth_type = "digital_bass"
+primary_synth = "FM or wavetable synthesizer"
+waveform = "Sine wave + slight harmonic distortion"
+filter = "Low-pass 18dB/oct, low resonance (20-30%)"
+envelope = "Instant attack, medium decay, high sustain, long release"
+effects = ["Tape saturation", "Ping-pong delay (1/16)", "High-cut filter automation"]
+automation = ["Micro-timing variations", "Subtle pitch modulation", "Filter cutoff breathing"]
+mixing = ["High-pass at 45Hz", "Parallel compression", "Stereo delay positioning"]
+hardware_refs = ["Elektron Analog Four", "DSI Tempest", "Moog DFAM"]
+software_refs = ["Operator", "Phase Plant", "Zebra", "Pigments"]
+production_notes = "Less is more - focus on groove and micro-variations. Use automation to create movement without losing hypnotic quality."
+
+# Minimal kick pattern
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 105
+
+# Hypnotic main bassline
+[[bass_tracks]]
+voice = "BassHypnotic"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "root", "root", "root", "third", "root", "root",
+           "root", "root", "fifth", "root", "root", "root", "root", "third"]
+note_duration = 0.25  # Sixteenth notes for continuous movement
+velocity_pattern = [90, 85, 88, 85, 90, 95, 88, 85,
+                   88, 85, 92, 88, 85, 88, 85, 90]
+
+# Micro-timed bass variations
+[[bass_tracks]]
+voice = "BassMicro"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.0625, probability = 0.3, note = "fifth" },    # Slight rush
+    { beat = 1.0625, probability = 0.2, note = "third" },   # Micro timing
+    { beat = 2.1875, probability = 0.4, note = "root" },    # Late hit
+    { beat = 3.0625, probability = 0.3, note = "fifth" },   # Early hit
+]
+velocity_range = [40, 60]
+
+# Sub bass foundation
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Euclidean"
+hits = 3
+steps = 4
+note_pattern = ["root", "root", "fifth"]
+velocity = 65
+
+# Minimal hi-hat texture
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 6
+steps = 16
+rotation = 1
+velocity = 35

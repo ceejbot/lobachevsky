@@ -1,0 +1,71 @@
+# Classic house bass pattern
+# Warm analog bass for deep house and classic house
+# Tempo range: 118-128 BPM
+
+name = "house_classic_bass"
+description = "Deep, warm house bassline with classic four-on-floor feel"
+tempo_hint = 122
+style = "house"
+
+[voicing]
+synth_type = "analog_bass"
+primary_synth = "Moog-style monophonic bass synthesizer"
+waveform = "Sawtooth + square wave mix (70/30)"
+filter = "Low-pass 12-18dB/oct, moderate resonance (40-60%)"
+envelope = "Medium attack, long decay, medium sustain, medium release"
+effects = ["Vintage tube saturation", "Analog chorus (subtle)", "Hall reverb (short)"]
+automation = ["Subtle filter cutoff movement", "Velocity-sensitive brightness"]
+mixing = ["High-pass at 35Hz", "Side-chain compression to kick", "EQ boost around 80-100Hz"]
+hardware_refs = ["Moog Subsequent 37", "Dave Smith OB-6", "Roland Juno-106"]
+software_refs = ["Serum", "Monark", "Repro-5", "Diva"]
+production_notes = "Focus on warmth and groove. Use gentle compression for consistency. Layer with sub if needed for deeper tracks."
+
+# Classic house four-on-floor kick
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 110
+
+# Main house bassline - root emphasis
+[[bass_tracks]]
+voice = "BassWarm"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "root", "fifth", "root", "root", "third", "root"]
+note_duration = 0.5  # Half notes for classic house feel
+velocity_pattern = [95, 85, 100, 80, 95, 85, 75, 90]
+
+# Sub bass reinforcement
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+note_pattern = ["root"]  # Simple root note emphasis
+velocity = 70
+
+# Off-beat bass accents
+[[bass_tracks]]
+voice = "BassPluck"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.6, note = "fifth" },
+    { beat = 1.75, probability = 0.4, note = "third" },
+    { beat = 2.75, probability = 0.7, note = "fifth" },
+    { beat = 3.75, probability = 0.3, note = "seventh" },
+]
+velocity_range = [60, 75]
+
+# House hi-hat pattern
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 8
+steps = 8
+velocity = 55

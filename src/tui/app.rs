@@ -3,6 +3,7 @@
 use super::browser::*;
 use super::preview::*;
 use crate::LobachevskyError;
+use crate::bass::BassStrategy;
 use crate::generators::algorithmic::GenerateInput;
 use crate::harmony::TypedHarmonicPattern;
 use crate::library::Library;
@@ -46,6 +47,7 @@ pub struct Selections {
     pub harmony_pattern: Option<String>,
     pub melody_strategy: Option<String>,
     pub groove_settings: Option<String>, // For humanization options
+    pub bass_strategy: Option<String>,   // Bass generation strategy
     pub bars: usize,
     pub tempo: Option<u16>,
     pub output_file: String,
@@ -92,6 +94,7 @@ pub enum EditableParam {
     OutputFile,
     KeySignature,
     StartingChord,
+    BassStrategy,
 }
 
 impl Default for Selections {
@@ -102,6 +105,7 @@ impl Default for Selections {
             harmony_pattern: None,
             melody_strategy: Some("mixed".to_string()),
             groove_settings: Some("human".to_string()),
+            bass_strategy: Some("root".to_string()),
             bars: 64,
             tempo: None,
             output_file: "generated.mid".to_string(),
@@ -115,10 +119,12 @@ impl MelodyBrowser {
     pub fn new() -> Self {
         MelodyBrowser {
             strategies: vec![
-                "mixed".to_string(),
-                "chord_tones".to_string(),
-                "arpeggio".to_string(),
-                "stepwise".to_string(),
+                "lead_synth".to_string(),
+                "arpeggiated".to_string(),
+                "rhythmic_stabs".to_string(),
+                "textural_pads".to_string(),
+                "pluck_sequence".to_string(),
+                "bass_lead".to_string(),
             ],
             selected_index: 0,
         }
@@ -200,6 +206,7 @@ impl ParamEditor {
                 "Output File".to_string(),
                 "Key Signature".to_string(),
                 "Starting Chord".to_string(),
+                "Bass Strategy".to_string(),
             ],
             editing_mode: false,
             edit_buffer: String::new(),
@@ -247,6 +254,7 @@ impl ParamEditor {
             2 => EditableParam::OutputFile,
             3 => EditableParam::KeySignature,
             4 => EditableParam::StartingChord,
+            5 => EditableParam::BassStrategy,
             _ => EditableParam::Bars,
         }
     }
@@ -423,15 +431,61 @@ impl App {
         Ok(())
     }
 
+    /// Generate a short preview of the current selections
+    pub fn generate_preview(&mut self) -> Result<(), LobachevskyError> {
+        use crate::generators::algorithmic::generate_algorithmic;
+
+        // Validate selections - need at least drums/bass or harmony
+        if self.selections.drums_pattern.is_none()
+            && self.selections.bass_pattern.is_none()
+            && self.selections.harmony_pattern.is_none()
+        {
+            self.status = "❌ Need at least drums, bass, or harmony pattern to preview".to_string();
+            return Ok(());
+        }
+
+        self.update_preview()?;
+        self.status = "🎧 Generating preview...".to_string();
+
+        // Create GenerateInput from TUI selections
+        let input = self.create_generate_input()?;
+
+        // Generate a shorter preview (8-16 bars instead of full length)
+        let preview_bars = (self.selections.bars / 4).clamp(8, 16);
+        let preview_filename = format!("preview_{}", self.selections.output_file);
+
+        // Call the main generation function with shorter length
+        match generate_algorithmic(input, preview_bars, Some(self.preview.tempo), &preview_filename) {
+            Ok(()) => {
+                self.status = format!(
+                    "🎧 Preview generated: {} ({} bars, {} BPM) - Press Space again for new preview",
+                    preview_filename, preview_bars, self.preview.tempo
+                );
+            }
+            Err(e) => {
+                self.status = format!("❌ Preview failed: {}", e);
+            }
+        }
+
+        Ok(())
+    }
+
     /// Convert TUI selections into GenerateInput for the algorithmic generator
     fn create_generate_input(&self) -> Result<GenerateInput, LobachevskyError> {
-        // Parse melody strategy
+        // Parse melody strategy - now using electronic-focused strategies
         let melody_strategy = match self.selections.melody_strategy.as_deref() {
-            Some("mixed") => MelodyStrategy::Mixed,
-            Some("chord_tones") => MelodyStrategy::ChordTones,
-            Some("arpeggio") => MelodyStrategy::Arpeggio,
-            Some("stepwise") => MelodyStrategy::Stepwise,
-            _ => MelodyStrategy::Mixed, // Default fallback
+            Some("lead_synth") => MelodyStrategy::LeadSynth,
+            Some("arpeggiated") => MelodyStrategy::Arpeggiated,
+            Some("rhythmic_stabs") => MelodyStrategy::RhythmicStabs,
+            Some("textural_pads") => MelodyStrategy::TexturalPads,
+            Some("pluck_sequence") => MelodyStrategy::PluckSequence,
+            Some("bass_lead") => MelodyStrategy::BassLead,
+            // Legacy support for old strategies
+            Some("mixed") => MelodyStrategy::LeadSynth, // Map to lead synth
+            Some("chord_tones") => MelodyStrategy::TexturalPads, // Map to pads
+            Some("arpeggio") => MelodyStrategy::Arpeggiated, // Direct map
+            Some("stepwise") => MelodyStrategy::PluckSequence, // Map to pluck
+            _ => MelodyStrategy::LeadSynth,             // Default to lead synth
         };
 
         // Create harmony pattern - if none selected, create a simple one
@@ -442,6 +496,13 @@ impl App {
             self.create_default_harmony()?
         };
 
+        // Parse bass strategy
+        let bass_strategy = self
+            .selections
+            .bass_strategy
+            .as_ref()
+            .map(|strategy_str| BassStrategy::from(strategy_str.as_str()));
+
         Ok(GenerateInput {
             rhythm_name: self
                 .selections
@@ -450,7 +511,7 @@ impl App {
                 .or(self.selections.bass_pattern.clone()),
             harmony,
             melody_strategy,
-            bass_strategy: None,      // TODO: Add bass strategy selection in TUI
+            bass_strategy,
             call_response_type: None, // TODO: Add call-response options
             notes_per_chord: 16,      // TODO: Make this configurable
         })
@@ -520,6 +581,11 @@ impl App {
             EditableParam::OutputFile => self.selections.output_file.clone(),
             EditableParam::KeySignature => self.selections.key_signature.clone(),
             EditableParam::StartingChord => self.selections.starting_chord.clone(),
+            EditableParam::BassStrategy => self
+                .selections
+                .bass_strategy
+                .clone()
+                .unwrap_or_else(|| "root".to_string()),
         }
     }
 
@@ -592,6 +658,24 @@ impl App {
                     }
                 } else {
                     self.status = "Starting chord cannot be empty".to_string();
+                }
+            }
+            EditableParam::BassStrategy => {
+                if !self.param_editor.edit_buffer.is_empty() {
+                    let strategy = self.param_editor.edit_buffer.trim().to_lowercase();
+                    let valid_strategies = [
+                        "root", "walking", "rhythmic", "counterpoint", "root_fifth", "pedal_c", "pedal_g",
+                    ];
+
+                    if valid_strategies.contains(&strategy.as_str()) || strategy.starts_with("pedal_") {
+                        self.selections.bass_strategy = Some(strategy.clone());
+                        self.status = format!("Set bass strategy to {}", strategy);
+                    } else {
+                        self.status =
+                            "Invalid strategy (root, walking, rhythmic, counterpoint, root_fifth, pedal_C)".to_string();
+                    }
+                } else {
+                    self.status = "Bass strategy cannot be empty".to_string();
                 }
             }
         }

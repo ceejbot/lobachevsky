@@ -1,6 +1,47 @@
 name = "breakbeat"
 description = "Classic breakbeat pattern with chopped-up drums"
 tempo_hint = 140
+style = "breakbeat"
+
+[voicing]
+aesthetic = "Gritty, chopped-up, sample-based with analog warmth"
+philosophy = "Raw breaks with character - vintage sampling meets modern production"
+reference_breaks = ["Amen Break", "Think Break", "Funky Drummer"]
+era = "90s UK breakbeat scene with modern polish"
+
+[voicing.kick]
+synth_type = "sampled_kick"
+primary_synth = "Classic break samples or analog drum machine"
+character = "Punchy but musical, with some grit and character"
+processing = ["Analog saturation", "Vintage EQ", "Subtle compression"]
+tuning = "70-90Hz fundamental with punch around 100-150Hz"
+sampling_notes = "Chopped from classic breaks, layered for impact"
+mixing_notes = "Sits forward in mix but leaves room for bass"
+hardware_refs = ["Akai MPC", "SP-1200", "Linn Drum samples"]
+software_refs = ["Battery with break samples", "Kontakt break libraries"]
+
+[voicing.snare]
+synth_type = "break_snare"
+character = "Classic break snare with natural dynamics and grit"
+processing = ["Tape saturation", "Vintage compression", "Natural reverb"]
+sampling_approach = "Multiple samples for velocity layers and variation"
+tuning_notes = "May include slight pitch variation for humanization"
+mixing_notes = "Center position, cuts through without being harsh"
+layering = "Often layered with handclaps or additional percussion"
+
+[voicing.hihat_closed]
+synth_type = "analog_hihat"
+character = "Tight, metallic, with some sizzle and character"
+processing = ["High-pass filter", "Analog compression", "Stereo positioning"]
+pattern_notes = "Euclidean pattern creates consistent drive"
+mixing_notes = "Provides rhythmic glue, sits in mid-high frequencies"
+
+[voicing.hihat_open]
+synth_type = "open_analog_hihat"
+character = "Washy, with natural decay and metallic shimmer"
+processing = ["Natural reverb", "Subtle chorus", "Stereo width"]
+decay_notes = "Natural open hihat decay, may be gated for rhythm"
+placement = "Strategic placement to enhance groove and fill gaps"
 
 [[tracks]]
 voice = "kick"

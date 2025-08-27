@@ -1,0 +1,120 @@
+# Uplifting Trance Goa Style Template
+# Classic Goa/uplifting trance - euphoric leads, driving basslines, psychedelic textures
+# Inspired by classic Goa trance and uplifting trance from the 90s and early 2000s
+
+name = "uplifting_trance_goa"
+description = "Classic Goa/uplifting trance - euphoric leads, driving basslines, psychedelic arpeggios"  
+tempo_range = [132, 138]
+preferred_tempo = 135
+aesthetic = "euphoric_psychedelic"
+scene_reference = "Goa beaches, uplifting trance - Astrix, Infected Mushroom, Armin van Buuren"
+
+[style_characteristics]
+philosophy = "Euphoric journey - music for transcendence and unity"
+spatial_design = "Wide, sweeping, three-dimensional soundscapes"
+rhythmic_approach = "Driving 4/4 with rolling basslines and intricate percussion"
+harmonic_language = "Major keys, uplifting progressions, emotional chord changes"
+melodic_content = "Soaring leads, psychedelic arpeggios, acid-influenced sequences"
+production_aesthetic = "Clean digital production with analog warmth on key elements"
+
+# Recommended pattern combinations
+[drums]
+primary = "trance_progressive_buildup"
+alternatives = ["trance_builder", "trance_techno_hypnotic"]
+style_notes = "Four-on-the-floor kick with rolling percussion and psychedelic elements"
+
+[bass]
+primary = "trance_rolling_bass" 
+alternatives = ["trance_rolling_bassline", "techno_acid_bass"]
+strategy = "rhythmic"  # Rolling, driving basslines
+style_notes = "Rolling 16th note patterns with filter automation"
+
+[harmony]
+primary = "trance_epic_progression"
+alternatives = ["trance_tension_release", "lydian_exploration"]
+progression_style = "uplifting_emotional"
+typical_keys = ["Cmaj", "Dmaj", "Amaj", "Fmaj", "Gmaj"]  # Uplifting major keys
+style_notes = "Epic chord progressions with emotional peaks and releases"
+
+[melody]
+primary_strategy = "lead_synth"
+secondary_strategy = "arpeggiated"
+usage_notes = "Soaring supersaw leads, psychedelic arpeggios, acid sequences"
+octave_preference = "high_energy"  # Octaves 5-8 for euphoric leads
+style_notes = "Multiple lead layers - main lead, arp, acid line, pad support"
+
+# Mixing and production guidelines
+[production]
+mix_philosophy = "Clear, punchy, euphoric - every element serves the emotional journey"
+frequency_balance = "Tight low end, clear mids, sparkling highs"
+effects_approach = "Reverb for space, delay for psychedelic elements, filters for movement"
+stereo_image = "Wide and immersive with clear center focus"
+dynamics = "High energy with breakdown/buildup structure for maximum impact"
+
+[arrangement]
+typical_structure = ["Intro (32)", "Buildup (64)", "First Drop (64)", "Breakdown (32)", "Main Buildup (32)", "Main Drop (96)", "Outro (32)"]
+build_techniques = ["Filter sweeps", "Layer addition", "Pitch risers", "Reverse reverbs"]
+breakdown_style = "Emotional breakdown with pads and filtered elements"
+energy_curve = "Intense peaks with emotional valleys - rollercoaster structure"
+
+[references]
+artists = ["Astrix", "Infected Mushroom", "Armin van Buuren", "Paul van Dyk", "Tiësto (classic)"]
+labels = ["Armada Music", "ASOT", "Platipus Records", "Hooj Choons"]
+tracks = ["Astrix - Life System", "Paul van Dyk - For An Angel", "Rank 1 - Airwave"]
+hardware = ["Access Virus TI", "Roland JP-8000", "Novation SuperNova", "Clavia Nord Lead"]
+software = ["Sylenth1", "Spire", "Massive", "Serum", "Omnisphere"]
+
+# Synthesis approach for trance
+[production.synthesis]
+supersaw_leads = "Multiple detuned saw waves for classic trance lead sound"
+pad_synthesis = "Warm analog-style pads for emotional support"
+arp_synthesis = "Bright pluck sounds with fast envelopes"
+acid_synthesis = "TB-303 style acid lines with filter automation"
+bass_synthesis = "Analog-modeled bass with PWM and filter sweeps"
+
+# Advanced production notes
+[production.frequency_zones]
+sub_bass = "30-60Hz - Clean, focused kick fundamental"
+bass = "60-150Hz - Rolling bassline, clear and punchy"
+low_mids = "150-500Hz - Clean, minimal content to avoid muddiness"
+mids = "500Hz-2kHz - Percussion and mid-range synth elements"
+high_mids = "2-8kHz - Lead synths, arpeggios, brightness"
+highs = "8kHz+ - Sparkle, reverb tails, trance shimmer"
+
+[production.dynamics]
+compression = "Punchy - enhances transients while controlling peaks"
+sidechain = "Classic trance pumping - bass and pads ducking to kick"
+limiting = "Clean and transparent - preserve emotional dynamics"
+saturation = "Subtle analog character on key elements"
+
+[production.spatial]
+reverb = "Large halls for leads, shorter rooms for percussion"
+delay = "1/8 and 1/16 delays for psychedelic elements"
+stereo_width = "Wide leads and pads, centered rhythm section"
+positioning = "Leads in foreground, supporting elements in background"
+
+[production.filter_automation]
+lead_filters = "Low-pass sweeps for emotional builds"
+bass_filters = "High-pass automation for rhythmic interest"  
+pad_filters = "Slow, emotional filter movements"
+arp_filters = "Fast, rhythmic filter patterns"
+
+[production.layering_approach]
+lead_layers = "Main supersaw lead + octave harmony + filter pad support"
+bass_layers = "Main rolling bass + sub-bass reinforcement"
+percussion_layers = "Main drums + psychedelic percussion + ethnic elements"
+harmonic_layers = "Main progression + ambient pad support + string sections"
+
+# Emotional arrangement techniques
+[arrangement.build_techniques]
+filter_sweeps = "Long, emotional filter openings over 16-32 bars"
+layer_addition = "Systematic addition of elements every 8-16 bars"
+pitch_automation = "Pitch bends and slides for psychedelic character"
+reverse_effects = "Reverse reverbs and crashes for impact"
+white_noise = "Risers and sweeps for tension building"
+
+[arrangement.breakdown_philosophy]
+emotional_core = "Strip back to pads, filtered leads, and soft percussion"
+build_anticipation = "Long builds with gradually increasing elements"
+peak_moments = "Full arrangement with all layers for maximum impact"
+journey_structure = "Arrangement tells an emotional story from start to finish"

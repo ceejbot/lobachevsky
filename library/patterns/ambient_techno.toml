@@ -1,6 +1,56 @@
 name = "ambient_techno"
 description = "Ethereal, slow-moving ambient techno with textural elements"
 tempo_hint = 115
+style = "ambient_techno"
+
+[voicing]
+aesthetic = "Organic, spacious, and ethereal with subtle electronic textures"
+
+[voicing.kick]
+synth_type = "organic_kick"
+primary_synth = "Warm analog kick with organic character"
+waveform = "Sine wave with subtle click/beep layer"
+envelope = "Slow attack, long decay, no sustain, medium release"
+processing = ["Low-pass filtering", "Tape saturation", "Subtle reverb"]
+tuning = "Deep fundamental around 50-60Hz"
+character = "Soft, round, warm - more felt than heard"
+mixing_notes = "Leave plenty of space, gentle compression, high-pass everything else at 80Hz"
+
+[voicing.kick_soft]
+inherit_from = "kick"
+character = "Ghost kicks for textural movement, barely audible"
+processing = ["Heavy low-pass", "Reverb tail", "Subtle delay"]
+
+[voicing.rim]
+synth_type = "organic_rim"
+primary_synth = "Natural rim shot or wooden percussion"
+character = "Dry, woody, intimate - like finger taps on wood"
+processing = ["Short reverb", "Slight chorus", "High-frequency roll-off"]
+placement = "Wide stereo placement for space"
+
+[voicing.hihat_closed]
+synth_type = "textural_hihat"
+primary_synth = "Filtered white noise or analog hihat"
+character = "Soft, airy, almost like breathing or wind"
+processing = ["Heavy filtering", "Reverb", "Stereo width"]
+automation = "Subtle filter movement, breathing quality"
+
+[voicing.ride]
+synth_type = "atmospheric_cymbal"
+character = "Shimmering, distant, almost bell-like"
+processing = ["Long reverb tail", "High-frequency emphasis", "Stereo spread"]
+mixing_notes = "Sit in the background, create atmosphere rather than rhythm"
+
+[voicing.percussion]
+synth_type = "organic_texture"
+character = "Natural sounds - wood, metal, found objects"
+processing = ["Unique reverb for each hit", "Subtle pitch variation", "Spatial placement"]
+variety = "Use different percussive elements for each probability hit"
+
+[voicing.shaker]
+synth_type = "natural_shaker"
+character = "Soft, sandy texture - like distant ocean waves"
+processing = ["Low-pass filtering", "Subtle reverb", "Stereo positioning"]
 
 # Soft, deep ambient kick
 [[tracks]]

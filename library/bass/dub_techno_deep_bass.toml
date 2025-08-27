@@ -1,0 +1,81 @@
+# Dub techno deep bass pattern
+# Spacious, reverb-heavy bass for dub techno
+# Tempo range: 120-130 BPM
+
+name = "dub_techno_deep_bass"
+description = "Deep, spacious bassline with dub techno character and reverb tails"
+tempo_hint = 125
+style = "dub_techno"
+
+[voicing]
+synth_type = "dub_bass"
+primary_synth = "Analog synthesizer with warm, round character"
+waveform = "Sine wave + subtle triangle harmonics"
+filter = "Low-pass 12dB/oct with very low resonance (5-15%)"
+envelope = "Medium attack, long decay, medium sustain, very long release"
+effects = ["Dub delay (1/4 + 1/8 dotted)", "Spring reverb", "High-cut filter (8kHz)"]
+automation = ["Delay send automation", "Subtle filter movement", "Reverb decay modulation"]
+mixing = ["High-pass at 30Hz", "Vintage compressor (slow attack)", "Stereo delay panning"]
+hardware_refs = ["Roland RE-301", "Moog Sub 37", "Vermona DRM1"]
+software_refs = ["Dub Machines", "TAL-Dub-3", "FabFilter Pro-Q", "ValhallaDSP Delay"]
+production_notes = "Essential dub techno sound relies heavily on delay and reverb. Use sparse playing with long tails. Less notes, more space."
+
+# Dub techno kick with space
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 3
+steps = 4
+velocity = 100
+
+# Main dub bassline - sparse and deep
+[[bass_tracks]]
+voice = "BassDub"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "", "fifth", "", "", "root", "", "third"]  # Empty beats for space
+note_duration = 1.0  # Quarter notes with gaps
+velocity_pattern = [85, 0, 75, 0, 0, 80, 0, 70]
+
+# Delayed bass echoes (simulated)
+[[bass_tracks]]
+voice = "BassEcho"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.6, note = "root" },    # Delay tail
+    { beat = 1.5, probability = 0.4, note = "fifth" },   # Delay tail
+    { beat = 2.25, probability = 0.3, note = "root" },   # Delay tail
+    { beat = 3.75, probability = 0.5, note = "third" },  # Delay tail
+]
+velocity_range = [35, 55]  # Quieter echoes
+
+# Sub bass foundation
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "", "", "root"]  # Very sparse
+note_duration = 2.0  # Half notes
+velocity_pattern = [60, 0, 0, 55]
+
+# Dub-style snare
+[[tracks]]
+voice = "Snare"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 1
+steps = 2
+velocity = 75
+
+# Minimal hi-hat texture
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.5, probability = 0.3 },
+    { beat = 3.75, probability = 0.4 },
+]
+velocity = 30

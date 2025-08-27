@@ -206,7 +206,7 @@ fn handle_character_commands(app: &mut App, c: char, modifiers: KeyModifiers) ->
 
         // Preview (space bar)
         ' ' => {
-            app.status = "Preview not yet implemented".to_string();
+            app.generate_preview()?;
         }
 
         // Help

@@ -1,6 +1,59 @@
 name = "tech_house"
 description = "Driving 4/4 tech house with syncopated percussion and rolling grooves"
 tempo_hint = 128
+style = "tech_house"
+
+[voicing]
+aesthetic = "Punchy, driving, and groove-focused with tight rhythmic precision"
+mixing_philosophy = "Everything serves the groove - tight, punchy, and locked to the grid"
+reference_tracks = ["Classic Derrick Carter", "Green Velvet", "Claude VonStroke"]
+
+[voicing.kick]
+synth_type = "tech_house_kick"
+primary_synth = "Punchy analog kick with modern character"
+waveform = "Sine wave fundamental with harmonic click"
+envelope = "Fast attack, controlled decay, focused transient"
+processing = ["Parallel compression", "Subtle saturation", "Tight EQ"]
+tuning = "Solid fundamental at 60-80Hz with punch around 100-200Hz"
+character = "Tight, punchy, cuts through the mix without overwhelming"
+mixing_notes = "Sidechain everything lightly, leave space for syncopated elements"
+hardware_refs = ["TR-909", "TR-808 (tuned)", "Jomox XBase"]
+software_refs = ["Battery 4", "Sampler instruments", "Kick synthesizers"]
+
+[voicing.kick_soft]
+inherit_from = "kick"
+character = "Syncopated ghost kicks, softer but still present"
+processing = ["Less compression", "Subtle reverb", "High-pass at 40Hz"]
+mixing_notes = "Complement main kick without fighting for space"
+
+[voicing.clap]
+synth_type = "tech_house_clap"
+primary_synth = "Layered clap samples or analog clap machine"
+character = "Wide, punchy, with stereo spread and natural tail"
+processing = ["Compression", "EQ boost around 1-3kHz", "Stereo enhancement"]
+layering = "Combine multiple clap samples for thickness"
+swing_notes = "Emphasize the swing feel, slightly behind or ahead of the beat"
+hardware_refs = ["TR-909 handclap", "Linndrum", "Oberheim DMX"]
+
+[voicing.hihat_closed]
+synth_type = "rolling_hihat"
+character = "Tight, metallic, with subtle swing and groove"
+processing = ["High-pass filtering", "Compression", "Stereo positioning"]
+automation = "Subtle filter sweeps to create rolling movement"
+polyrhythmic_notes = "Complex pattern creates forward momentum and groove"
+
+[voicing.rim]
+synth_type = "percussive_rim"
+character = "Crisp, cutting through the mix with percussive attack"
+processing = ["Compression", "EQ emphasis around 2-4kHz", "Short reverb"]
+placement = "Strategic stereo placement to create width"
+
+[voicing.shaker]
+synth_type = "groove_shaker"
+character = "Subtle but consistent, adds groove without distraction"
+processing = ["High-pass filter", "Groove-locked compression", "Stereo width"]
+groove_notes = "Locked to the custom timing map for maximum groove impact"
+mixing_notes = "Sits in the high frequencies, adds sparkle and movement"
 
 # Solid tech house kick - precise and punchy
 [[tracks]]

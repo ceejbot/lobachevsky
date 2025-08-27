@@ -375,7 +375,7 @@ fn generate_composition(bars: usize, tempo: u16, output: &str) {
     }
 
     // Generate melody
-    let melody_gen = MelodyGenerator::new(MelodyStrategy::Mixed)
+    let melody_gen = MelodyGenerator::new(MelodyStrategy::LeadSynth)
         .with_octave(5)
         .with_note_duration(0.25);
 

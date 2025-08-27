@@ -1,0 +1,81 @@
+# Trance Uplifting Progression
+# Classic uplifting trance chord progression with emotional peaks and releases
+# Based on common trance progressions from the golden era
+
+name = "trance_uplifting_progression"
+description = "Classic uplifting trance progression with emotional build and release"
+tempo_hint = 135
+style_hints = ["trance", "uplifting", "emotional"]
+
+# Start with Cmaj for maximum uplifting energy
+start_chord = { root = "C", quality = "major" }
+
+# Classic trance progression: Cmaj -> Am -> F -> G -> Am -> F -> G -> Cmaj
+# This creates a strong emotional journey with tension and release
+transformations = [
+    # Cmaj -> Am (relative minor - emotional depth)
+    { steps = ["R"], bars_per_chord = 8, description = "Move to relative minor for emotional depth" },
+    
+    # Am -> F (bIII chord - warm, supportive)  
+    { steps = ["P", "L", "P"], bars_per_chord = 8, description = "Warm major chord for support" },
+    
+    # F -> G (V of C - building tension)
+    { steps = ["R"], bars_per_chord = 8, description = "Dominant preparation for resolution" },
+    
+    # G -> Am (deceptive resolution - emotional surprise)
+    { steps = ["L", "P"], bars_per_chord = 8, description = "Deceptive resolution to minor" },
+    
+    # Am -> F (return to warmth)
+    { steps = ["P", "L", "P"], bars_per_chord = 8, description = "Return to warm major harmony" },
+    
+    # F -> G (build tension again)
+    { steps = ["R"], bars_per_chord = 8, description = "Building tension for final resolution" },
+    
+    # G -> Cmaj (triumphant return home)
+    { steps = ["L"], bars_per_chord = 16, description = "Triumphant resolution to major tonic - euphoric peak" },
+]
+
+# Extended version for longer tracks
+[extended_pattern]
+description = "Extended version with additional emotional development"
+extra_transformations = [
+    # Cmaj -> Em (vi chord - introspective)
+    { steps = ["R", "R"], bars_per_chord = 8, description = "Move to vi for introspective moment" },
+    
+    # Em -> Am (subdominant - deeper emotion)  
+    { steps = ["L", "P"], bars_per_chord = 8, description = "Deeper emotional territory" },
+    
+    # Am -> Dm (iv chord - modal color)
+    { steps = ["L", "P"], bars_per_chord = 8, description = "Modal iv chord for color" },
+    
+    # Dm -> G (return to dominant)
+    { steps = ["R", "L"], bars_per_chord = 8, description = "Return to dominant function" },
+    
+    # G -> Cmaj (final resolution)
+    { steps = ["L"], bars_per_chord = 16, description = "Final euphoric resolution" },
+]
+
+# Production and arrangement notes
+[arrangement]
+bars_per_chord = 8  # Standard for trance - long enough for filter sweeps and builds
+total_bars = 96     # 12 chords * 8 bars = full trance arrangement
+buildup_points = [32, 80]  # Major buildups at these bar positions
+breakdown_points = [48, 64] # Emotional breakdowns at these points
+
+[voicing_suggestions] 
+lead_approach = "Supersaw leads with emotional filter automation"
+pad_approach = "Warm analog pads supporting the progression"
+bass_approach = "Rolling basslines that outline the chord changes"
+arp_approach = "16th note arpeggios highlighting chord tones"
+
+[emotional_mapping]
+peak_emotions = [96]  # Bar 96 is the euphoric peak
+tension_points = [24, 56, 88]  # Moments of maximum harmonic tension
+release_points = [32, 64, 96] # Moments of harmonic resolution
+introspective_moments = [48, 64] # Quieter, more emotional sections
+
+[production_notes]
+filter_automation = "Long filter sweeps synchronized to chord changes"
+reverb_approach = "Large hall reverbs for emotional spaciousness"  
+sidechain_timing = "Classic trance pumping synchronized to chord rhythm"
+arrangement_builds = "Add layers systematically every 16 bars"

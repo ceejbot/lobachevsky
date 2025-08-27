@@ -1,0 +1,86 @@
+# Minimal Techno Berlin Style Template
+# Classic Berlin minimal techno aesthetic - surgical precision meets hypnotic depth
+# Inspired by Berghain, Tresor, and the Berlin underground scene
+
+name = "minimal_techno_berlin"
+description = "Classic Berlin minimal techno - surgical precision, hypnotic depth, warehouse atmosphere"
+tempo_range = [128, 135]
+preferred_tempo = 132
+aesthetic = "industrial_minimal"
+scene_reference = "Berlin underground - Berghain, Tresor, early 2000s minimal movement"
+
+[style_characteristics]
+philosophy = "Less is more - every element serves the hypnotic trance"
+spatial_design = "Wide, spacious, echo of concrete warehouses"
+rhythmic_approach = "Mathematical precision with subtle human touches"
+harmonic_language = "Dark, minor-focused, neo-Riemannian transformations"
+melodic_content = "Minimal - more about texture and atmosphere than melody"
+production_aesthetic = "Clinical precision with analog warmth"
+
+# Recommended pattern combinations
+[drums]
+primary = "minimal_techno"
+alternatives = ["deep_hypnotic", "focus_minimal"]
+style_notes = "Kick is everything - surgical precision, no unnecessary elements"
+
+[bass]
+primary = "minimal_techno_bass"  
+alternatives = ["dub_techno_deep_bass", "ambient_organic_bass"]
+strategy = "root"  # Simple, solid foundation
+style_notes = "Deep, focused, never competes with kick"
+
+[harmony]
+primary = "drone_sustained"
+alternatives = ["ambient_flow", "dorian_journey"]
+progression_style = "slow_transformations"
+typical_keys = ["Am", "Dm", "Em", "Gm"]  # Dark, minimal keys
+style_notes = "Slow, hypnotic changes - transformations every 16-32 bars"
+
+[melody]
+primary_strategy = "textural_pads"
+secondary_strategy = "pluck_sequence"
+usage_notes = "Use sparingly - atmosphere over melody"
+octave_preference = "mid_range"  # Octaves 4-6
+style_notes = "When melody appears, it should be haunting and minimal"
+
+# Mixing and production guidelines
+[production]
+mix_philosophy = "Space and surgical precision"
+frequency_balance = "Deep lows, clear mids, controlled highs"
+effects_approach = "Minimal reverb, surgical EQ, precise compression"
+stereo_image = "Wide but focused"
+dynamics = "Steady state with subtle build/release cycles"
+
+[arrangement]
+typical_structure = ["Intro (32)", "Build (32)", "Main (64)", "Breakdown (16)", "Main (64)", "Outro (32)"]
+build_techniques = ["Filter sweeps", "Element addition/subtraction", "Subtle automation"]
+breakdown_style = "Remove elements systematically"
+energy_curve = "Steady hypnotic state with periodic releases"
+
+[references]
+artists = ["Robert Hood", "Plastikman", "Basic Channel", "Monolake", "Max Richter"]
+labels = ["M_nus", "Ostgut Ton", "Tresor", "Chain Reaction"]
+tracks = ["Robert Hood - Minimal Nation", "Plastikman - Spastik", "Basic Channel - Phylyps Trak"]
+hardware = ["Roland TR-909", "Roland TB-303", "Access Virus", "Eventide reverbs"]
+software = ["Ableton Live", "Native Instruments Reaktor", "FabFilter Pro-Q"]
+
+# Advanced production notes
+[production.frequency_zones]
+sub_bass = "30-60Hz - Deep kick fundamental, controlled and focused"
+bass = "60-150Hz - Bass line sits here, never muddy"
+low_mids = "150-500Hz - Clean, minimal content"
+mids = "500Hz-2kHz - Percussion elements, very controlled"
+high_mids = "2-8kHz - Hi-hats, percussion textures"
+highs = "8kHz+ - Air and space, minimal content"
+
+[production.dynamics]
+compression = "Surgical - each element precisely controlled"
+sidechain = "Subtle - bass ducking slightly to kick"
+limiting = "Minimal - preserve dynamics"
+saturation = "Analog warmth on bus"
+
+[production.spatial]
+reverb = "Short, focused - concrete room character"
+delay = "Precise timing - 1/8 or 1/16 notes"
+stereo_width = "Wide but not excessive"
+positioning = "Kick center, bass center, percussion placed strategically"

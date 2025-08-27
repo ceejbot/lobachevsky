@@ -1,0 +1,92 @@
+# Ambient Techno Detroit Style Template
+# Detroit-influenced ambient techno - warm, musical, with emotional depth
+# Inspired by Carl Craig, Moodymann, and the Detroit electronic music legacy
+
+name = "ambient_techno_detroit"
+description = "Detroit-influenced ambient techno - warm, musical, soulful electronics with jazz influences"
+tempo_range = [110, 120]
+preferred_tempo = 115
+aesthetic = "warm_ambient_soul"
+scene_reference = "Detroit ambient techno - Carl Craig, Moodymann, Underground Resistance deep cuts"
+
+[style_characteristics]
+philosophy = "Technology with soul - electronic music with human warmth"
+spatial_design = "Wide, enveloping, like a warm embrace"
+rhythmic_approach = "Organic swing meets electronic precision"
+harmonic_language = "Jazz-influenced, extended chords, warm progressions"
+melodic_content = "Emotional, singing synthesizer lines"
+production_aesthetic = "Warm analog processing with digital precision"
+
+# Recommended pattern combinations
+[drums]
+primary = "ambient_techno"
+alternatives = ["deep_house", "polyrhythmic_ambient"]
+style_notes = "Soft, organic feel - more groove than power"
+
+[bass]
+primary = "ambient_organic_bass"
+alternatives = ["house_classic_bass", "dub_techno_deep_bass"]
+strategy = "walking"  # Musical, moving bass lines
+style_notes = "Musical bass lines with jazz influence"
+
+[harmony]
+primary = "ambient_flow"
+alternatives = ["dorian_journey", "lydian_exploration"]
+progression_style = "jazz_influenced"
+typical_keys = ["Dm", "Am", "Fmaj", "Cmaj", "Gm"]  # Warm, jazzy keys
+style_notes = "Extended chords, warm progressions, emotional movement"
+
+[melody]
+primary_strategy = "lead_synth"
+secondary_strategy = "textural_pads"
+usage_notes = "Emotional, singing lines - melody is important"
+octave_preference = "mid_high"  # Octaves 5-7
+style_notes = "Warm, singing synthesizer melodies with emotional content"
+
+# Mixing and production guidelines
+[production]
+mix_philosophy = "Warm embrace - enveloping the listener"
+frequency_balance = "Warm lows, rich mids, gentle highs"
+effects_approach = "Lush reverbs, warm delays, analog-modeled processing"
+stereo_image = "Enveloping, immersive"
+dynamics = "Organic breathing with longer build/release cycles"
+
+[arrangement]
+typical_structure = ["Intro (16)", "Build (48)", "Main (96)", "Breakdown (32)", "Main (64)", "Outro (48)"]
+build_techniques = ["Gradual layering", "Filter openings", "Harmonic development"]
+breakdown_style = "Keep the emotional core, strip back layers"
+energy_curve = "Gentle waves - emotional peaks and valleys"
+
+[references]
+artists = ["Carl Craig", "Moodymann", "Underground Resistance", "Theo Parrish", "Kenny Larkin"]
+labels = ["Planet E", "KDJ Records", "Underground Resistance", "Peacefrog"]
+tracks = ["Carl Craig - Landcruising", "Moodymann - Shades of Jae", "UR - Amazon"]
+hardware = ["Roland Juno-106", "Yamaha DX7", "MPC 3000", "SPX90 reverb"]
+software = ["Native Instruments Reaktor", "UAD analog plugins", "FabFilter reverbs"]
+
+# Advanced production notes
+[production.frequency_zones]
+sub_bass = "30-60Hz - Warm kick fundamental with organic character"
+bass = "60-150Hz - Musical bass lines, warm and present"
+low_mids = "150-500Hz - Rich harmonic content, warm pads"
+mids = "500Hz-2kHz - Melodic content, singing synths"
+high_mids = "2-8kHz - Percussion with character, not clinical"
+highs = "8kHz+ - Air and warmth, analog-style high end"
+
+[production.dynamics]
+compression = "Musical - enhances groove and warmth"
+sidechain = "Gentle - subtle breathing effect"
+limiting = "Transparent - preserves musical dynamics"
+saturation = "Analog character throughout"
+
+[production.spatial]
+reverb = "Lush - hall and plate reverbs for warmth"
+delay = "Musical timing - synced to groove"
+stereo_width = "Wide and enveloping"
+positioning = "Create immersive soundscape"
+
+[production.analog_character]
+tape_saturation = "Subtle warmth on mix bus"
+vintage_eq = "Analog-modeled EQs for musical shaping"
+analog_reverb = "Vintage reverb units or accurate emulations"
+tube_saturation = "Gentle tube warmth on key elements"

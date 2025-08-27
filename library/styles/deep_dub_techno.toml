@@ -1,0 +1,107 @@
+# Deep Dub Techno Style Template
+# Berlin dub techno - Basic Channel influenced deep, spacious, delay-heavy textures
+# Inspired by Basic Channel, Rhythm & Sound, Deepchord
+
+name = "deep_dub_techno"
+description = "Berlin dub techno - spacious, delay-heavy textures with deep sub-bass and analog warmth"
+tempo_range = [120, 128] 
+preferred_tempo = 124
+aesthetic = "spacious_analog_dub"
+scene_reference = "Berlin dub techno - Basic Channel, Chain Reaction, deep listening culture"
+
+[style_characteristics]
+philosophy = "Space and depth - music for contemplation and deep listening"
+spatial_design = "Infinite depth through delay and reverb"
+rhythmic_approach = "Steady pulse with organic timing variations"
+harmonic_language = "Minimal, modal, deep and warm"
+melodic_content = "Delayed chord stabs, filtered textures, evolving pads"
+production_aesthetic = "Analog warmth with extensive use of delay as musical element"
+
+# Recommended pattern combinations
+[drums]
+primary = "dub_techno"
+alternatives = ["dub_techno_complex", "minimal_techno"]
+style_notes = "Deep kick, minimal percussion, emphasis on space between hits"
+
+[bass]
+primary = "dub_techno_deep_bass"
+alternatives = ["dub_techno_bass", "minimal_techno_bass"]
+strategy = "pedal_c"  # Deep pedal tones work well with dub aesthetics
+style_notes = "Deep, sustained bass tones with analog character"
+
+[harmony]
+primary = "drone_sustained" 
+alternatives = ["drone_gradual_shift", "ambient_flow"]
+progression_style = "glacial_transformations"
+typical_keys = ["Cm", "Dm", "Am", "Fm"]  # Deep, minor modalities
+style_notes = "Slow harmonic movement, sustained through delay networks"
+
+[melody]
+primary_strategy = "textural_pads"
+secondary_strategy = "rhythmic_stabs"  
+usage_notes = "Delayed chord stabs, filtered evolving textures"
+octave_preference = "low_mid"  # Octaves 3-5 for warmth
+style_notes = "Everything filtered and delayed - melody emerges from texture"
+
+# Mixing and production guidelines
+[production]
+mix_philosophy = "Infinite depth through delay and space"
+frequency_balance = "Deep lows, filtered mids, controlled highs"
+effects_approach = "Delay as instrument - extensive analog delay networks"
+stereo_image = "Deep and wide with ping-pong delays"
+dynamics = "Steady state with subtle evolution over long periods"
+
+[arrangement]
+typical_structure = ["Intro (64)", "Development (128)", "Peak (64)", "Evolution (128)", "Outro (64)"]
+build_techniques = ["Filter opening", "Delay feedback increase", "Layer addition"]
+breakdown_style = "Filter everything down, keep the pulse"
+energy_curve = "Gradual evolution - no sudden changes"
+
+[references]
+artists = ["Basic Channel", "Rhythm & Sound", "Deepchord", "Echospace", "Rod Modell"]
+labels = ["Basic Channel", "Chain Reaction", "Echospace Detroit", "Silent Season"]
+tracks = ["Basic Channel - Phylyps Trak", "Rhythm & Sound - King in My Empire"]
+hardware = ["Roland Space Echo", "Eventide H3000", "Quadraverb", "Juno-106", "TR-909"]
+software = ["UAD plugins", "FabFilter delays", "Valhalla reverbs", "AudioThing delays"]
+
+# Delay-centric production approach
+[production.delay_networks]
+primary_delay = "Analog tape delay - 1/4 note timing"
+secondary_delay = "Digital delay - 1/8 dotted for texture"  
+feedback_levels = "75-85% - self-oscillating when pushed"
+filtering = "High and low cut on delay returns"
+modulation = "Subtle wow and flutter on tape delays"
+
+# Advanced production notes
+[production.frequency_zones]
+sub_bass = "20-50Hz - Deep sub-bass foundation, felt more than heard"
+bass = "50-120Hz - Warm analog bass, sustained tones"
+low_mids = "120-400Hz - Filtered chord stabs, warm body"
+mids = "400Hz-2kHz - Delayed elements, filtered heavily"
+high_mids = "2-6kHz - Percussion elements, filtered"
+highs = "6kHz+ - Delay tails and air, rolled off gently"
+
+[production.dynamics]
+compression = "Minimal - preserve natural dynamics"
+sidechain = "None - steady state preferred"
+limiting = "Gentle - preserve analog warmth"
+saturation = "Analog character on delays and mix bus"
+
+[production.spatial]
+reverb = "Deep hall - long tails, low diffusion"
+delay = "Multiple analog delays - musical timing"
+stereo_width = "Wide through ping-pong delays"
+positioning = "Center-focused with wide delay spread"
+
+[production.analog_processing]
+tape_saturation = "On delay sends and returns"
+analog_filtering = "Throughout - Moog-style low-pass filters"
+analog_distortion = "Subtle on sub-bass and delay returns"
+vintage_reverb = "Plate and hall reverbs with analog character"
+
+[production.arrangement_philosophy]
+evolution = "Slow, organic development over 8-16 bar cycles"
+layering = "Gradual addition and subtraction of elements"
+filtering = "Long filter sweeps over multiple bars"
+delay_feedback = "Rhythmic manipulation of delay feedback levels"
+textural_shifts = "Focus on textural evolution rather than melodic development"

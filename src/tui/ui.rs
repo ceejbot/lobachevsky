@@ -296,11 +296,13 @@ fn render_melody_selector(frame: &mut Frame<'_>, area: Rect, app: &App) {
             let is_selected = app.selections.melody_strategy.as_ref() == Some(strategy);
 
             let description = match strategy.as_str() {
-                "mixed" => "Mixed approach with chord tones, steps, and arpeggiation",
-                "chord_tones" => "Focus on chord tones for harmonic clarity",
-                "arpeggio" => "Arpeggiated patterns following chord progressions",
-                "stepwise" => "Stepwise motion with smooth voice leading",
-                _ => "Unknown strategy",
+                "lead_synth" => "Soaring lead synthesizer lines with filter sweeps",
+                "arpeggiated" => "Fast arpeggiated sequences, classic electronic style",
+                "rhythmic_stabs" => "Punchy rhythmic chord stabs and accents",
+                "textural_pads" => "Ambient pad textures and atmospheric layers",
+                "pluck_sequence" => "Bright pluck sequences with gate effects",
+                "bass_lead" => "Low-register lead lines with sub-bass character",
+                _ => "Electronic melody strategy",
             };
 
             // Create visual indicator with cursor and selection feedback
@@ -423,6 +425,13 @@ fn render_params_editor(frame: &mut Frame<'_>, area: Rect, app: &App) {
         ("Output File", app.selections.output_file.clone()),
         ("Key Signature", app.selections.key_signature.clone()),
         ("Starting Chord", app.selections.starting_chord.clone()),
+        (
+            "Bass Strategy",
+            app.selections
+                .bass_strategy
+                .clone()
+                .unwrap_or_else(|| "root".to_string()),
+        ),
     ];
 
     let items: Vec<ListItem<'_>> = params
@@ -488,12 +497,13 @@ fn render_preview_screen(frame: &mut Frame<'_>, area: Rect, app: &App) {
 
     // Details section
     let details_text = format!(
-        "Drums: {}\nBass: {}\nHarmony: {}\nMelody: {}\nGroove: {}\nKey: {} | Start: {}\nBars: {} | Tempo: {} BPM",
+        "Drums: {}\nBass: {}\nHarmony: {}\nMelody: {}\nGroove: {}\nBass Strategy: {}\nKey: {} | Start: {}\nBars: {} | Tempo: {} BPM",
         app.selections.drums_pattern.as_deref().unwrap_or("None"),
         app.selections.bass_pattern.as_deref().unwrap_or("None"),
         app.selections.harmony_pattern.as_deref().unwrap_or("None"),
         app.selections.melody_strategy.as_deref().unwrap_or("None"),
         app.selections.groove_settings.as_deref().unwrap_or("None"),
+        app.selections.bass_strategy.as_deref().unwrap_or("root"),
         app.selections.key_signature,
         app.selections.starting_chord,
         app.selections.bars,

@@ -1,0 +1,84 @@
+# Breakbeat Reese bass pattern
+# Heavy, modulated bassline for breakbeat and jungle
+# Tempo range: 160-180 BPM
+
+name = "breakbeat_reese_bass"
+description = "Heavy Reese-style bassline for breakbeat and jungle"
+tempo_hint = 172
+style = "breakbeat"
+
+[voicing]
+synth_type = "reese_bass"
+primary_synth = "Multi-oscillator analog synthesizer with detuning"
+waveform = "Multiple detuned sawtooth waves (4-6 oscillators)"
+filter = "Low-pass 24dB/oct with moderate resonance (50-70%)"
+envelope = "Fast attack, medium decay, medium sustain, quick release"
+effects = ["Heavy distortion/overdrive", "Chorus (wide stereo)", "Reverb (gated)"]
+automation = ["Filter cutoff sweeps", "LFO on filter", "Oscillator detune modulation"]
+mixing = ["High-pass at 50Hz", "Multiband compression", "Stereo widening"]
+hardware_refs = ["Roland JP-8000", "Novation Bass Station", "Access Virus"]
+software_refs = ["Serum", "Massive", "Sylenth1", "Predator"]
+production_notes = "Classic Reese bass uses multiple detuned oscillators for thickness. Use heavy processing and make space for the breakbeats."
+
+# Breakbeat drum pattern (Amen break style)
+[[tracks]]
+voice = "Kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 6
+steps = 8
+rotation = 0
+velocity = 120
+
+# Snare accents
+[[tracks]]
+voice = "Snare"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 3
+steps = 8
+rotation = 2
+velocity = 110
+
+# Heavy Reese bassline
+[[bass_tracks]]
+voice = "BassReese"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "fifth", "root", "third", "seventh", "root", "fifth", "octave",
+           "root", "third", "fifth", "root", "seventh", "fifth", "root", "root"]
+note_duration = 0.125  # Fast 32nd note movement
+velocity_pattern = [110, 95, 105, 90, 100, 108, 92, 115,
+                   105, 88, 98, 110, 95, 90, 108, 105]
+
+# Sub bass reinforcement
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "fifth", "root"]
+note_duration = 1.0  # Quarter notes for foundation
+velocity_pattern = [85, 80, 75, 85]
+
+# Bass stabs for emphasis
+[[bass_tracks]]
+voice = "BassStab"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.7, note = "octave" },
+    { beat = 1.25, probability = 0.5, note = "fifth" },
+    { beat = 2.75, probability = 0.8, note = "seventh" },
+    { beat = 3.5, probability = 0.6, note = "third" },
+]
+velocity_range = [95, 120]
+
+# Jungle hi-hats
+[[tracks]]
+voice = "HiHatClosed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 11
+steps = 16
+rotation = 3
+velocity = 65

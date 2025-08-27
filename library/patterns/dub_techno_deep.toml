@@ -1,0 +1,119 @@
+name = "dub_techno_deep"
+description = "Deep dub techno with spacious kick and minimal percussion - Basic Channel influenced"
+tempo_hint = 124
+style = "dub_techno"
+
+[voicing]
+aesthetic = "Infinite depth through space and delay - analog warmth meets digital precision"
+philosophy = "Less is more - space between sounds is as important as the sounds themselves"
+spatial_design = "Deep, wide soundscape with extensive use of delay as musical element"
+reference_artists = ["Basic Channel", "Rhythm & Sound", "Deepchord"]
+
+[voicing.kick]
+synth_type = "deep_analog_kick"
+primary_synth = "Deep analog kick drum with extended sub-bass tail"
+waveform = "Sine wave fundamental with subtle harmonic click"
+envelope = "Medium attack, very long decay, no sustain, long release"
+processing = ["Analog saturation", "Subtle compression", "No reverb - dry and focused"]
+tuning = "Deep fundamental at 50-55Hz, felt more than heard"
+character = "Deep, warm, enveloping - creates the foundation for everything else"
+mixing_notes = "Center position, leave space around 60-80Hz for bass elements"
+hardware_refs = ["TR-909 (heavily processed)", "Custom analog kicks"]
+
+[voicing.kick_soft]
+inherit_from = "kick"
+character = "Ghost kicks for subtle rhythmic variations"
+processing = ["Heavy filtering", "Analog delay", "Tape saturation"]
+purpose = "Creates subtle complexity without disrupting the hypnotic flow"
+
+[voicing.rim]
+synth_type = "filtered_rim"
+character = "Heavily filtered rim shot - more texture than attack"
+processing = ["Heavy low-pass filtering", "Analog delay", "Subtle reverb"]
+delay_notes = "1/4 note delay with feedback, becomes rhythmic element"
+mixing_notes = "Wide stereo placement through delay"
+
+[voicing.hihat_closed]
+synth_type = "textural_hihat"
+character = "Minimal, filtered, more texture than rhythm"
+processing = ["Heavy high-pass and low-pass filtering", "Analog delay", "Vintage reverb"]
+pattern_notes = "Sparse pattern creates breathing space"
+delay_approach = "1/8 dotted delays create polyrhythmic texture"
+
+[voicing.percussion]
+synth_type = "delayed_texture"
+character = "Percussive elements heavily processed through delay networks"
+processing = ["Multiple analog delays", "Filtering", "Modulation"]
+delay_network = "Multiple delay times: 1/4, 1/8 dotted, 1/16"
+feedback_levels = "80-85% - near self-oscillation for texture"
+
+[voicing.shaker]
+synth_type = "ambient_texture"
+character = "Barely perceptible texture - more felt than heard"
+processing = ["Heavy filtering", "Long reverb tail", "Analog delay"]
+purpose = "Adds subtle movement and organic character"
+
+# Deep, spacious kick with extended tail
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 75
+
+# Very subtle kick variations - creates micro-rhythm
+[[tracks]]
+voice = "kick_soft"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.1 },
+    { beat = 2.75, probability = 0.12 },
+]
+velocity_range = [25, 30]
+
+# Minimal rim - heavily processed with delay
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 2.0, probability = 0.8 },
+    { beat = 3.5, probability = 0.3 },
+]
+velocity_range = [40, 45]
+
+# Sparse, textural hi-hat
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]  
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 3
+velocity = 30
+
+# Polyrhythmic percussion for texture
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 8]
+pattern_length = 4
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 3
+steps = 5
+velocity = 20
+
+# Ambient textural element
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.5, probability = 0.05 },
+    { beat = 3.25, probability = 0.06 },
+]
+velocity_range = [15, 20]

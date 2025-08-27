@@ -3,9 +3,22 @@
 # Tempo range: 130-138 BPM
 
 name = "trance_rolling_bass"
-description = "Classic rolling bass pattern for trance"
+description = "Classic rolling bass pattern for uplifting trance with driving energy"
 tempo_hint = 135
 style = "trance"
+
+[voicing]
+synth_type = "trance_bass"
+primary_synth = "Virtual analog synthesizer with bright character"
+waveform = "Sawtooth wave with pulse width modulation"
+filter = "Low-pass 24dB/oct with moderate resonance (45-65%)"
+envelope = "Fast attack, short decay, medium sustain, short release"
+effects = ["Stereo chorus", "Analog delay (1/8)", "Reverb (hall, short decay)"]
+automation = ["Filter cutoff sequencing", "PWM modulation", "Velocity-sensitive brightness"]
+mixing = ["High-pass at 55Hz", "Side-chain compression", "Stereo enhancement"]
+hardware_refs = ["Access Virus TI", "Roland JP-8000", "Novation SuperNova"]
+software_refs = ["Sylenth1", "Spire", "Massive", "Phase Plant"]
+production_notes = "Classic trance bass needs punch and clarity. Use side-chain compression tightly synced to kick. Emphasize the rolling 16th note patterns."
 
 # Four-on-the-floor kick (existing drum pattern)
 [[tracks]]

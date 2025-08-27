@@ -1,0 +1,72 @@
+# Ambient organic bass pattern
+# Warm, evolving bass for ambient and downtempo
+# Tempo range: 80-110 BPM
+
+name = "ambient_organic_bass"
+description = "Warm, organic bassline for ambient and downtempo music"
+tempo_hint = 95
+style = "ambient"
+
+[voicing]
+synth_type = "organic_bass"
+primary_synth = "Analog synthesizer with vintage character"
+waveform = "Triangle wave + subtle square harmonics"
+filter = "Low-pass 12dB/oct, very low resonance (10-20%)"
+envelope = "Slow attack, long decay, high sustain, very long release"
+effects = ["Vintage reverb (plate/hall)", "Analog delay (dotted 1/4)", "Chorus (slow rate)"]
+automation = ["Slow filter cutoff evolution", "LFO modulation on pitch", "Reverb send automation"]
+mixing = ["High-pass at 25Hz", "Gentle tube compression", "Wide stereo imaging on effects"]
+hardware_refs = ["Moog Mother-32", "Make Noise 0-Coast", "Arturia MiniBrute"]
+software_refs = ["TAL-U-NO-LX", "Repro-1", "Bazille", "Blade"]
+production_notes = "Focus on texture and space. Use long note sustains and natural-sounding modulation. Layer with field recordings if desired."
+
+# Soft ambient kick
+[[tracks]]
+voice = "KickSoft"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 2
+steps = 4
+velocity = 65
+
+# Main ambient bassline - long sustained notes
+[[bass_tracks]]
+voice = "BassOrganic"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "fifth", "third", "root", "seventh", "fifth", "root"]
+note_duration = 2.0  # Half notes and whole notes for ambient feel
+velocity_pattern = [75, 70, 80, 75, 70, 85, 75, 70]
+
+# Subtle bass harmonics
+[[bass_tracks]]
+voice = "BassHarmonic"
+[bass_tracks.pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.4, note = "fifth" },
+    { beat = 2.0, probability = 0.3, note = "third" },
+    { beat = 3.5, probability = 0.5, note = "octave" },
+]
+velocity_range = [45, 65]
+
+# Deep sub foundation
+[[bass_tracks]]
+voice = "BassSub"
+[bass_tracks.pattern]
+type = "Sequence"
+sequence = ["root", "root", "root", "root"]  # Very simple root emphasis
+note_duration = 4.0  # Whole notes
+velocity_pattern = [55, 50, 50, 55]
+
+# Subtle percussion texture
+[[tracks]]
+voice = "Percussion"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.3 },
+    { beat = 2.75, probability = 0.4 },
+    { beat = 3.25, probability = 0.2 },
+]
+velocity = 40

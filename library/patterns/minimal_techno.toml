@@ -1,6 +1,58 @@
 name = "minimal_techno"
 description = "Repetitive, hypnotic minimal techno with subtle variations"
 tempo_hint = 130
+style = "minimal_techno"
+
+[voicing]
+aesthetic = "Stark, precise, hypnotic - each element serves a specific purpose"
+philosophy = "Less is more - every sound is essential and purposeful"
+spatial_design = "Wide, spacious mix with surgical precision"
+reference_artists = ["Robert Hood", "Plastikman", "Basic Channel"]
+
+[voicing.kick]
+synth_type = "minimal_kick"
+primary_synth = "Clean, precise analog kick drum"
+waveform = "Pure sine wave with minimal harmonic content"
+envelope = "Medium attack, controlled decay, no sustain, quick release"
+processing = ["Precise EQ", "Minimal compression", "No reverb"]
+tuning = "Focused fundamental at 65Hz, minimal sub content"
+character = "Surgical precision, cuts clean through mix"
+mixing_notes = "Anchor point for entire track - everything else revolves around it"
+hardware_refs = ["TR-909 (filtered)", "TR-808 (minimal processing)"]
+
+[voicing.kick_soft]
+inherit_from = "kick"
+character = "Micro-variations, barely perceptible ghost notes"
+processing = ["Heavy filtering", "Extreme subtlety"]
+purpose = "Creates subtle rhythmic interest without disrupting hypnotic flow"
+
+[voicing.rim]
+synth_type = "minimal_rim"
+character = "Dry, precise, almost clinical - like a metronome click"
+processing = ["No reverb", "Precise EQ", "Minimal dynamics"]
+placement = "Dead center, no stereo tricks"
+purpose = "Reinforces the 2 and 4, nothing more"
+
+[voicing.hihat_closed]
+synth_type = "hypnotic_hihat"
+character = "Repetitive, metronomic, almost machine-like"
+processing = ["High-pass filter", "No reverb", "Consistent velocity"]
+pattern_notes = "Euclidean pattern creates mathematical perfection"
+mixing_notes = "Sits high in mix, provides constant rhythmic grid"
+
+[voicing.percussion]
+synth_type = "polyrhythmic_element"
+character = "Subtle complexity against the rigid 4/4 framework"
+processing = ["Minimal reverb", "Precise placement in frequency spectrum"]
+polyrhythmic_notes = "3/4 against 4/4 creates subtle tension and release"
+purpose = "Adds mathematical interest without breaking the trance"
+
+[voicing.shaker]
+synth_type = "ghost_texture"
+character = "Almost inaudible, more felt than heard"
+processing = ["Heavy filtering", "Extreme subtlety"]
+purpose = "Micro-rhythmic variations for deep listeners"
+mixing_notes = "Barely present in the mix, subliminal groove enhancement"
 
 # Clean, precise minimal kick
 [[tracks]]

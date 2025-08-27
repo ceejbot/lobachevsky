@@ -3,9 +3,22 @@
 # Tempo range: 125-135 BPM
 
 name = "techno_acid_bass"
-description = "Acid-style bass pattern for techno"
+description = "Acid-style bass pattern for techno with classic 303 characteristics"
 tempo_hint = 130
 style = "techno"
+
+[voicing]
+synth_type = "analog_acid_bass"
+primary_synth = "TB-303 style monophonic analog synthesizer"
+waveform = "Sawtooth wave with square wave blend"
+filter = "Low-pass 24dB/oct with high resonance (70-90%)"
+envelope = "Fast attack, medium decay, low sustain, quick release"
+effects = ["Overdrive/distortion", "Phaser (optional)", "Delay (1/8 dotted)"]
+automation = ["Filter cutoff modulation", "Resonance sweeps", "Slide/glide between notes"]
+mixing = ["High-pass at 60Hz", "Side-chain to kick", "Stereo widening on delays"]
+hardware_refs = ["Roland TB-303", "Roland SH-101", "Moog Minitaur"]
+software_refs = ["Ableton Operator", "Serum", "Massive", "Vital"]
+production_notes = "Classic acid sound - emphasize filter automation and note slides. Keep low end focused, use saturation for character."
 
 # Driving techno kick
 [[tracks]]

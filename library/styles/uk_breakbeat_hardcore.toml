@@ -1,0 +1,106 @@
+# UK Breakbeat Hardcore Style Template  
+# Early 90s UK rave scene - raw energy, chopped breaks, analog madness
+# Inspired by the original UK rave scene, hardcore continuum
+
+name = "uk_breakbeat_hardcore"
+description = "Early 90s UK breakbeat hardcore - raw rave energy with chopped Amen breaks and analog chaos"
+tempo_range = [150, 180]
+preferred_tempo = 165
+aesthetic = "raw_analog_rave" 
+scene_reference = "Early 90s UK rave - hardcore continuum, warehouse parties, pirate radio"
+
+[style_characteristics]
+philosophy = "Raw energy and analog chaos - music for altered states"
+spatial_design = "Wide, chaotic, warehouse reverb"
+rhythmic_approach = "Chopped breaks with analog swing and grit"
+harmonic_language = "Simple, effective - more about energy than harmony"
+melodic_content = "Analog synth stabs, hoover sounds, rave bells"
+production_aesthetic = "Lo-fi sampling with analog warmth and distortion"
+
+# Recommended pattern combinations
+[drums]
+primary = "breakbeat"
+alternatives = ["breaks_dnb", "analog_drift"]
+style_notes = "Chopped Amen breaks, analog processing, controlled chaos"
+
+[bass]
+primary = "breakbeat_reese_bass"
+alternatives = ["dub_techno_deep_bass", "house_classic_bass"]
+strategy = "root_fifth"  # Simple, powerful patterns
+style_notes = "Deep Reese bass, analog distortion, sub-heavy"
+
+[harmony]
+primary = "compound_transformations"  
+alternatives = ["classic_plr", "hexatonic_northern"]
+progression_style = "energetic_changes"
+typical_keys = ["Em", "Am", "Dm", "Bm"]  # Dark, driving keys
+style_notes = "Simple chord stabs, more about rhythm than complex harmony"
+
+[melody]
+primary_strategy = "rhythmic_stabs"
+secondary_strategy = "lead_synth" 
+usage_notes = "Analog synth stabs, hoover leads, rave bells"
+octave_preference = "wide_range"  # Octaves 3-8
+style_notes = "Classic rave sounds - hoovers, stabs, analog leads"
+
+# Mixing and production guidelines
+[production]
+mix_philosophy = "Raw energy with controlled chaos"
+frequency_balance = "Heavy low end, aggressive mids, bright highs"
+effects_approach = "Analog distortion, vintage reverbs, tape delays"
+stereo_image = "Wide and chaotic but focused"
+dynamics = "High energy with breakdown sections for maximum impact"
+
+[arrangement]
+typical_structure = ["Intro (16)", "Build (16)", "Drop (32)", "Breakdown (16)", "Build (16)", "Main Drop (64)", "Outro (16)"]
+build_techniques = ["Filter sweeps", "Break chops", "Analog automation", "Crowd noise"]
+breakdown_style = "Strip to breaks and bass, build tension"
+energy_curve = "Intense peaks with brief valleys for maximum impact"
+
+[references]
+artists = ["The Prodigy", "Altern-8", "Shut Up and Dance", "4 Hero", "LTJ Bukem (early)"]
+labels = ["XL Recordings", "Moving Shadow", "Reinforced Records", "Production House"]
+tracks = ["The Prodigy - Out of Space", "Altern-8 - Activ 8", "SL2 - On a Ragga Tip"]
+hardware = ["Akai MPC60", "Roland TB-303", "Juno-106", "SPX90", "Yamaha SPX1000"]
+software = ["Renoise", "Reason", "Battery", "Kontakt break libraries"]
+
+# Break chopping and sampling
+[production.sampling]
+source_breaks = ["Amen Break", "Think Break", "Funky Drummer", "Apache", "Hot Pants"]
+chopping_style = "Analog sampler artifacts, pitch shifting, time stretching"
+velocity_layers = "Multiple chops at different velocities for realism"
+processing = "Analog saturation, bit crushing, vinyl crackle"
+
+# Analog synthesis approach
+[production.synthesis]
+bass_approach = "Analog or analog-modeled - TB-303, Juno, SH-101"
+lead_approach = "Classic rave sounds - hoover (Alpha Juno), analog leads"
+pad_approach = "Warm analog pads, filtered and modulated"
+effects_approach = "Vintage reverbs, analog delays, analog distortion"
+
+# Advanced production notes
+[production.frequency_zones]
+sub_bass = "20-60Hz - Massive sub presence for sound system impact" 
+bass = "60-150Hz - Reese bass dominance, analog character"
+low_mids = "150-500Hz - Break body, analog warmth"
+mids = "500Hz-2kHz - Break crackle, synth body"
+high_mids = "2-8kHz - Break attack, synth brightness"
+highs = "8kHz+ - Analog sheen, break sizzle"
+
+[production.dynamics]
+compression = "Aggressive - pumping effect, analog character"
+sidechain = "Heavy - classic rave pumping effect"
+limiting = "Aggressive - for maximum loudness and energy"
+saturation = "Heavy analog saturation throughout"
+
+[production.spatial]
+reverb = "Warehouse - big spaces, long tails"
+delay = "Analog - warm, musical delays"
+stereo_width = "Wide but punchy in center"
+positioning = "Breaks and bass center, leads and effects wide"
+
+[production.lo_fi_character]
+bit_crushing = "12-bit character on breaks for vintage sampler feel"
+vinyl_emulation = "Crackle and warmth on master bus"
+tape_saturation = "Heavy tape character for analog warmth"
+filtering = "Analog-style filtering with resonance and character"

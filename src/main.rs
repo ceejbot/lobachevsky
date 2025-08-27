@@ -144,6 +144,9 @@ enum Commands {
         analyze: bool,
     },
 
+    /// Launch interactive TUI for music generation
+    Tui,
+
     /// Generate a complete algorithmic composition
     Generate {
         /// Rhythm pattern name from library (e.g., "deep_hypnotic",
@@ -207,12 +210,18 @@ fn main() -> miette::Result<()> {
     miette::set_panic_hook();
     let cli = Cli::parse();
 
-    let level = if cli.quiet {
-        log::LevelFilter::Warn
-    } else if cli.verbose {
-        log::LevelFilter::Debug
-    } else {
-        log::LevelFilter::Info
+    // Disable logging for TUI mode to prevent output interference
+    let level = match &cli.command {
+        Commands::Tui => log::LevelFilter::Off, // Silent for TUI
+        _ => {
+            if cli.quiet {
+                log::LevelFilter::Warn
+            } else if cli.verbose {
+                log::LevelFilter::Debug
+            } else {
+                log::LevelFilter::Info
+            }
+        }
     };
 
     let config = lovely_env_logger::Config {
@@ -273,6 +282,10 @@ fn main() -> miette::Result<()> {
         } => {
             let input = extended::ExtendedInput::from_cli(&start, &pattern, length, analyze)?;
             extended::generate_extended(input, &cli.output)?;
+        }
+        Commands::Tui => {
+            use lobachevsky::tui;
+            tui::start_tui()?;
         }
         Commands::Generate {
             rhythm,

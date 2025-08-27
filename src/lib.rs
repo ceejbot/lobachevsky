@@ -19,6 +19,7 @@ pub mod midi;
 pub mod morphing;
 pub mod rhythm;
 pub mod theory;
+pub mod tui;
 
 pub use core::{Chord, ChordQuality, Mode, Note, PitchClass};
 

@@ -1,5 +1,7 @@
 //! All the types of pattern generators.
 
+use std::collections::HashMap;
+
 use super::*;
 
 /// Trait for rhythm pattern generators
@@ -507,8 +509,8 @@ impl GroovePattern {
     fn apply_custom_groove(
         &self,
         mut event: DrumEvent,
-        timing_map: &std::collections::HashMap<String, f64>,
-        velocity_map: &Option<std::collections::HashMap<String, f64>>,
+        timing_map: &HashMap<String, f64>,
+        velocity_map: &Option<HashMap<String, f64>>,
     ) -> DrumEvent {
         let beat_key = format!("{:.2}", event.beat.0);
 

@@ -103,6 +103,18 @@ pub enum LobachevskyError {
     #[error("Generic error: {0}")]
     #[diagnostic(code(lobachevsky::generic_error))]
     Generic(String),
+
+    #[error("TUI error: {message}")]
+    #[diagnostic(code(lobachevsky::tui_error), help("Check terminal capabilities and try again"))]
+    TuiError { message: String },
+
+    #[error("File I/O error at {path}")]
+    #[diagnostic(code(lobachevsky::file_io_error))]
+    FileIo {
+        path: String,
+        #[source]
+        source: std::io::Error,
+    },
 }
 
 impl From<String> for LobachevskyError {

@@ -39,10 +39,12 @@ pub trait Library<'de> {
 
 pub const PATTERN_LIB: &str = "library/patterns";
 pub const HARMONICS_LIB: &str = "library/harmonics";
+pub const BASS_LIB: &str = "library/bass";
 
 // Type aliases for specific library types
 pub type HarmonicLibrary = Librarian<HarmonicPattern>;
 pub type PatternLibrary = Librarian<PatternData>;
+pub type BassLibrary = Librarian<PatternData>;
 
 // Convenience implementations for the type aliases
 impl HarmonicLibrary {

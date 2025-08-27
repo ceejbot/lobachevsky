@@ -1,0 +1,134 @@
+name = "downtempo_breaks"
+description = "Downtempo breaks with chopped Amen-style breaks at half-speed, atmospheric and hypnotic"
+tempo_hint = 82
+
+# Deep kick with subtle displacement
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.35
+humanization = 0.03
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 80
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = 0.01
+"2.0" = -0.005
+
+# Chopped break-style snare pattern
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.62
+subdivision = 0.25
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.95 },
+    { beat = 1.5, probability = 0.3 },
+    { beat = 2.25, probability = 0.4 },
+    { beat = 3.0, probability = 0.85 },
+    { beat = 3.75, probability = 0.5 },
+]
+velocity_range = [70, 85]
+
+# Ghost snares for that breaks feel
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.65
+subdivision = 0.125
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.625, probability = 0.25 },
+    { beat = 1.125, probability = 0.35 },
+    { beat = 1.375, probability = 0.2 },
+    { beat = 1.875, probability = 0.4 },
+    { beat = 2.125, probability = 0.3 },
+    { beat = 2.625, probability = 0.25 },
+    { beat = 3.125, probability = 0.45 },
+    { beat = 3.375, probability = 0.3 },
+]
+velocity_range = [40, 55]
+
+# Broken beat hi-hats
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.63
+subdivision = 0.125
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 11
+steps = 16
+rotation = 2
+velocity = 50
+
+# Atmospheric open hats
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.6
+subdivision = 0.5
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.3 },
+    { beat = 2.25, probability = 0.4 },
+    { beat = 3.5, probability = 0.25 },
+]
+velocity_range = [35, 45]
+
+# Textural shaker
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.67
+subdivision = 0.0625
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.2 },
+    { beat = 1.25, probability = 0.3 },
+    { beat = 2.75, probability = 0.15 },
+    { beat = 3.125, probability = 0.25 },
+]
+velocity_range = [25, 35]
+
+# Ride for atmosphere
+[[tracks]]
+voice = "ride"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.15 },
+    { beat = 2.0, probability = 0.2 },
+    { beat = 3.25, probability = 0.12 },
+]
+velocity_range = [30, 40]
+
+# Percussive elements
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.64
+subdivision = 0.5
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.75, probability = 0.15 },
+    { beat = 2.5, probability = 0.12 },
+]
+velocity_range = [35, 45]

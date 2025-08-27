@@ -87,7 +87,7 @@ impl TryFrom<&str> for DrumVoice {
 }
 
 /// A rhythmic event (hit)
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct DrumEvent {
     pub voice: DrumVoice,
     pub beat: Beat,

@@ -179,9 +179,10 @@ enum Commands {
         #[arg(short, long, default_value_t = 32)]
         bars: usize,
 
-        /// Tempo in BPM
-        #[arg(short = 'T', long, default_value_t = 120)]
-        tempo: u16,
+        /// Tempo in BPM (defaults to pattern tempo_hint if available, otherwise
+        /// 120)
+        #[arg(short = 'T', long)]
+        tempo: Option<u16>,
 
         /// Notes per chord for melody
         #[arg(short, long, default_value_t = 16)]
@@ -286,6 +287,18 @@ fn main() -> miette::Result<()> {
             notes_per_chord,
             return_to_start,
         } => {
+            // Resolve tempo with hints
+            let resolved_tempo = algorithmic::resolve_tempo_with_hints(
+                tempo,
+                rhythm.as_deref(),
+                harmony.as_deref(),
+                &start,
+                &pattern,
+                mode.as_deref(),
+                tonic.as_deref(),
+                return_to_start,
+            )?;
+
             let input = algorithmic::GenerateInput::from_cli(
                 rhythm.as_deref(),
                 harmony.as_deref(),
@@ -295,11 +308,11 @@ fn main() -> miette::Result<()> {
                 tonic.as_deref(),
                 &melody,
                 bars,
-                tempo,
+                resolved_tempo,
                 notes_per_chord,
                 return_to_start,
             )?;
-            algorithmic::generate_algorithmic(input, bars, tempo, &cli.output)?;
+            algorithmic::generate_algorithmic(input, bars, Some(resolved_tempo), &cli.output)?;
         }
     }
     Ok(())

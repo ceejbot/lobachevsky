@@ -1,0 +1,111 @@
+name = "odd_time_7_8"
+description = "Progressive electronic in 7/8 time with Balkan-influenced accents"
+tempo_hint = 125
+
+# 7/8 kick pattern emphasizing the odd meter
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 7
+velocity = 80
+
+# Snare pattern adapted to 7/8
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.2 },
+    { beat = 0.5, probability = 0.9 },
+    { beat = 1.0, probability = 0.3 },
+    { beat = 1.75, probability = 0.85 },
+    { beat = 2.5, probability = 0.4 },
+    { beat = 3.0, probability = 0.95 },
+]
+velocity_range = [70, 85]
+
+# Ghost notes following the 7/8 structure
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 1
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 5
+steps = 7
+rotation = 2
+velocity = 45
+
+# Hi-hats creating subdivisions in 7
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 10
+steps = 14
+rotation = 1
+velocity = 55
+
+# Accent pattern with clap
+[[tracks]]
+voice = "clap"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 4
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.875, probability = 0.7 },
+    { beat = 2.625, probability = 0.8 },
+    { beat = 4.375, probability = 0.6 },
+    { beat = 6.125, probability = 0.75 },
+]
+velocity_range = [60, 75]
+
+# Ride cymbal for atmosphere
+[[tracks]]
+voice = "ride"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.3 },
+    { beat = 1.75, probability = 0.4 },
+    { beat = 3.5, probability = 0.35 },
+    { beat = 5.25, probability = 0.5 },
+]
+velocity_range = [40, 55]
+
+# Percussion accenting the odd groupings
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [7, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 3
+steps = 7
+rotation = 3
+velocity = 50

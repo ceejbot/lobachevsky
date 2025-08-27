@@ -14,6 +14,11 @@ pub trait RhythmPattern: Send + Sync {
 
     /// Clone the pattern (for dynamic dispatch)
     fn clone_box(&self) -> Box<dyn RhythmPattern>;
+
+    /// Get a descriptive name for the pattern
+    fn name(&self) -> String {
+        "Unknown Pattern".to_string()
+    }
 }
 
 /// Euclidean rhythm generator - distributes hits evenly across steps
@@ -104,6 +109,10 @@ impl RhythmPattern for EuclideanPattern {
         events
     }
 
+    fn name(&self) -> String {
+        format!("Euclidean({}, {}, {})", self.hits, self.steps, self.voice.midi_note())
+    }
+
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
         Box::new(self.clone())
     }
@@ -173,6 +182,14 @@ impl RhythmPattern for ProbabilityPattern {
         events
     }
 
+    fn name(&self) -> String {
+        format!(
+            "Probability({}, {} points)",
+            self.voice.midi_note(),
+            self.densities.len()
+        )
+    }
+
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
         Box::new(self.clone())
     }
@@ -219,6 +236,10 @@ impl RhythmPattern for LayeredPattern {
         // Sort by beat position
         all_events.sort_by(|a, b| a.beat.partial_cmp(&b.beat).unwrap_or(std::cmp::Ordering::Equal));
         all_events
+    }
+
+    fn name(&self) -> String {
+        format!("Layered({} layers)", self.layers.len())
     }
 
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
@@ -289,6 +310,10 @@ impl RhythmPattern for SwingPattern {
 
     fn pattern_length(&self) -> usize {
         self.base_pattern.pattern_length()
+    }
+
+    fn name(&self) -> String {
+        format!("Swing({}, ratio: {:.2})", self.base_pattern.name(), self.swing_ratio)
     }
 
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
@@ -370,6 +395,15 @@ impl RhythmPattern for PolyrhythmicPattern {
 
     fn pattern_length(&self) -> usize {
         self.bars_per_cycle.ceil() as usize
+    }
+
+    fn name(&self) -> String {
+        format!(
+            "Polyrhythmic({}/{}, {})",
+            self.time_signature.0,
+            self.time_signature.1,
+            self.base_pattern.name()
+        )
     }
 
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
@@ -504,6 +538,10 @@ impl RhythmPattern for GroovePattern {
         self.base_pattern.pattern_length()
     }
 
+    fn name(&self) -> String {
+        format!("Groove({})", self.base_pattern.name())
+    }
+
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
         Box::new(GroovePattern {
             base_pattern: self.base_pattern.clone_box(),
@@ -621,6 +659,10 @@ impl RhythmPattern for IsochronicPattern {
         self.base_pattern.as_ref().map_or(1, |p| p.pattern_length())
     }
 
+    fn name(&self) -> String {
+        format!("Isochronic({} Hz, {})", self.frequency_hz, self.voice.midi_note())
+    }
+
     fn clone_box(&self) -> Box<dyn RhythmPattern> {
         Box::new(IsochronicPattern {
             voice: self.voice,
@@ -652,5 +694,52 @@ impl Clone for IsochronicPattern {
             base_pattern: self.base_pattern.as_ref().map(|p| p.clone_box()),
             pulse_density: self.pulse_density,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_pattern_names() {
+        // Test EuclideanPattern name
+        let euclidean = EuclideanPattern::new(DrumVoice::Kick, 4, 16);
+        assert_eq!(euclidean.name(), "Euclidean(4, 16, 36)");
+
+        // Test ProbabilityPattern name
+        let probability = ProbabilityPattern::new(DrumVoice::Snare)
+            .add_point(Beat(0.0), 0.8)
+            .add_point(Beat(2.0), 0.6);
+        assert_eq!(probability.name(), "Probability(38, 2 points)");
+
+        // Test LayeredPattern name
+        let layered = LayeredPattern::new()
+            .add_layer(Box::new(euclidean.clone()))
+            .add_layer(Box::new(probability.clone()));
+        assert_eq!(layered.name(), "Layered(2 layers)");
+
+        // Test SwingPattern name
+        let swing = SwingPattern::new(Box::new(euclidean.clone()), 0.67, 0.125);
+        assert!(swing.name().contains("Swing"));
+        assert!(swing.name().contains("0.67"));
+
+        // Test PolyrhythmicPattern name
+        let poly = PolyrhythmicPattern::new(Box::new(euclidean.clone()), (5, 4), 2);
+        assert!(poly.name().contains("Polyrhythmic(5/4"));
+
+        // Test GroovePattern name
+        let groove = GroovePattern::new(
+            Box::new(euclidean.clone()),
+            GrooveType::Template {
+                name: "test_groove".to_string(),
+            },
+            0.5,
+        );
+        assert!(groove.name().contains("Groove"));
+
+        // Test IsochronicPattern name
+        let iso = IsochronicPattern::new(DrumVoice::HiHatClosed, 40.0);
+        assert_eq!(iso.name(), "Isochronic(40 Hz, 42)");
     }
 }

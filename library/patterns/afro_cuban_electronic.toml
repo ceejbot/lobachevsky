@@ -1,0 +1,118 @@
+name = "afro_cuban_electronic"
+description = "6/8 Afro-Cuban clave patterns over 4/4 electronic beats"
+tempo_hint = 105
+
+# Standard 4/4 electronic kick
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 80
+
+# Son clave pattern in 6/8 feel
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [6, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.95 },    # 1
+    { beat = 0.75, probability = 0.9 },    # e of 2
+    { beat = 1.5, probability = 0.95 },    # 4
+    { beat = 2.25, probability = 0.9 },    # e of 5
+    { beat = 2.75, probability = 0.85 },   # & of 6
+]
+velocity_range = [65, 75]
+
+# Snare with rumba feel
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [6, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.3 },
+    { beat = 1.0, probability = 0.8 },
+    { beat = 2.0, probability = 0.7 },
+    { beat = 2.5, probability = 0.4 },
+]
+velocity_range = [60, 80]
+
+# Cascara pattern on hi-hats
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [6, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 9
+steps = 12
+rotation = 1
+velocity = 45
+
+# Open hats for accents
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.375, probability = 0.4 },
+    { beat = 1.125, probability = 0.35 },
+    { beat = 1.875, probability = 0.5 },
+    { beat = 2.625, probability = 0.3 },
+    { beat = 3.375, probability = 0.45 },
+]
+velocity_range = [50, 65]
+
+# Shaker for continuous motion
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [6, 8]
+pattern_length = 1
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 11
+steps = 12
+rotation = 0
+velocity = 30
+
+# Clap on the backbeat
+[[tracks]]
+voice = "clap"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.6 },
+    { beat = 3.0, probability = 0.65 },
+]
+velocity_range = [55, 70]
+
+# Percussion accents
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [6, 8]
+pattern_length = 4
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.3 },
+    { beat = 0.875, probability = 0.4 },
+    { beat = 1.75, probability = 0.35 },
+    { beat = 2.375, probability = 0.5 },
+    { beat = 3.25, probability = 0.3 },
+]
+velocity_range = [40, 55]

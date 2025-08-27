@@ -1,0 +1,136 @@
+name = "lofi_hip_hop"
+description = "Lo-fi hip hop with lazy swing, vinyl crackle simulation, and nostalgic warmth"
+tempo_hint = 85
+
+# Warm, compressed kick with subtle swing
+[[tracks]]
+voice = "kick_soft"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.72
+subdivision = 0.5
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 75
+
+# Classic lo-fi snare backbeat
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.2
+humanization = 0.04
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.95 },
+    { beat = 3.0, probability = 0.9 },
+]
+velocity_range = [60, 70]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"1.0" = 0.025   # Slightly behind the beat
+"3.0" = 0.02
+
+# Ghost snares for that shuffled feel
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.75
+subdivision = 0.25
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.4 },
+    { beat = 1.25, probability = 0.3 },
+    { beat = 1.75, probability = 0.2 },
+    { beat = 2.5, probability = 0.35 },
+    { beat = 3.25, probability = 0.25 },
+    { beat = 3.75, probability = 0.3 },
+]
+velocity_range = [35, 50]
+
+# Lazy hi-hats with vinyl crackle feel
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.78
+subdivision = 0.125
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 8
+steps = 16
+rotation = 1
+velocity = 45
+
+# Occasional open hat for breathing room
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.75
+subdivision = 0.5
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.2 },
+    { beat = 2.75, probability = 0.25 },
+]
+velocity_range = [30, 40]
+
+# Vinyl crackle simulation with shaker
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.125, probability = 0.6 },
+    { beat = 0.375, probability = 0.4 },
+    { beat = 0.625, probability = 0.5 },
+    { beat = 0.875, probability = 0.3 },
+    { beat = 1.125, probability = 0.7 },
+    { beat = 1.375, probability = 0.45 },
+    { beat = 1.625, probability = 0.55 },
+    { beat = 1.875, probability = 0.35 },
+    { beat = 2.125, probability = 0.6 },
+    { beat = 2.375, probability = 0.4 },
+    { beat = 2.625, probability = 0.65 },
+    { beat = 2.875, probability = 0.3 },
+    { beat = 3.125, probability = 0.5 },
+    { beat = 3.375, probability = 0.45 },
+    { beat = 3.625, probability = 0.55 },
+    { beat = 3.875, probability = 0.25 },
+]
+velocity_range = [15, 25]
+
+# Subtle ride for warmth
+[[tracks]]
+voice = "ride"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.73
+subdivision = 1.0
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.1 },
+    { beat = 2.0, probability = 0.15 },
+]
+velocity_range = [20, 30]
+
+# Random percussion pops
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.625, probability = 0.05 },
+    { beat = 1.875, probability = 0.08 },
+    { beat = 3.125, probability = 0.06 },
+]
+velocity_range = [25, 35]

@@ -1,0 +1,186 @@
+name = "live_drummer"
+description = "Realistic human drummer performance with natural velocity variations and subtle rushing/dragging"
+tempo_hint = 108
+
+# Kick with natural human variation
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.9
+humanization = 0.025  # Human-level timing variation
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.98 },
+    { beat = 0.5, probability = 0.15 },   # Occasional ghost
+    { beat = 1.0, probability = 0.2 },    # Light kick on 2
+    { beat = 1.75, probability = 0.6 },   # Syncopated kick
+    { beat = 2.0, probability = 0.95 },
+    { beat = 2.25, probability = 0.25 },  # Ghost kick
+    { beat = 3.0, probability = 0.3 },    # Light on 4
+    { beat = 3.5, probability = 0.7 },    # Pre-beat kick
+]
+velocity_range = [65, 95]  # Wide human range
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = -0.008    # Slightly rushing the downbeat
+"0.5" = 0.015     # Late ghost notes
+"1.0" = 0.005
+"1.75" = -0.012   # Rushing the syncopation
+"2.0" = -0.005
+"2.25" = 0.02
+"3.0" = 0.008     # Dragging beat 4
+"3.5" = -0.015    # Rushing into the next bar
+
+# Snare with human dynamics and feel
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.85
+humanization = 0.03
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.1 },   # Rare ghost
+    { beat = 1.0, probability = 0.95 },   # Solid backbeat
+    { beat = 1.75, probability = 0.4 },   # Fills
+    { beat = 2.125, probability = 0.25 },
+    { beat = 3.0, probability = 0.9 },    # Solid backbeat
+    { beat = 3.625, probability = 0.5 },  # Leading into next bar
+]
+velocity_range = [60, 105]  # Very wide dynamic range
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.25" = 0.018
+"1.0" = -0.006    # Slightly rushing the backbeat
+"1.75" = 0.012
+"2.125" = 0.025
+"3.0" = -0.003
+"3.625" = -0.018  # Rushing into the next measure
+
+# Hi-hats with natural human inconsistencies
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.95
+humanization = 0.035  # High variation on continuous elements
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 15        # Not perfectly even
+steps = 16
+rotation = 1
+velocity = 55
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = -0.005
+"0.125" = 0.008
+"0.25" = -0.003
+"0.375" = 0.012
+"0.5" = -0.008
+"0.625" = 0.015
+"0.75" = -0.002
+"0.875" = 0.018
+"1.0" = -0.006
+"1.125" = 0.01
+"1.25" = 0.003
+"1.375" = 0.016
+"1.5" = -0.007
+"1.625" = 0.013
+"1.75" = -0.001
+"1.875" = 0.02
+"2.0" = -0.004
+"2.125" = 0.009
+"2.25" = 0.006
+"2.375" = 0.017
+"2.5" = -0.009
+"2.625" = 0.014
+"2.75" = 0.002
+"2.875" = 0.019
+"3.0" = -0.005
+"3.125" = 0.011
+"3.25" = 0.004
+"3.375" = 0.015
+"3.5" = -0.008
+"3.625" = 0.021  # Getting excited for the next phrase
+"3.75" = 0.001
+"3.875" = -0.012 # Pulling back slightly
+
+# Open hats with human expression
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.8
+humanization = 0.04
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.375, probability = 0.3 },
+    { beat = 1.125, probability = 0.4 },
+    { beat = 1.875, probability = 0.6 },  # More likely for expression
+    { beat = 2.625, probability = 0.35 },
+    { beat = 3.125, probability = 0.5 },
+    { beat = 3.75, probability = 0.45 },
+]
+velocity_range = [40, 75]  # Human expression range
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.375" = 0.022
+"1.125" = 0.018
+"1.875" = -0.008  # Rushing the expressive hit
+"2.625" = 0.025
+"3.125" = 0.015
+"3.75" = -0.015   # Leading into the phrase
+
+# Rim shots with human touch
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.7
+humanization = 0.02
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.625, probability = 0.4 },
+    { beat = 1.375, probability = 0.5 },
+    { beat = 2.125, probability = 0.45 },
+    { beat = 2.875, probability = 0.6 },  # Building energy
+    { beat = 3.375, probability = 0.55 },
+]
+velocity_range = [35, 65]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.625" = 0.015
+"1.375" = -0.005
+"2.125" = 0.018
+"2.875" = -0.01   # Rushing as energy builds
+"3.375" = 0.012
+
+# Crash for emphasis (sparse)
+[[tracks]]
+voice = "percussion"  # Using as crash
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.5
+humanization = 0.015
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.05 },   # Rare emphasis
+    { beat = 2.0, probability = 0.08 },   # Slightly more on 3
+]
+velocity_range = [75, 90]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = -0.012   # Human tendency to rush accents
+"2.0" = -0.008

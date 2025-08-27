@@ -1,0 +1,131 @@
+name = "vaporwave"
+description = "Dreamy vaporwave with extremely slow tempos, nostalgic aesthetics, and ethereal atmosphere"
+tempo_hint = 68
+
+# Deep, reverb-drenched kick
+[[tracks]]
+voice = "kick_soft"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.25
+humanization = 0.05
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 65
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = 0.03    # Very laid back
+"2.0" = 0.025
+
+# Soft, dreamy snare
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.15
+humanization = 0.06
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.8 },
+    { beat = 3.0, probability = 0.75 },
+]
+velocity_range = [45, 55]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"1.0" = 0.04    # Even more behind the beat
+"3.0" = 0.035
+
+# Atmospheric ghost snares
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.15 },
+    { beat = 1.5, probability = 0.2 },
+    { beat = 2.25, probability = 0.12 },
+    { beat = 3.5, probability = 0.18 },
+]
+velocity_range = [25, 35]
+
+# Very sparse hi-hats for space
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.85
+subdivision = 1.0
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.3 },
+    { beat = 2.5, probability = 0.25 },
+]
+velocity_range = [25, 35]
+
+# Dreamy open hi-hat washes
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.75, probability = 0.4 },
+    { beat = 3.25, probability = 0.35 },
+]
+velocity_range = [30, 40]
+
+# Nostalgic ride cymbal
+[[tracks]]
+voice = "ride"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.8
+subdivision = 2.0
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.2 },
+    { beat = 2.0, probability = 0.25 },
+]
+velocity_range = [20, 30]
+
+# Ambient texture with shaker
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.08 },
+    { beat = 1.25, probability = 0.1 },
+    { beat = 2.75, probability = 0.06 },
+    { beat = 3.75, probability = 0.12 },
+]
+velocity_range = [15, 22]
+
+# Subtle percussion for dreaminess
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.875, probability = 0.04 },
+    { beat = 2.375, probability = 0.06 },
+    { beat = 3.625, probability = 0.03 },
+]
+velocity_range = [18, 25]
+
+# Extra soft kick for depth
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.25, probability = 0.15 },
+    { beat = 3.75, probability = 0.12 },
+]
+velocity_range = [35, 45]

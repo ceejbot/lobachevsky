@@ -1,0 +1,171 @@
+name = "analog_drift"
+description = "Vintage drum machine emulation with analog timing drift and velocity imperfections"
+tempo_hint = 98
+
+# Kick with analog drift - slightly inconsistent timing
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.85
+humanization = 0.015  # Subtle analog drift
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 1.0 },
+    { beat = 1.0, probability = 0.9 },
+    { beat = 2.0, probability = 1.0 },
+    { beat = 2.75, probability = 0.4 },
+    { beat = 3.0, probability = 0.85 },
+]
+velocity_range = [78, 82]  # Very tight velocity range like analog
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = 0.008
+"1.0" = -0.005   # Sometimes early
+"2.0" = 0.01
+"2.75" = 0.012
+"3.0" = -0.003
+
+# Snare with analog character
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.8
+humanization = 0.012
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.95 },
+    { beat = 3.0, probability = 0.92 },
+]
+velocity_range = [73, 77]  # Narrow range
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"1.0" = 0.006
+"3.0" = 0.009
+
+# Hi-hats with TR-808 style swing
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.58  # Classic 808 swing
+subdivision = 0.125
+swing_accent = 8
+[tracks.pattern_type.base_pattern]
+type = "Groove"
+intensity = 0.75
+humanization = 0.01
+[tracks.pattern_type.base_pattern.base_pattern]
+type = "Euclidean"
+hits = 14
+steps = 16
+rotation = 0
+velocity = 60
+[tracks.pattern_type.base_pattern.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.base_pattern.groove_type.timing_map]
+"0.0" = 0.002
+"0.125" = 0.004
+"0.25" = 0.003
+"0.375" = 0.005
+"0.5" = 0.002
+"0.625" = 0.006
+"0.75" = 0.003
+"0.875" = 0.007
+"1.0" = 0.002
+"1.125" = 0.005
+"1.25" = 0.003
+"1.375" = 0.006
+"1.5" = 0.002
+"1.625" = 0.004
+"1.75" = 0.003
+"1.875" = 0.008
+"2.0" = 0.001
+"2.125" = 0.005
+"2.25" = 0.003
+"2.375" = 0.007
+"2.5" = 0.002
+"2.625" = 0.006
+"2.75" = 0.004
+"2.875" = 0.008
+"3.0" = 0.002
+"3.125" = 0.004
+"3.25" = 0.003
+"3.375" = 0.006
+"3.5" = 0.001
+"3.625" = 0.005
+"3.75" = 0.003
+"3.875" = 0.009
+
+# Open hats with slight timing wobble
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.7
+humanization = 0.018  # More drift on open hats
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.5 },
+    { beat = 1.75, probability = 0.4 },
+    { beat = 2.5, probability = 0.45 },
+    { beat = 3.75, probability = 0.35 },
+]
+velocity_range = [58, 62]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.5" = 0.01
+"1.75" = -0.008
+"2.5" = 0.012
+"3.75" = -0.006
+
+# Rim shots with analog character
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.6
+humanization = 0.008
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.75, probability = 0.3 },
+    { beat = 1.5, probability = 0.4 },
+    { beat = 2.25, probability = 0.35 },
+    { beat = 3.5, probability = 0.45 },
+]
+velocity_range = [48, 52]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.75" = 0.005
+"1.5" = -0.003
+"2.25" = 0.007
+"3.5" = 0.004
+
+# Clap with TR-909 feel
+[[tracks]]
+voice = "clap"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.65
+humanization = 0.009
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.8 },
+    { beat = 3.0, probability = 0.75 },
+]
+velocity_range = [65, 69]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"1.0" = 0.008
+"3.0" = 0.006

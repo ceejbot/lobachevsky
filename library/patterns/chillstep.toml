@@ -1,0 +1,107 @@
+name = "chillstep"
+description = "Future garage influenced chillstep with syncopated 2-step rhythms and ethereal textures"
+tempo_hint = 78
+
+# Deep, reverb-heavy kick with syncopated placement
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.4
+humanization = 0.035
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.95 },
+    { beat = 1.75, probability = 0.4 },
+    { beat = 2.25, probability = 0.7 },
+]
+velocity_range = [70, 85]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = 0.02
+"1.75" = -0.01
+"2.25" = 0.015
+
+# Signature snare with future garage placement
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.6
+subdivision = 0.5
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.85 },
+    { beat = 2.75, probability = 0.6 },
+    { beat = 3.25, probability = 0.45 },
+]
+velocity_range = [65, 80]
+
+# Subtle rim shots for texture
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.25 },
+    { beat = 1.5, probability = 0.3 },
+    { beat = 2.5, probability = 0.2 },
+    { beat = 3.75, probability = 0.35 },
+]
+velocity_range = [30, 45]
+
+# Sparse, filtered hi-hats
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.58
+subdivision = 0.25
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 5
+steps = 16
+rotation = 3
+velocity = 35
+
+# Occasional open hi-hat for space
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.25, probability = 0.15 },
+    { beat = 3.5, probability = 0.2 },
+]
+velocity_range = [25, 35]
+
+# Atmospheric shaker
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.62
+subdivision = 0.125
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.15 },
+    { beat = 0.75, probability = 0.12 },
+    { beat = 2.0, probability = 0.18 },
+    { beat = 3.25, probability = 0.1 },
+]
+velocity_range = [20, 30]
+
+# Subtle percussion for texture
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 1.625, probability = 0.08 },
+    { beat = 2.375, probability = 0.1 },
+]
+velocity_range = [18, 25]

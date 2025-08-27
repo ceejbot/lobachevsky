@@ -123,7 +123,7 @@ impl AlgorithmicComposition {
     pub fn load_rhythm_pattern(rhythm_file: &str) -> Result<Box<dyn RhythmPattern>, LobachevskyError> {
         log::info!("🥁 Loading rhythm pattern: {}", rhythm_file);
         let mut pattern_lib = PatternLibrary::new();
-        pattern_lib.load_from_directory(std::path::Path::new("patterns"))?;
+        pattern_lib.load_from_directory(std::path::Path::new(crate::library::PATTERN_LIB))?;
 
         let pattern_data = pattern_lib
             .get(rhythm_file)
@@ -134,6 +134,112 @@ impl AlgorithmicComposition {
         pattern_data.to_pattern()
     }
 
+    /// Extract tempo hint from a rhythm pattern file
+    pub fn get_rhythm_tempo_hint(rhythm_file: &str) -> Result<Option<u16>, LobachevskyError> {
+        let mut pattern_lib = PatternLibrary::new();
+        pattern_lib.load_from_directory(std::path::Path::new(crate::library::PATTERN_LIB))?;
+
+        let pattern_data = pattern_lib
+            .get(rhythm_file)
+            .ok_or_else(|| LobachevskyError::ParseError {
+                message: format!("Rhythm pattern '{}' not found", rhythm_file),
+            })?;
+
+        Ok(pattern_data.tempo_hint)
+    }
+
+    /// Extract tempo hint from a harmonic pattern
+    pub fn get_harmony_tempo_hint(harmony: &TypedHarmonicPattern) -> Result<Option<u16>, LobachevskyError> {
+        Ok(harmony.tempo_hint)
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+/// Resolve tempo using pattern hints as fallbacks
+pub fn resolve_tempo_with_hints(
+    user_tempo: Option<u16>,
+    rhythm_name: Option<&str>,
+    harmony_file: Option<&str>,
+    _start: &str,
+    _pattern: &str,
+    _mode: Option<&str>,
+    _tonic: Option<&str>,
+    _return_to_start: bool,
+) -> Result<u16, LobachevskyError> {
+    // If user provided tempo, use that
+    if let Some(tempo) = user_tempo {
+        return Ok(tempo);
+    }
+
+    let mut suggested_tempo: Option<u16> = None;
+
+    // Try to get tempo hint from rhythm pattern
+    if let Some(rhythm_file) = rhythm_name {
+        suggested_tempo = AlgorithmicComposition::get_rhythm_tempo_hint(rhythm_file)?;
+    }
+
+    // Try to get tempo hint from harmonic pattern (takes precedence)
+    if let Some(harmony_path) = harmony_file {
+        // Load the harmony pattern to extract tempo hint
+        let harmony = if harmony_path.ends_with(".toml") {
+            let mut lib = crate::library::HarmonicLibrary::new();
+            let pattern = lib.load_from_file(std::path::Path::new(harmony_path))?;
+            pattern.to_typed()?
+        } else {
+            let mut lib = crate::library::HarmonicLibrary::new();
+            lib.load_from_directory(std::path::Path::new(crate::library::HARMONICS_LIB))?;
+            let pattern = lib.get(harmony_path).ok_or_else(|| LobachevskyError::ParseError {
+                message: format!("Harmonic pattern '{}' not found", harmony_path),
+            })?;
+            pattern.to_typed()?
+        };
+
+        if let Some(harmony_tempo) = AlgorithmicComposition::get_harmony_tempo_hint(&harmony)? {
+            suggested_tempo = Some(harmony_tempo);
+        }
+    }
+
+    // Final fallback: default tempo
+    let final_tempo = suggested_tempo.unwrap_or(120);
+
+    log::info!(
+        "🎵 Using tempo: {} BPM{}",
+        final_tempo,
+        if suggested_tempo.is_some() {
+            " (from pattern hint)"
+        } else {
+            " (default)"
+        }
+    );
+
+    Ok(final_tempo)
+}
+
+pub fn generate_algorithmic(
+    input: GenerateInput,
+    bars: usize,
+    tempo: Option<u16>,
+    output: &str,
+) -> Result<(), LobachevskyError> {
+    // tempo should already be resolved, but fallback just in case
+    let final_tempo = tempo.unwrap_or(120);
+
+    // Load or create rhythm pattern
+    let rhythm = if let Some(rhythm_name) = &input.rhythm_name {
+        AlgorithmicComposition::load_rhythm_pattern(rhythm_name)?
+    } else {
+        Box::new(EuclideanPattern::default())
+    };
+
+    let composition = AlgorithmicComposition::new(
+        input.harmony, rhythm, input.melody_strategy, input.bass_strategy, input.call_response_type, bars, final_tempo,
+        input.notes_per_chord,
+    );
+
+    composition.generate(output)
+}
+
+impl AlgorithmicComposition {
     /// Generate the composition and save it in a MIDI file
     pub fn generate(&self, output: &str) -> Result<(), LobachevskyError> {
         log::info!("🎵 Generating Algorithmic Composition");
@@ -276,27 +382,6 @@ fn calculate_aligned_bars(bars: usize) -> usize {
         // Round up to next multiple of 16
         bars.div_ceil(16) * 16
     }
-}
-
-pub fn generate_algorithmic(
-    input: GenerateInput,
-    bars: usize,
-    tempo: u16,
-    output: &str,
-) -> Result<(), LobachevskyError> {
-    // Load or create rhythm pattern
-    let rhythm = if let Some(rhythm_name) = &input.rhythm_name {
-        AlgorithmicComposition::load_rhythm_pattern(rhythm_name)?
-    } else {
-        Box::new(EuclideanPattern::default())
-    };
-
-    let composition = AlgorithmicComposition::new(
-        input.harmony, rhythm, input.melody_strategy, input.bass_strategy, input.call_response_type, bars, tempo,
-        input.notes_per_chord,
-    );
-
-    composition.generate(output)
 }
 
 #[cfg(test)]

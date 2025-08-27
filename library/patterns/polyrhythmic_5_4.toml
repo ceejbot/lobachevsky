@@ -1,0 +1,102 @@
+name = "polyrhythmic_5_4"
+description = "Complex 5-against-4 cross-rhythms with progressive electronic feel"
+tempo_hint = 110
+
+# Main 4/4 kick pattern
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 4
+steps = 4
+velocity = 85
+
+# 5-beat pattern overlaid on 4/4
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 4]
+pattern_length = 4
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 5
+steps = 5
+velocity = 75
+
+# Ghost notes for texture
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 8]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.2, probability = 0.6 },
+    { beat = 0.6, probability = 0.4 },
+    { beat = 1.0, probability = 0.5 },
+    { beat = 1.4, probability = 0.7 },
+    { beat = 1.8, probability = 0.3 },
+]
+velocity_range = [40, 55]
+
+# Regular hi-hats to anchor the groove
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Euclidean"
+hits = 8
+steps = 16
+rotation = 0
+velocity = 50
+
+# Polyrhythmic open hats
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 4]
+pattern_length = 2
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.8, probability = 0.4 },
+    { beat = 1.6, probability = 0.5 },
+    { beat = 2.4, probability = 0.3 },
+    { beat = 3.2, probability = 0.6 },
+    { beat = 4.0, probability = 0.4 },
+]
+velocity_range = [45, 60]
+
+# Percussion with 5-beat cycle
+[[tracks]]
+voice = "percussion"
+[tracks.pattern_type]
+type = "Polyrhythmic"
+time_signature = [5, 4]
+pattern_length = 4
+[tracks.pattern_type.base_pattern]
+type = "Euclidean"
+hits = 3
+steps = 5
+rotation = 1
+velocity = 45
+
+# Shaker adding subtle complexity
+[[tracks]]
+voice = "shaker"
+[tracks.pattern_type]
+type = "Probability"
+points = [
+    { beat = 0.25, probability = 0.3 },
+    { beat = 0.75, probability = 0.2 },
+    { beat = 1.25, probability = 0.35 },
+    { beat = 1.75, probability = 0.15 },
+    { beat = 2.25, probability = 0.4 },
+    { beat = 2.75, probability = 0.25 },
+    { beat = 3.25, probability = 0.3 },
+    { beat = 3.75, probability = 0.2 },
+]
+velocity_range = [25, 35]

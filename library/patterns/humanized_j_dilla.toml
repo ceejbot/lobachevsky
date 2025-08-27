@@ -1,0 +1,147 @@
+name = "humanized_j_dilla"
+description = "J Dilla-style micro-timing with drunk, late swing and dynamic ghost notes"
+tempo_hint = 92
+
+# Kick with heavy groove and humanization
+[[tracks]]
+voice = "kick"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.8
+humanization = 0.04
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.0, probability = 0.95 },
+    { beat = 0.75, probability = 0.2 },   # Subtle ghost kick
+    { beat = 1.5, probability = 0.4 },    # Off-beat kick
+    { beat = 2.0, probability = 0.9 },
+    { beat = 2.25, probability = 0.15 },  # Another ghost
+    { beat = 3.25, probability = 0.3 },
+]
+velocity_range = [70, 90]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.0" = 0.02       # Slightly late
+"0.75" = 0.035     # Ghost kicks are very late
+"1.5" = 0.025      
+"2.0" = 0.018
+"2.25" = 0.04      # Very late ghost
+"3.25" = 0.03
+
+# Snare with Dilla swing
+[[tracks]]
+voice = "snare"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.75
+humanization = 0.035
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 1.0, probability = 0.95 },
+    { beat = 3.0, probability = 0.9 },
+]
+velocity_range = [75, 85]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"1.0" = 0.045      # Signature late snare
+"3.0" = 0.038      # Also late but slightly less
+
+# Heavy ghost notes with extreme variation
+[[tracks]]
+voice = "rim"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.9
+humanization = 0.05
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.5, probability = 0.6 },
+    { beat = 0.875, probability = 0.4 },
+    { beat = 1.25, probability = 0.7 },
+    { beat = 1.625, probability = 0.3 },
+    { beat = 2.125, probability = 0.5 },
+    { beat = 2.5, probability = 0.65 },
+    { beat = 2.875, probability = 0.35 },
+    { beat = 3.375, probability = 0.55 },
+    { beat = 3.75, probability = 0.4 },
+]
+velocity_range = [25, 50]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.5" = 0.02
+"0.875" = 0.055    # Very late
+"1.25" = 0.035
+"1.625" = 0.06     # Extremely late
+"2.125" = 0.025
+"2.5" = 0.04
+"2.875" = 0.05
+"3.375" = 0.045
+"3.75" = 0.065     # Most late
+
+# Swung hi-hats with heavy humanization
+[[tracks]]
+voice = "hihat_closed"
+[tracks.pattern_type]
+type = "Swing"
+swing_ratio = 0.68    # Heavy swing
+subdivision = 0.125
+swing_accent = 15     # Accent the swung notes
+[tracks.pattern_type.base_pattern]
+type = "Groove"
+intensity = 0.7
+humanization = 0.045
+[tracks.pattern_type.base_pattern.base_pattern]
+type = "Euclidean"
+hits = 12
+steps = 16
+rotation = 0
+velocity = 45
+[tracks.pattern_type.base_pattern.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.base_pattern.groove_type.timing_map]
+"0.125" = 0.02
+"0.375" = 0.035
+"0.625" = 0.025
+"0.875" = 0.04
+"1.125" = 0.015
+"1.375" = 0.045
+"1.625" = 0.03
+"1.875" = 0.05
+"2.125" = 0.02
+"2.375" = 0.04
+"2.625" = 0.025
+"2.875" = 0.055
+"3.125" = 0.015
+"3.375" = 0.035
+"3.625" = 0.045
+"3.875" = 0.06
+
+# Occasional open hats with drunk timing
+[[tracks]]
+voice = "hihat_open"
+[tracks.pattern_type]
+type = "Groove"
+intensity = 0.8
+humanization = 0.06
+[tracks.pattern_type.base_pattern]
+type = "Probability"
+points = [
+    { beat = 0.625, probability = 0.25 },
+    { beat = 1.375, probability = 0.3 },
+    { beat = 2.875, probability = 0.35 },
+    { beat = 3.625, probability = 0.2 },
+]
+velocity_range = [40, 55]
+[tracks.pattern_type.groove_type]
+groove_type = "Custom"
+[tracks.pattern_type.groove_type.timing_map]
+"0.625" = 0.07     # Very late
+"1.375" = 0.055
+"2.875" = 0.065
+"3.625" = 0.08     # Extremely late

@@ -93,13 +93,13 @@ impl MorphingRhythmPattern {
         let mut i = 0;
 
         while i < events.len() {
-            let current = events[i].clone();
-            let mut similar_events = vec![current.clone()];
+            let current = events[i];
+            let mut similar_events = vec![current];
 
             // Find events with the same voice and similar timing
             let mut j = i + 1;
             while j < events.len() {
-                let other = events[j].clone();
+                let other = events[j];
                 if other.voice == current.voice && (other.beat.0 - current.beat.0).abs() < 0.125 {
                     similar_events.push(other);
                     j += 1;

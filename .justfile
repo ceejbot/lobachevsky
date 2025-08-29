@@ -4,6 +4,10 @@ RELATIVE_TAP_PATH := "../../../homebrew-tap/"
 _help:
 	just -l
 
+# Run the tui
+tui:
+	cargo run -- tui
+
 # Run all tests using nextest.
 test:
 	cargo nextest run

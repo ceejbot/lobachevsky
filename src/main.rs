@@ -147,6 +147,41 @@ enum Commands {
     /// Launch interactive TUI for music generation
     Tui,
 
+    /// Generate Terry Riley's "In C" algorithmically
+    InC {
+        /// Number of performers
+        #[arg(short = 'p', long, default_value_t = 12)]
+        performers: usize,
+
+        /// Performance duration in minutes
+        #[arg(short = 'd', long, default_value_t = 20.0)]
+        duration: f32,
+
+        /// Include eighth-note pulse track
+        #[arg(long, default_value_t = true)]
+        pulse: bool,
+
+        /// Tempo in BPM
+        #[arg(short = 't', long, default_value_t = 120)]
+        tempo: u16,
+
+        /// Performance variation (0.0-1.0, affects how much performers vary)
+        #[arg(long, default_value_t = 0.5)]
+        variation: f32,
+
+        /// Probability of canon voices (0.0-1.0)
+        #[arg(short = 'c', long, default_value_t = 0.3)]
+        canon_probability: f32,
+
+        /// Timing flexibility (0.0-1.0, affects tempo variations)
+        #[arg(short = 'f', long, default_value_t = 0.3)]
+        timing_flex: f32,
+
+        /// Path to patterns file
+        #[arg(long, default_value = "in_c_patterns.toml")]
+        patterns_file: String,
+    },
+
     /// Generate a complete algorithmic composition
     Generate {
         /// Rhythm pattern name from library (e.g., "deep_hypnotic",
@@ -287,6 +322,21 @@ fn main() -> miette::Result<()> {
             use lobachevsky::tui;
             tui::start_tui()?;
         }
+        Commands::InC {
+            performers,
+            duration,
+            pulse,
+            tempo,
+            variation,
+            canon_probability,
+            timing_flex,
+            patterns_file,
+        } => {
+            generate_in_c_performance(
+                performers, duration, pulse, tempo, variation, canon_probability, timing_flex, &patterns_file,
+                &cli.output,
+            )?;
+        }
         Commands::Generate {
             rhythm,
             harmony,
@@ -355,6 +405,59 @@ fn generate_ambient(style: &str, bars: usize, tempo: u16, output: &str) -> Resul
 
     composition.save(output)?;
     log::info!("Saved to {}", output);
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_in_c_performance(
+    performers: usize,
+    duration: f32,
+    pulse: bool,
+    tempo: u16,
+    variation: f32,
+    canon_probability: f32,
+    timing_flex: f32,
+    patterns_file: &str,
+    output: &str,
+) -> Result<(), LobachevskyError> {
+    use lobachevsky::generators::in_c::{InCConfig, InCGenerator};
+    use lobachevsky::melody::InCPatterns;
+
+    log::info!("Loading In C patterns from {}", patterns_file);
+
+    // Load patterns from file
+    let patterns_content = std::fs::read_to_string(patterns_file).map_err(LobachevskyError::FileError)?;
+
+    let patterns = InCPatterns::from_toml(&patterns_content)?;
+
+    log::info!("Loaded {} patterns", patterns.patterns.len());
+
+    // Create configuration
+    let config = InCConfig {
+        num_performers: performers,
+        duration_minutes: duration,
+        include_pulse: pulse,
+        tempo,
+        variation,
+        canon_probability,
+        timing_flex,
+    };
+
+    log::info!(
+        "Generating In C performance: {} performers, {} minutes, {} BPM",
+        performers,
+        duration,
+        tempo
+    );
+
+    // Generate performance
+    let mut generator = InCGenerator::new(config, patterns);
+    let midi_file = generator.generate()?;
+
+    // Save to file
+    midi_file.save(output)?;
+    log::info!("Saved In C performance to {}", output);
+
     Ok(())
 }
 

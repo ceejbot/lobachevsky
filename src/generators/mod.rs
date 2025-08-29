@@ -1,6 +1,7 @@
 pub mod algorithmic;
 pub mod extended;
 pub mod hexatonic;
+pub mod in_c;
 pub mod modal;
 pub mod progression;
 

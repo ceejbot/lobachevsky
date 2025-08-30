@@ -147,6 +147,9 @@ enum Commands {
     /// Launch interactive TUI for music generation
     Tui,
 
+    /// Launch TUI for conducting an algorithmic performance of "In C"
+    InCTui,
+
     /// Generate Terry Riley's "In C" algorithmically
     InC {
         /// Number of performers
@@ -321,6 +324,11 @@ fn main() -> miette::Result<()> {
         Commands::Tui => {
             use lobachevsky::tui;
             tui::start_tui()?;
+        }
+        Commands::InCTui => {
+            // TODO implementation to be finished
+            // use lobachevsky::tui_inc;
+            // tui_inc::start()?;
         }
         Commands::InC {
             performers,

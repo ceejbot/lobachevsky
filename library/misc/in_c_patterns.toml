@@ -1,0 +1,294 @@
+# Terry Riley's "In C" - 53 Melodic Patterns
+# Notation: Note+Octave/Duration (e.g., C4/8 = C in 4th octave, eighth note)
+# Rests: rest/duration
+# Ties: ~ connects notes
+# Dots: . after duration (e.g., /4. for dotted quarter)
+
+[[patterns]]
+number = 1
+notes = "C4/8 E4/8 C4/8 E4/8 C4/8 E4/8"
+description = "Repeating C-E pattern in eighth notes"
+canon_compatible = true
+canon_offsets = [0.25, 0.5, 1.0]
+tempo_variation_suitable = true
+self_harmony = "consonant"
+
+[[patterns]]
+number = 2  
+notes = "C4/8 E4/8 F4/4 E4/4"
+description = "C-E-F-E ascending and descending"
+canon_compatible = true
+canon_offsets = [0.5, 1.0]
+tempo_variation_suitable = false
+self_harmony = "moderate"
+
+[[patterns]]
+number = 3
+notes = "rest/8 E4/8 F4/8 E4/8"
+description = "Starting with rest, E-F-E pattern"
+canon_compatible = true
+canon_offsets = [0.25, 0.5]
+tempo_variation_suitable = true
+self_harmony = "moderate"
+
+[[patterns]]
+number = 4
+notes = "rest/8 E4/8 F4/8 G4/8"
+description = "Ascending E-F-G with initial rest"
+canon_compatible = true
+canon_offsets = [0.25, 0.5]
+tempo_variation_suitable = true
+self_harmony = "consonant"
+
+[[patterns]]
+number = 5
+notes = "E4/8 F4/8 G4/8 rest/8"
+description = "Ascending E-F-G ending with rest"
+canon_compatible = true
+canon_offsets = [0.25, 0.5]
+tempo_variation_suitable = true
+self_harmony = "consonant"
+
+[[patterns]]
+number = 6
+notes = "C5/1 C5/1"
+description = "Two whole note high C's"
+canon_compatible = true
+canon_offsets = [1.0, 2.0, 4.0]
+tempo_variation_suitable = false
+self_harmony = "neutral"
+
+[[patterns]]
+number = 7
+notes = "rest/4 rest/4 rest/8 C4/8 C4/8 rest/8 rest/4 rest/4 rest/4"
+description = "Sparse pattern with two C's"
+
+[[patterns]]
+number = 8
+notes = "G4/2. F4/4 G4/4 G4/4"
+description = "Dotted half G, then F-G-G quarters"
+
+[[patterns]]
+number = 9
+notes = "B4/8 G4/8 rest/8 rest/4 rest/4"
+description = "B-G then rests"
+
+[[patterns]]
+number = 10
+notes = "B4/8 G4/8"
+description = "Simple B-G pattern"
+
+[[patterns]]
+number = 11
+notes = "F4/8 G4/8 B4/8 G4/8 B4/8 G4/8"
+description = "F-G-B-G-B-G pattern"
+
+[[patterns]]
+number = 12
+notes = "F4/8 G4/8 B4/2 C5/4"
+description = "F-G ascending to held B, then C"
+
+[[patterns]]
+number = 13
+notes = "B4/8 G4/16 G4/16 F4/8 G4/8 rest/8 G4/16~ G4/2."
+description = "Complex pattern with sixteenths and tie"
+
+[[patterns]]
+number = 14
+notes = "C5/1 B4/1 G4/1 F#4/1"
+description = "Descending whole notes C-B-G-F#"
+
+[[patterns]]
+number = 15
+notes = "G4/8 rest/8 rest/4 rest/4 rest/4"
+description = "Single G followed by rests"
+
+[[patterns]]
+number = 16
+notes = "G4/8 B4/8 C5/8 B4/8"
+description = "G-B-C-B ascending and descending"
+
+[[patterns]]
+number = 17
+notes = "B4/8 C5/8 B4/8 C5/8 B4/8 rest/8"
+description = "Alternating B-C pattern ending with rest"
+
+[[patterns]]
+number = 18
+notes = "E4/8 F#4/8 E4/8 F#4/8 E4/16 E4/16"
+description = "E-F# alternation with sixteenth ending"
+
+[[patterns]]
+number = 19
+notes = "rest/4. G5/4."
+description = "Dotted quarter rest, then high G"
+
+[[patterns]]
+number = 20
+notes = "E4/8 F#4/8 E4/8 F#4/8 G4/16 E4/16 G4/8 F#4/8 E4/8 F#4/8 E4/8"
+description = "Complex E-F#-G pattern with sixteenths"
+
+[[patterns]]
+number = 21
+notes = "F#4/2."
+description = "Single dotted half note F#"
+
+[[patterns]]
+number = 22
+notes = "E4/4. E4/4. E4/4. E4/4. E4/4. F#4/4. G4/4. A4/4. B4/8"
+description = "Repeated E's ascending to B"
+
+[[patterns]]
+number = 23
+notes = "E4/8 F#4/4. G4/4. A4/4. B4/4. B4/4. B4/4. B4/4"
+description = "Ascending E to B, then repeated B's"
+
+[[patterns]]
+number = 24
+notes = "E4/8 F#4/8 G4/4. A4/4. B4/4. B4/4. B4/4. B4/4. B4/8"
+description = "Similar to 23 with different rhythm"
+
+[[patterns]]
+number = 25
+notes = "E4/8 F#4/8 G4/8 A4/8 B4/4. B4/4. B4/4. B4/4. B4/4."
+description = "Ascending eighths to repeated dotted quarter B's"
+
+[[patterns]]
+number = 26
+notes = "E4/8 F#4/8 G4/8 A4/8 B4/4. A4/4. G4/4. F#4/4. E4/4."
+description = "Ascending then descending scale"
+
+[[patterns]]
+number = 27
+notes = "E4/8 F#4/8 E4/8 F#4/8 G4/8 E4/8 G4/8 F#4/8 E4/8 F#4/8 E4/8"
+description = "Complex E-F#-G interweaving"
+
+[[patterns]]
+number = 28
+notes = "E4/8 F#4/8 E4/8 F#4/8 E4/8 E4/8"
+description = "E-F# alternation ending with double E"
+
+[[patterns]]
+number = 29
+notes = "E4/2. G4/2. C5/2."
+description = "Three dotted half notes: E-G-C"
+
+[[patterns]]
+number = 30
+notes = "C5/1"
+description = "Single whole note high C"
+
+[[patterns]]
+number = 31
+notes = "G4/8 F4/8 G4/8 B4/8 G4/8 B4/8"
+description = "G-F-G-B-G-B pattern"
+
+[[patterns]]
+number = 32
+notes = "F4/8 G4/8 F4/8 G4/8 B4/8 F4/8 B4/2. G4/4."
+description = "F-G-B pattern with held notes"
+
+[[patterns]]
+number = 33
+notes = "G4/8 F4/8 rest/8"
+description = "G-F with rest"
+
+[[patterns]]
+number = 34
+notes = "G4/8 F4/8"
+description = "Simple G-F"
+
+[[patterns]]
+number = 35
+notes = "F4/8 G4/8 B4/8 G4/8 B4/8 G4/8 B4/8 G4/8 F4/8 G4/8 rest/8 rest/4 rest/4 Bb4/4 G4/2. A4/4 G4/16 B4/16 A4/4. G4/4 F#4/2. rest/4 rest/8 E4/8 F#4/2 G4/1."
+description = "Extended pattern - longest in the piece"
+
+[[patterns]]
+number = 36
+notes = "F4/8 G4/8 B4/8 G4/8 B4/8 G4/8"
+description = "F-G-B-G-B-G pattern"
+
+[[patterns]]
+number = 37
+notes = "F4/8 G4/8"
+description = "Simple F-G"
+
+[[patterns]]
+number = 38
+notes = "F4/8 G4/8 B4/8"
+description = "F-G-B ascending"
+
+[[patterns]]
+number = 39
+notes = "B4/8 G4/8 F4/8 G4/8 B4/8 C5/8"
+description = "B-G-F-G-B-C pattern"
+
+[[patterns]]
+number = 40
+notes = "B4/8 F4/8"
+description = "Simple B-F"
+
+[[patterns]]
+number = 41
+notes = "B4/8 G4/8"
+description = "Simple B-G"
+
+[[patterns]]
+number = 42
+notes = "C5/1 B4/1 A4/1 C5/1"
+description = "Whole notes: C-B-A-C"
+
+[[patterns]]
+number = 43
+notes = "F5/8 E5/8 F5/8 E5/8 E5/8 F5/8 E5/8 F5/8"
+description = "High F-E alternating pattern"
+
+[[patterns]]
+number = 44
+notes = "F5/8 E5/8 F5/8 E5/16 E5/16"
+description = "F-E with sixteenth ending"
+
+[[patterns]]
+number = 45
+notes = "D5/8 D5/8 G4/8"
+description = "Two D's descending to G"
+
+[[patterns]]
+number = 46
+notes = "G4/8 D5/8 D5/8 G4/8 rest/8 G4/8 rest/8 G4/8 rest/8 G4/8 D5/8 D5/8"
+description = "G-D pattern with interspersed rests"
+
+[[patterns]]
+number = 47
+notes = "D5/8 D5/8 G4/8"
+description = "Same as 45: Two D's to G"
+
+[[patterns]]
+number = 48
+notes = "G4/1 G4/1 F4/1 G4/4"
+description = "Two whole G's, whole F, quarter G"
+
+[[patterns]]
+number = 49
+notes = "F4/8 G4/8 Bb4/8 G4/8 Bb4/8 G4/8"
+description = "F-G-Bb-G-Bb-G with flat"
+
+[[patterns]]
+number = 50
+notes = "F4/8 G4/8"
+description = "Simple F-G"
+
+[[patterns]]
+number = 51
+notes = "F4/8 G4/8 Bb4/8"
+description = "F-G-Bb ascending"
+
+[[patterns]]
+number = 52
+notes = "G4/8 Bb4/8 G4/8"
+description = "G-Bb-G pattern"
+
+[[patterns]]
+number = 53
+notes = "Bb4/8 G4/8"
+description = "Final pattern: Bb-G"

@@ -113,11 +113,6 @@ impl InCPerformer {
 
     /// Decide whether to advance to the next pattern
     pub fn maybe_advance_pattern(&mut self, ensemble_median: usize, patterns: &InCPatterns) {
-        if self.repetitions_remaining > 0 {
-            self.repetitions_remaining -= 1;
-            return;
-        }
-
         // Check if we're too far ahead or behind
         let distance = (self.current_pattern as i32 - ensemble_median as i32).abs();
 
@@ -237,6 +232,7 @@ impl Default for InCConfig {
 }
 
 /// Generator for In C performances
+#[derive(Debug, Clone)]
 pub struct InCGenerator {
     config: InCConfig,
     patterns: InCPatterns,
@@ -283,13 +279,13 @@ impl InCGenerator {
     fn generate_pulse_track(&self, midi_file: &mut MidiFile) -> Result<midly::Track<'static>, LobachevskyError> {
         let mut track = midi_file.add_track();
 
-        let total_beats = self.config.duration_minutes * self.config.tempo as f32 / 60.0;
+        let total_beats = self.config.duration_minutes * self.config.tempo as f32;
         let high_c = Note::new(crate::PitchClass::C, 6);
 
         let mut time = 0.0;
         while time < total_beats {
             track.add_note(high_c, time as f64, 0.1, 40, 15);
-            time += 0.125; // Eighth note
+            time += 0.5; // Eighth note (in quarter-note beats)
         }
 
         Ok(track.build())
@@ -302,7 +298,7 @@ impl InCGenerator {
         midi_file: &mut MidiFile,
     ) -> Result<midly::Track<'static>, LobachevskyError> {
         let mut track = midi_file.add_track();
-        let total_beats = self.config.duration_minutes * self.config.tempo as f32 / 60.0;
+        let total_beats = self.config.duration_minutes * self.config.tempo as f32;
         let mut current_time = 0.0;
         let channel = self.performers[performer_id].midi_channel;
 
@@ -373,13 +369,18 @@ impl InCGenerator {
                 current_time += note.duration * 4.0; // Convert to beats
                 self.performers[performer_id].pattern_position += 1;
             } else {
-                // Pattern complete, decide what to do next
+                // Pattern complete, reset position
                 self.performers[performer_id].pattern_position = 0;
-
-                // Get ensemble median pattern
+                
+                // Check if we should repeat this pattern
+                if self.performers[performer_id].repetitions_remaining > 0 {
+                    self.performers[performer_id].repetitions_remaining -= 1;
+                    // Continue to play the pattern again
+                    continue;
+                }
+                
+                // Pattern fully repeated, maybe advance to next
                 let ensemble_median = self.get_ensemble_median();
-
-                // Maybe advance pattern
                 self.performers[performer_id].maybe_advance_pattern(ensemble_median, &self.patterns);
 
                 // Check for ending (all at pattern 53)

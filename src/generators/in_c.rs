@@ -371,14 +371,14 @@ impl InCGenerator {
             } else {
                 // Pattern complete, reset position
                 self.performers[performer_id].pattern_position = 0;
-                
+
                 // Check if we should repeat this pattern
                 if self.performers[performer_id].repetitions_remaining > 0 {
                     self.performers[performer_id].repetitions_remaining -= 1;
                     // Continue to play the pattern again
                     continue;
                 }
-                
+
                 // Pattern fully repeated, maybe advance to next
                 let ensemble_median = self.get_ensemble_median();
                 self.performers[performer_id].maybe_advance_pattern(ensemble_median, &self.patterns);

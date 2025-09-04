@@ -233,6 +233,9 @@ enum Commands {
         #[arg(short = 'R', long)]
         return_to_start: bool,
     },
+    Completions {
+        shell: clap_complete::Shell,
+    },
 }
 
 /// I like my clap help styled the old way.
@@ -326,9 +329,8 @@ fn main() -> miette::Result<()> {
             tui::start_tui()?;
         }
         Commands::InCTui => {
-            // TODO implementation to be finished
-            // use lobachevsky::tui_inc;
-            // tui_inc::start()?;
+            use lobachevsky::tui_inc;
+            tui_inc::start()?;
         }
         Commands::InC {
             performers,
@@ -384,6 +386,12 @@ fn main() -> miette::Result<()> {
                 return_to_start,
             )?;
             algorithmic::generate_algorithmic(input, bars, Some(resolved_tempo), &cli.output)?;
+        }
+        Commands::Completions { shell } => {
+            use clap::CommandFactory;
+            let mut app = Cli::command();
+            clap_complete::generate(shell, &mut app, "lobachevsky", &mut std::io::stdout());
+            return Ok(());
         }
     }
     Ok(())

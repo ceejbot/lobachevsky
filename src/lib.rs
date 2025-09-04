@@ -20,7 +20,7 @@ pub mod morphing;
 pub mod rhythm;
 pub mod theory;
 pub mod tui;
-// pub mod tui_inc;
+pub mod tui_inc;
 
 pub use core::{Chord, ChordQuality, Mode, Note, PitchClass};
 

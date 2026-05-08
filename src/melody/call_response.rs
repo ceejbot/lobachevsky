@@ -5,9 +5,6 @@
 
 use std::fmt::Display;
 
-use rand::Rng;
-use rand::seq::IndexedRandom;
-
 use crate::{Chord, Note};
 
 /// Types of call-and-response relationships
@@ -138,21 +135,17 @@ impl CallResponseGenerator {
     fn generate_call_phrase(&self, chord: Chord, start_beat: f64) -> Phrase {
         let mut notes = Vec::new();
         let mut beat_position = start_beat;
-        let mut rng = rand::rng();
 
         let chord_tones = chord.notes(self.octave_range.0);
         let scale_notes = self.get_scale_notes(chord);
 
         for _ in 0..self.phrase_length {
             // Bias towards chord tones but allow scale notes
-            let note = if rng.random::<f64>() < 0.7 {
-                *chord_tones
-                    .choose(&mut rng)
-                    .unwrap_or(&Note::new(chord.root, self.octave_range.0))
+            let fallback = Note::new(chord.root, self.octave_range.0);
+            let note = if fastrand::f64() < 0.7 {
+                fastrand::choice(&chord_tones).copied().unwrap_or(fallback)
             } else {
-                *scale_notes
-                    .choose(&mut rng)
-                    .unwrap_or(&Note::new(chord.root, self.octave_range.0))
+                fastrand::choice(&scale_notes).copied().unwrap_or(fallback)
             };
 
             notes.push((note, beat_position, self.note_duration));
@@ -192,16 +185,15 @@ impl CallResponseGenerator {
     ) -> Vec<(Note, f64, f64)> {
         let mut response = Vec::new();
         let mut beat_position = start_beat;
-        let mut rng = rand::rng();
         let chord_tones = chord.notes(self.octave_range.0);
 
         for (call_note, _, duration) in call_notes {
-            let response_note = if rng.random::<f64>() < 0.8 {
+            let response_note = if fastrand::f64() < 0.8 {
                 // Usually echo the same note
                 *call_note
             } else {
                 // Sometimes vary with a nearby chord tone
-                *chord_tones.choose(&mut rng).unwrap_or(call_note)
+                fastrand::choice(&chord_tones).copied().unwrap_or(*call_note)
             };
 
             response.push((response_note, beat_position, *duration));
@@ -244,7 +236,6 @@ impl CallResponseGenerator {
     ) -> Vec<(Note, f64, f64)> {
         let mut response = Vec::new();
         let mut beat_position = start_beat;
-        let mut rng = rand::rng();
         let scale_notes = self.get_scale_notes(chord);
 
         for (call_note, _, duration) in call_notes {
@@ -258,11 +249,11 @@ impl CallResponseGenerator {
                 .collect();
 
             let response_note = if !available_notes.is_empty() {
-                **available_notes.choose(&mut rng).expect("failed to choose a note")
+                **fastrand::choice(&available_notes).expect("failed to choose a note")
             } else {
-                *scale_notes
-                    .choose(&mut rng)
-                    .unwrap_or(&Note::new(chord.root, self.octave_range.0))
+                fastrand::choice(&scale_notes)
+                    .copied()
+                    .unwrap_or(Note::new(chord.root, self.octave_range.0))
             };
 
             response.push((response_note, beat_position, *duration));

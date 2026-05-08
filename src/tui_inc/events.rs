@@ -73,17 +73,13 @@ fn handle_key_event(state: &mut State, key: KeyCode, modifiers: KeyModifiers) ->
 
     match key {
         // Generate MIDI
-        KeyCode::Char('g') => {
-            if modifiers.is_empty() {
-                state.generate()?;
-            }
+        KeyCode::Char('g') if modifiers.is_empty() => {
+            state.generate()?;
         }
 
         // Reset to defaults
-        KeyCode::Char('r') => {
-            if modifiers.is_empty() {
-                state.reset_to_defaults();
-            }
+        KeyCode::Char('r') if modifiers.is_empty() => {
+            state.reset_to_defaults();
         }
 
         // Tab navigation between fields
@@ -114,17 +110,13 @@ fn handle_key_event(state: &mut State, key: KeyCode, modifiers: KeyModifiers) ->
         }
 
         // Space to toggle boolean fields
-        KeyCode::Char(' ') => {
-            if state.selected_field == SelectedField::IncludePulse {
-                state.toggle_boolean_field();
-            }
+        KeyCode::Char(' ') if state.selected_field == SelectedField::IncludePulse => {
+            state.toggle_boolean_field();
         }
 
         // Enter could also toggle boolean or confirm current value
-        KeyCode::Enter => {
-            if state.selected_field == SelectedField::IncludePulse {
-                state.toggle_boolean_field();
-            }
+        KeyCode::Enter if state.selected_field == SelectedField::IncludePulse => {
+            state.toggle_boolean_field();
         }
 
         _ => {}

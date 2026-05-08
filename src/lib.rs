@@ -25,7 +25,7 @@ pub mod tui_inc;
 pub use core::{Chord, ChordQuality, Mode, Note, PitchClass};
 
 pub use errors::LobachevskyError;
-pub use euclidean::*;
+pub use euclidean::{Bjorklund, Breshenham, EuclideanRhythm};
 pub use generation::ProgressionBuilder;
 pub use rhythm::{Beat, Duration, RhythmPattern};
 pub use theory::{ModalNeoRiemannian, NeoRiemannian, Transform};

@@ -131,9 +131,20 @@ impl EuclideanBassPattern {
 
 impl BassPattern for EuclideanBassPattern {
     fn generate(&self, bars: usize, chords: &[Chord]) -> Vec<BassEvent> {
+        use crate::euclidean::{Breshenham, EuclideanRhythm};
+
         let mut events = Vec::new();
-        let pattern = euclidean_pattern(self.hits, self.steps);
-        let rotated = rotate_pattern(&pattern, self.rotation);
+
+        if self.steps == 0 {
+            return events;
+        }
+
+        let hits = self.hits.min(self.steps);
+        let mut rotated = Breshenham::generate(self.steps, hits).unwrap_or_else(|_| vec![false; self.steps]);
+        if self.rotation > 0 && !rotated.is_empty() {
+            let rot = self.rotation % rotated.len();
+            rotated.rotate_left(rot);
+        }
 
         let beats_per_bar = 4.0;
         let total_beats = bars as f64 * beats_per_bar;
@@ -210,8 +221,6 @@ impl ProbabilityBassPattern {
 
 impl BassPattern for ProbabilityBassPattern {
     fn generate(&self, bars: usize, chords: &[Chord]) -> Vec<BassEvent> {
-        use rand::Rng;
-        let mut rng = rand::rng();
         let mut events = Vec::new();
 
         let beats_per_bar = 4.0;
@@ -220,14 +229,14 @@ impl BassPattern for ProbabilityBassPattern {
 
         for bar in 0..bars {
             for (beat_offset, probability, note_type) in &self.points {
-                if rng.random::<f64>() < *probability {
+                if fastrand::f64() < *probability {
                     let beat_pos = bar as f64 * beats_per_bar + beat_offset.0;
                     let chord_index = (beat_pos / chord_duration) as usize;
 
                     if chord_index < chords.len() {
                         let chord = &chords[chord_index];
                         let note = self.get_note_from_type(note_type, chord, 2);
-                        let velocity = rng.random_range(self.velocity_range.0..=self.velocity_range.1);
+                        let velocity = fastrand::u8(self.velocity_range.0..=self.velocity_range.1);
 
                         events.push(BassEvent {
                             beat: Beat(beat_pos),
@@ -241,7 +250,7 @@ impl BassPattern for ProbabilityBassPattern {
             }
         }
 
-        events.sort_by(|a, b| a.beat.0.partial_cmp(&b.beat.0).expect("we expect a value here"));
+        events.sort_by(|a, b| a.beat.0.partial_cmp(&b.beat.0).unwrap_or(std::cmp::Ordering::Equal));
         events
     }
 
@@ -332,44 +341,4 @@ impl BassPattern for SequenceBassPattern {
     fn name(&self) -> String {
         format!("Sequence Bass ({} steps)", self.sequence.len())
     }
-}
-
-// Helper functions from rhythm patterns
-fn euclidean_pattern(hits: usize, steps: usize) -> Vec<bool> {
-    let mut pattern = vec![false; steps];
-    let mut bucket_sizes = vec![hits; steps - hits];
-    bucket_sizes.resize(steps, 0);
-
-    let mut position = 0;
-    for _i in 0..hits {
-        pattern[position] = true;
-        position = (position + steps) % hits;
-    }
-
-    // Bjorklund's algorithm for even distribution
-    let mut remainder = vec![true; hits];
-    remainder.extend(vec![false; steps - hits]);
-
-    let mut divisor = steps - hits;
-    remainder.truncate(steps);
-
-    while divisor > 1 && hits % divisor != 0 {
-        let new_remainder = hits % divisor;
-        divisor = new_remainder;
-    }
-
-    pattern
-}
-
-fn rotate_pattern(pattern: &[bool], rotation: usize) -> Vec<bool> {
-    let len = pattern.len();
-    if rotation == 0 || len == 0 {
-        return pattern.to_vec();
-    }
-
-    let rotation = rotation % len;
-    let mut rotated = Vec::with_capacity(len);
-    rotated.extend_from_slice(&pattern[rotation..]);
-    rotated.extend_from_slice(&pattern[..rotation]);
-    rotated
 }

@@ -2,9 +2,6 @@
 
 use std::fmt::Display;
 
-use rand::seq::IndexedRandom;
-use rand::{self, Rng};
-
 use crate::melody::MelodyMarkov;
 use crate::{Chord, Note};
 
@@ -135,8 +132,7 @@ impl MelodyGenerator {
         melody_markov.train_from_chords(progression);
 
         // Generate melody
-        let mut rng = rand::rng();
-        let notes = melody_markov.generate_melody(progression, notes_per_chord, self.octave, &mut rng);
+        let notes = melody_markov.generate_melody(progression, notes_per_chord, self.octave);
 
         // Convert to timed notes
         let mut timed_melody = Vec::new();
@@ -168,7 +164,6 @@ impl MelodyGenerator {
 
     /// Lead synth with soaring melodic lines and filter sweeps
     fn lead_synth_melody(&self, chord: Chord, num_notes: usize, _chord_idx: usize) -> Vec<Note> {
-        let mut rng = rand::rng();
         let chord_notes = chord.notes(self.octave);
         let mut melody = Vec::new();
 
@@ -181,10 +176,10 @@ impl MelodyGenerator {
             // Create melodic motion with larger intervals for lead synth character
             let next_note = if i % 4 == 0 {
                 // Return to chord tones for stability
-                *chord_notes.choose(&mut rng).unwrap_or(&current)
+                fastrand::choice(&chord_notes).copied().unwrap_or(current)
             } else {
                 // Melodic motion with jumps and steps
-                let interval = match rng.random_range(0..=4) {
+                let interval = match fastrand::u8(0..=4) {
                     0 => -7, // Down fifth
                     1 => -3, // Down minor third
                     2 => 2,  // Up major second
@@ -197,7 +192,7 @@ impl MelodyGenerator {
                 if candidate.octave >= 4 && candidate.octave <= 7 {
                     candidate
                 } else {
-                    *chord_notes.choose(&mut rng).unwrap_or(&current)
+                    fastrand::choice(&chord_notes).copied().unwrap_or(current)
                 }
             };
 
@@ -240,7 +235,6 @@ impl MelodyGenerator {
 
     /// Punchy rhythmic chord stabs and accents
     fn rhythmic_stabs_melody(&self, chord: Chord, num_notes: usize, chord_idx: usize) -> Vec<Note> {
-        let mut rng = rand::rng();
         let chord_notes = chord.notes(self.octave);
         let mut melody = Vec::new();
 
@@ -255,10 +249,10 @@ impl MelodyGenerator {
         for i in 0..num_notes {
             if stab_pattern[i % stab_pattern.len()] {
                 // Use full chord or chord subset for stabs
-                let stab_note = if rng.random::<f64>() < 0.7 {
+                let stab_note = if fastrand::f64() < 0.7 {
                     chord_notes[0] // Root emphasis
                 } else {
-                    *chord_notes.choose(&mut rng).unwrap_or(&chord_notes[0])
+                    fastrand::choice(&chord_notes).copied().unwrap_or(chord_notes[0])
                 };
                 melody.push(stab_note);
             } else {
@@ -292,7 +286,6 @@ impl MelodyGenerator {
 
     /// Percussive pluck sequences with staccato articulation
     fn pluck_sequence_melody(&self, chord: Chord, num_notes: usize, chord_idx: usize) -> Vec<Note> {
-        let mut rng = rand::rng();
         let chord_notes = chord.notes(self.octave);
         let mut melody = Vec::new();
 
@@ -310,7 +303,7 @@ impl MelodyGenerator {
             let mut pluck_note = chord_notes[note_idx % chord_notes.len()];
 
             // Add occasional octave jumps for pluck character
-            if rng.random::<f64>() < 0.2 {
+            if fastrand::f64() < 0.2 {
                 pluck_note = Note::new(pluck_note.pitch_class, pluck_note.octave + 1);
             }
 
@@ -322,7 +315,6 @@ impl MelodyGenerator {
 
     /// Deep bass-register lead lines
     fn bass_lead_melody(&self, chord: Chord, num_notes: usize, chord_idx: usize) -> Vec<Note> {
-        let mut rng = rand::rng();
         let bass_octave = (self.octave - 2).max(1); // Force bass register
         let chord_notes = chord.notes(bass_octave);
         let mut melody = Vec::new();
@@ -341,7 +333,7 @@ impl MelodyGenerator {
                 2 => chord_notes.get(2).copied().unwrap_or(chord_notes[0]), // Fifth from chord
                 _ => {
                     // Stepwise motion in bass register
-                    let step = if rng.random::<bool>() { 1 } else { -1 };
+                    let step = if fastrand::bool() { 1 } else { -1 };
                     current.transpose(step)
                 }
             };

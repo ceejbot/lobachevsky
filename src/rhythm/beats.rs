@@ -20,9 +20,8 @@ impl Beat {
 
     /// Add humanization (micro-timing variation)
     pub fn humanize(&self, amount: f64) -> Self {
-        use rand::Rng;
-        let mut rng = rand::rng();
-        let variation = rng.random_range(-amount..amount);
+        // fastrand::f64() returns [0.0, 1.0); scale to (-amount, amount).
+        let variation = (fastrand::f64() * 2.0 - 1.0) * amount;
         Beat(self.0 + variation)
     }
 }

@@ -161,8 +161,6 @@ impl ProbabilityPattern {
 
 impl RhythmPattern for ProbabilityPattern {
     fn events_for_bar(&self, bar: usize) -> Vec<DrumEvent> {
-        use rand::Rng;
-        let mut rng = rand::rng();
         let mut events = Vec::new();
 
         // Add some variation per bar
@@ -171,8 +169,8 @@ impl RhythmPattern for ProbabilityPattern {
         for (beat, base_prob) in &self.densities {
             let probability = (base_prob + bar_variation).clamp(0.0, 1.0);
 
-            if rng.random::<f64>() < probability {
-                let velocity = rng.random_range(self.velocity_range.0..=self.velocity_range.1);
+            if fastrand::f64() < probability {
+                let velocity = fastrand::u8(self.velocity_range.0..=self.velocity_range.1);
                 events.push(DrumEvent {
                     voice: self.voice,
                     beat: *beat,

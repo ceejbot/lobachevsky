@@ -5,9 +5,6 @@
 
 use std::fmt::Display;
 
-use rand::Rng;
-use rand::seq::IndexedRandom;
-
 use crate::{Chord, Note, PitchClass};
 
 /// Bass line generation strategies
@@ -135,7 +132,6 @@ impl BassGenerator {
     fn generate_walking_bass(&self, progression: &[Chord], notes_per_chord: usize) -> Vec<(Note, f64, f64)> {
         let mut bass_line = Vec::new();
         let mut beat_position = 0.0;
-        let mut rng = rand::rng();
 
         for (chord_idx, chord) in progression.iter().enumerate() {
             let current_root = Note::new(chord.root, self.octave);
@@ -156,16 +152,16 @@ impl BassGenerator {
 
                 let walking_note = if note_idx == notes_per_chord - 1 {
                     // Last note - use passing tone or approach note
-                    self.get_approach_note(current_root, target_note, &mut rng)
+                    self.get_approach_note(current_root, target_note)
                 } else {
                     // Middle notes - use chord tones or chromatic approach
-                    if rng.random::<f64>() < 0.6 {
+                    if fastrand::f64() < 0.6 {
                         // Use chord tone
                         let chord_tones = chord.notes(self.octave);
-                        *chord_tones.choose(&mut rng).unwrap_or(&current_root)
+                        fastrand::choice(&chord_tones).copied().unwrap_or(current_root)
                     } else {
                         // Use chromatic passing tone
-                        self.get_chromatic_passing_tone(current_root, target_note, &mut rng)
+                        self.get_chromatic_passing_tone(current_root, target_note)
                     }
                 };
 
@@ -202,7 +198,6 @@ impl BassGenerator {
     fn generate_rhythmic_bass(&self, progression: &[Chord], notes_per_chord: usize) -> Vec<(Note, f64, f64)> {
         let mut bass_line = Vec::new();
         let mut beat_position = 0.0;
-        let mut rng = rand::rng();
 
         for chord in progression {
             let root_note = Note::new(chord.root, self.octave);
@@ -212,21 +207,21 @@ impl BassGenerator {
                 let note = match note_idx % 4 {
                     0 => root_note, // Strong beat - root
                     1 => {
-                        if rng.random::<f64>() < 0.3 {
+                        if fastrand::f64() < 0.3 {
                             root_note // Sometimes repeat root
                         } else {
                             continue; // Often rest
                         }
                     }
                     2 => {
-                        if rng.random::<f64>() < 0.7 {
+                        if fastrand::f64() < 0.7 {
                             fifth_note // Off-beat emphasis
                         } else {
                             root_note
                         }
                     }
                     3 => {
-                        if rng.random::<f64>() < 0.4 {
+                        if fastrand::f64() < 0.4 {
                             root_note // Syncopation
                         } else {
                             continue; // Rest
@@ -247,7 +242,6 @@ impl BassGenerator {
     fn generate_counterpoint_bass(&self, progression: &[Chord], notes_per_chord: usize) -> Vec<(Note, f64, f64)> {
         let mut bass_line = Vec::new();
         let mut beat_position = 0.0;
-        let mut rng = rand::rng();
         let mut current_note = Note::new(progression[0].root, self.octave);
 
         for chord in progression {
@@ -265,9 +259,9 @@ impl BassGenerator {
                     .collect();
 
                 let next_note = if candidates.is_empty() {
-                    *chord_tones.choose(&mut rng).unwrap_or(&current_note)
+                    fastrand::choice(&chord_tones).copied().unwrap_or(current_note)
                 } else {
-                    *candidates.choose(&mut rng).unwrap_or(&current_note)
+                    fastrand::choice(&candidates).copied().unwrap_or(current_note)
                 };
 
                 bass_line.push((next_note, beat_position, self.note_duration));
@@ -299,12 +293,12 @@ impl BassGenerator {
     }
 
     /// Get an approach note leading to the target
-    fn get_approach_note(&self, current: Note, target: Note, rng: &mut impl Rng) -> Note {
+    fn get_approach_note(&self, current: Note, target: Note) -> Note {
         let current_midi = current.to_midi() as i16;
         let target_midi = target.to_midi() as i16;
 
         // Choose chromatic approach from above or below
-        let approach_midi = if rng.random::<bool>() {
+        let approach_midi = if fastrand::bool() {
             if target_midi > current_midi {
                 target_midi - 1 // Approach from below
             } else {
@@ -323,17 +317,17 @@ impl BassGenerator {
     }
 
     /// Get a chromatic passing tone between current and target
-    fn get_chromatic_passing_tone(&self, current: Note, target: Note, rng: &mut impl Rng) -> Note {
+    fn get_chromatic_passing_tone(&self, current: Note, target: Note) -> Note {
         let current_midi = current.to_midi() as i16;
         let target_midi = target.to_midi() as i16;
 
         let passing_midi = if target_midi > current_midi {
-            current_midi + rng.random_range(1..=(target_midi - current_midi).min(3))
+            current_midi + fastrand::i16(1..=(target_midi - current_midi).min(3))
         } else if target_midi < current_midi {
-            current_midi - rng.random_range(1..=(current_midi - target_midi).min(3))
+            current_midi - fastrand::i16(1..=(current_midi - target_midi).min(3))
         } else {
             // Same note - add slight variation
-            current_midi + if rng.random::<bool>() { 1 } else { -1 }
+            current_midi + if fastrand::bool() { 1 } else { -1 }
         };
 
         Note::from_midi(passing_midi.clamp(24, 84) as u8)

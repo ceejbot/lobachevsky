@@ -6,8 +6,6 @@
 
 use std::fmt::Display;
 
-use rand::Rng;
-
 use crate::rhythm::{Beat, DrumEvent, RhythmPattern};
 use crate::{Chord, Transform};
 
@@ -57,14 +55,13 @@ impl MorphingRhythmPattern {
         morph_progress: f64,
     ) -> Vec<DrumEvent> {
         let mut result = Vec::new();
-        let mut rng = rand::rng();
 
         // Probability-based blending
         let use_a_probability = 1.0 - morph_progress;
 
         // Add events from pattern A with decreasing probability
         for mut event in events_a {
-            if rng.random::<f64>() < use_a_probability {
+            if fastrand::f64() < use_a_probability {
                 // Fade velocity as we morph away
                 event.velocity = (event.velocity as f64 * use_a_probability) as u8;
                 result.push(event);
@@ -73,7 +70,7 @@ impl MorphingRhythmPattern {
 
         // Add events from pattern B with increasing probability
         for mut event in events_b {
-            if rng.random::<f64>() < morph_progress {
+            if fastrand::f64() < morph_progress {
                 // Fade velocity as we morph in
                 event.velocity = (event.velocity as f64 * morph_progress) as u8;
                 result.push(event);
@@ -223,9 +220,7 @@ impl MorphingHarmonyPattern {
 
     /// Probabilistically choose between pattern A and B transforms
     fn probabilistic_blend(&self, position: usize) -> Option<Transform> {
-        let mut rng = rand::rng();
-
-        let use_b = rng.random::<f64>() < self.morph_progress;
+        let use_b = fastrand::f64() < self.morph_progress;
 
         let transforms = if use_b { &self.transforms_b } else { &self.transforms_a };
 
@@ -255,9 +250,7 @@ impl MorphingHarmonyPattern {
         };
 
         // Weighted selection based on morph progress
-        let mut rng = rand::rng();
-
-        if rng.random::<f64>() < (1.0 - self.morph_progress) && !self.transforms_a.is_empty() {
+        if fastrand::f64() < (1.0 - self.morph_progress) && !self.transforms_a.is_empty() {
             Some(self.transforms_a[pos_a].clone())
         } else if !self.transforms_b.is_empty() {
             Some(self.transforms_b[pos_b].clone())

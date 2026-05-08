@@ -6,9 +6,6 @@
 use std::collections::HashMap;
 use std::hash::Hash;
 
-use rand::Rng;
-use rand::prelude::IndexedRandom;
-
 use crate::{Chord, Note};
 
 /// A generic Markov chain that can work with any type T
@@ -69,35 +66,34 @@ where
     }
 
     /// Generate a new sequence of the specified length
-    pub fn generate<R: Rng>(&self, length: usize, rng: &mut R) -> Vec<T> {
-        if self.starting_states.is_empty() || length <= self.order {
+    pub fn generate(&self, length: usize) -> Vec<T> {
+        if length <= self.order {
             return Vec::new();
         }
 
         // Start with a random starting state
-        let mut result = self
-            .starting_states
-            .choose(rng)
-            .expect("Starting states should not be empty")
-            .clone();
+        let Some(starting) = fastrand::choice(&self.starting_states) else {
+            return Vec::new();
+        };
+        let mut result = starting.clone();
 
         // Generate remaining notes
         for _ in self.order..length {
             let current_state: Vec<T> = result[result.len() - self.order..].to_vec();
 
             if let Some(possible_next) = self.transitions.get(&current_state) {
-                if let Some(next) = self.weighted_choice(possible_next, rng) {
+                if let Some(next) = self.weighted_choice(possible_next) {
                     result.push(next);
                 } else {
                     // Fallback: pick random starting state
-                    if let Some(random_state) = self.starting_states.choose(rng) {
+                    if let Some(random_state) = fastrand::choice(&self.starting_states) {
                         result.extend(random_state.iter().cloned());
                     }
                     break;
                 }
             } else {
                 // No transition found, try to find a partial match
-                if !self.find_partial_match_and_continue(&mut result, &current_state, rng) {
+                if !self.find_partial_match_and_continue(&mut result, &current_state) {
                     break;
                 }
             }
@@ -128,17 +124,17 @@ where
     }
 
     /// Choose a weighted random item from possibilities
-    fn weighted_choice<R: Rng>(&self, choices: &[(T, f64)], rng: &mut R) -> Option<T> {
+    fn weighted_choice(&self, choices: &[(T, f64)]) -> Option<T> {
         if choices.is_empty() {
             return None;
         }
 
         let total_weight: f64 = choices.iter().map(|(_, weight)| weight).sum();
         if total_weight <= 0.0 {
-            return choices.choose(rng).map(|(item, _)| item.clone());
+            return fastrand::choice(choices).map(|(item, _)| item.clone());
         }
 
-        let mut random = rng.random::<f64>() * total_weight;
+        let mut random = fastrand::f64() * total_weight;
 
         for (item, weight) in choices {
             random -= weight;
@@ -152,7 +148,7 @@ where
     }
 
     /// Try to find a partial match when exact state isn't found
-    fn find_partial_match_and_continue<R: Rng>(&self, result: &mut Vec<T>, current_state: &[T], rng: &mut R) -> bool {
+    fn find_partial_match_and_continue(&self, result: &mut Vec<T>, current_state: &[T]) -> bool {
         // Try smaller context sizes
         for context_size in (1..self.order).rev() {
             if current_state.len() >= context_size {
@@ -162,7 +158,7 @@ where
                 for (state, transitions) in &self.transitions {
                     if state.len() >= context_size
                         && &state[state.len() - context_size..] == partial_state
-                        && let Some(next) = self.weighted_choice(transitions, rng)
+                        && let Some(next) = self.weighted_choice(transitions)
                     {
                         result.push(next);
                         return true;
@@ -237,19 +233,13 @@ impl MelodyMarkov {
     }
 
     /// Generate a melody for a chord progression
-    pub fn generate_melody<R: Rng>(
-        &self,
-        chords: &[Chord],
-        notes_per_chord: usize,
-        octave: i8,
-        rng: &mut R,
-    ) -> Vec<Note> {
+    pub fn generate_melody(&self, chords: &[Chord], notes_per_chord: usize, octave: i8) -> Vec<Note> {
         let total_notes = chords.len() * notes_per_chord;
 
         if self.use_intervals {
-            self.generate_interval_melody(chords, notes_per_chord, octave, rng)
+            self.generate_interval_melody(chords, notes_per_chord, octave)
         } else {
-            self.generate_absolute_melody(total_notes, octave, rng)
+            self.generate_absolute_melody(total_notes, octave)
         }
     }
 
@@ -297,13 +287,7 @@ impl MelodyMarkov {
     }
 
     /// Generate melody using intervals
-    fn generate_interval_melody<R: Rng>(
-        &self,
-        chords: &[Chord],
-        notes_per_chord: usize,
-        octave: i8,
-        rng: &mut R,
-    ) -> Vec<Note> {
+    fn generate_interval_melody(&self, chords: &[Chord], notes_per_chord: usize, octave: i8) -> Vec<Note> {
         let mut melody = Vec::new();
 
         // Start with root of first chord
@@ -315,7 +299,7 @@ impl MelodyMarkov {
 
             for _ in 0..notes_per_chord {
                 // Generate interval using Markov chain
-                let intervals = self.chain.generate(2, rng);
+                let intervals = self.chain.generate(2);
 
                 if let Some(&interval) = intervals.first() {
                     current_midi += interval;
@@ -325,10 +309,10 @@ impl MelodyMarkov {
 
                     // Bias towards chord tones
                     let current_pc = current_midi % 12;
-                    if !chord_tones.contains(&current_pc) && rng.random::<f64>() < 0.3 {
-                        // Move to nearest chord tone
-                        if let Some(&nearest) = chord_tones.choose(rng) {
-                            let target_midi = current_midi - current_pc + nearest;
+                    if !chord_tones.contains(&current_pc) && fastrand::f64() < 0.3 {
+                        // Snap to a randomly chosen chord tone within the same octave
+                        if let Some(&random_chord_tone) = fastrand::choice(&chord_tones) {
+                            let target_midi = current_midi - current_pc + random_chord_tone;
                             current_midi = target_midi;
                         }
                     }
@@ -342,8 +326,8 @@ impl MelodyMarkov {
     }
 
     /// Generate melody using absolute pitches
-    fn generate_absolute_melody<R: Rng>(&self, length: usize, octave: i8, rng: &mut R) -> Vec<Note> {
-        let pitch_classes = self.chain.generate(length, rng);
+    fn generate_absolute_melody(&self, length: usize, octave: i8) -> Vec<Note> {
+        let pitch_classes = self.chain.generate(length);
 
         pitch_classes
             .iter()
@@ -385,8 +369,7 @@ mod tests {
 
         chain.train(&sequence);
 
-        let mut rng = rand::rng();
-        let generated = chain.generate(6, &mut rng);
+        let generated = chain.generate(6);
 
         assert_eq!(generated.len(), 6);
         // Should contain values from the original sequence
@@ -416,8 +399,7 @@ mod tests {
 
         melody_markov.train_from_chords(&chords);
 
-        let mut rng = rand::rng();
-        let melody = melody_markov.generate_melody(&chords, 4, 5, &mut rng);
+        let melody = melody_markov.generate_melody(&chords, 4, 5);
 
         // Melody should have at least some notes generated
         assert!(!melody.is_empty());
@@ -446,8 +428,7 @@ mod tests {
 
         chain.train(&sequence);
 
-        let mut rng = rand::rng();
-        let generated = chain.generate(5, &mut rng);
+        let generated = chain.generate(5);
 
         assert!(generated.len() <= 5);
     }

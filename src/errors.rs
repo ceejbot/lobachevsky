@@ -100,10 +100,6 @@ pub enum LobachevskyError {
     #[diagnostic(code(lobachevsky::parse_error), help("Check the input format and try again"))]
     ParseError { message: String },
 
-    #[error("Generic error: {0}")]
-    #[diagnostic(code(lobachevsky::generic_error))]
-    Generic(String),
-
     #[error("TUI error: {message}")]
     #[diagnostic(code(lobachevsky::tui_error), help("Check terminal capabilities and try again"))]
     TuiError { message: String },
@@ -115,10 +111,4 @@ pub enum LobachevskyError {
         #[source]
         source: std::io::Error,
     },
-}
-
-impl From<String> for LobachevskyError {
-    fn from(s: String) -> Self {
-        LobachevskyError::Generic(s)
-    }
 }

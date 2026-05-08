@@ -7,8 +7,6 @@
 
 use std::fmt::Display;
 
-use rand::Rng;
-
 use crate::analysis::{EnergyLevel, HarmonicAnalyzer};
 use crate::rhythm::{Beat, DrumEvent, DrumVoice, RhythmPattern};
 use crate::{Chord, Transform};
@@ -128,8 +126,7 @@ impl AdaptiveRhythmPattern {
         }
 
         // Add some variation based on bar number
-        let mut rng = rand::rng();
-        if bar % 4 == 3 && rng.random::<f64>() < 0.7 {
+        if bar % 4 == 3 && fastrand::f64() < 0.7 {
             // Fill every 4th bar
             events.push(DrumEvent {
                 voice: DrumVoice::Snare,
@@ -150,8 +147,6 @@ impl AdaptiveRhythmPattern {
             EnergyLevel::High => &self.energy_responses.high_energy,
         };
 
-        let mut rng = rand::rng();
-
         // Apply velocity boost
         for event in &mut events {
             event.velocity = (event.velocity + modification.velocity_boost).min(127);
@@ -161,7 +156,7 @@ impl AdaptiveRhythmPattern {
         if modification.density_multiplier < 1.0 {
             // Remove some events for lower density
             let keep_probability = modification.density_multiplier;
-            events.retain(|_| rng.random::<f64>() < keep_probability);
+            events.retain(|_| fastrand::f64() < keep_probability);
         } else if modification.density_multiplier > 1.0 {
             // Add additional events for higher density
             let additional_events = ((events.len() as f64 * (modification.density_multiplier - 1.0)) as usize).min(8);
@@ -169,12 +164,12 @@ impl AdaptiveRhythmPattern {
             for _ in 0..additional_events {
                 if let Some(&voice) = modification
                     .additional_voices
-                    .get(rng.random_range(0..modification.additional_voices.len().max(1)))
+                    .get(fastrand::usize(0..modification.additional_voices.len().max(1)))
                 {
                     events.push(DrumEvent {
                         voice,
-                        beat: Beat(rng.random::<f64>() * 4.0), // Random position in bar
-                        velocity: 40 + rng.random_range(0..30),
+                        beat: Beat(fastrand::f64() * 4.0), // Random position in bar
+                        velocity: 40 + fastrand::u8(0..30),
                     });
                 }
             }
@@ -186,11 +181,11 @@ impl AdaptiveRhythmPattern {
             let syncopation_events = (events.len() as f64 * (modification.syncopation_factor - 0.5)) as usize;
 
             for _ in 0..syncopation_events {
-                if rng.random::<f64>() < modification.syncopation_factor {
+                if fastrand::f64() < modification.syncopation_factor {
                     events.push(DrumEvent {
                         voice: DrumVoice::Kick,
-                        beat: Beat(rng.random::<f64>() * 4.0),
-                        velocity: 60 + rng.random_range(0..20),
+                        beat: Beat(fastrand::f64() * 4.0),
+                        velocity: 60 + fastrand::u8(0..20),
                     });
                 }
             }
@@ -301,18 +296,16 @@ impl AdaptiveHarmonyPattern {
             EnergyLevel::High => &self.energy_transforms.high_energy,
         };
 
-        let mut rng = rand::rng();
-
         // Decide whether to apply a transform
-        if rng.random::<f64>() < preferences.transform_probability {
+        if fastrand::f64() < preferences.transform_probability {
             // Evolution: occasionally try transforms outside the base pattern
-            let use_evolved = rng.random::<f64>() < self.evolution_factor * (self.bars_since_change as f64 / 8.0);
+            let use_evolved = fastrand::f64() < self.evolution_factor * (self.bars_since_change as f64 / 8.0);
 
             let transform = if use_evolved && !preferences.preferred_transforms.is_empty() {
                 // Use energy-appropriate transform
                 preferences
                     .preferred_transforms
-                    .get(rng.random_range(0..preferences.preferred_transforms.len()))?
+                    .get(fastrand::usize(0..preferences.preferred_transforms.len()))?
                     .clone()
             } else if !self.base_transforms.is_empty() {
                 // Use base pattern transform

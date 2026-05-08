@@ -278,7 +278,7 @@ impl AlgorithmicComposition {
         }
 
         // Force return to start if needed for alignment
-        if self.harmony.return_to_start || (total_chords_needed % chords_per_pattern != 0) {
+        if self.harmony.return_to_start || !total_chords_needed.is_multiple_of(chords_per_pattern) {
             builder = builder.with_return();
             log::info!("🔄 Returning to starting chord for structural alignment");
         }

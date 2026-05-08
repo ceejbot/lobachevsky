@@ -20,9 +20,9 @@ A Rust library for exploring neo-Riemannian music theory through generative comp
 
 ```text
 > lobachevsky --help
-A library and command-line tool for generating neo-Reimannian progressions as midi files
+A library and command-line tool for generating algorithmic compositions as midi files
 
-Usage: lobachevsky <COMMAND>
+Usage: lobachevsky [OPTIONS] [OUTPUT] <COMMAND>
 
 Commands:
   progression  Generate a neo-Riemannian progression
@@ -31,9 +31,19 @@ Commands:
   compose      Generate a complete composition with harmony, rhythm, and melody
   modal        Explore modal neo-Riemannian transformations
   extended     Explore extended chord transformations (seventh chords, suspended chords)
+  tui          Launch interactive TUI for music generation
+  in-c-tui     Launch TUI for conducting an algorithmic performance of "In C"
+  in-c         Generate Terry Riley's "In C" algorithmically
+  generate     Generate a complete algorithmic composition
+  completions  Generate shell completions
   help         Print this message or the help of the given subcommand(s)
 
+Arguments:
+  [OUTPUT]  Where to store the generated MIDI [default: generated_progression.mid]
+
 Options:
+  -q, --quiet    Quiet output
+  -v, --verbose  Verbose output
   -h, --help     Print help
   -V, --version  Print version
 ```

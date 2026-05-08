@@ -706,8 +706,6 @@ pub struct ModalNeoRiemannian {
     mode: Mode,
     tonic: PitchClass,
     valid_chords: HashSet<Chord>,
-    #[allow(dead_code)]
-    base_transformer: NeoRiemannian,
     constrained_transformations: HashMap<Chord, TransformMap>,
 }
 
@@ -735,7 +733,6 @@ impl ModalNeoRiemannian {
             mode,
             tonic,
             valid_chords,
-            base_transformer,
             constrained_transformations,
         }
     }
@@ -866,24 +863,12 @@ impl ModalNeoRiemannian {
 
         // Add mode-specific characteristic chords
         match self.mode {
-            Mode::Lydian => {
-                // The #IV chord is characteristic of Lydian
-                if chords.len() > 3 {
-                    analysis.characteristic_chords.push(chords[3]);
-                }
-            }
-            Mode::Mixolydian => {
-                // The bVII chord is characteristic of Mixolydian
-                if chords.len() > 6 {
-                    analysis.characteristic_chords.push(chords[6]);
-                }
-            }
-            Mode::Dorian => {
-                // The IV chord (major) is characteristic of Dorian vs Aeolian
-                if chords.len() > 3 {
-                    analysis.characteristic_chords.push(chords[3]);
-                }
-            }
+            // The #IV chord is characteristic of Lydian
+            Mode::Lydian if chords.len() > 3 => analysis.characteristic_chords.push(chords[3]),
+            // The bVII chord is characteristic of Mixolydian
+            Mode::Mixolydian if chords.len() > 6 => analysis.characteristic_chords.push(chords[6]),
+            // The IV chord (major) is characteristic of Dorian vs Aeolian
+            Mode::Dorian if chords.len() > 3 => analysis.characteristic_chords.push(chords[3]),
             _ => {}
         }
 

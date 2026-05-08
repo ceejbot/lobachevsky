@@ -4,13 +4,7 @@ name = "lobachevsky"
 version = "0.1.0"
 edition = "2024"
 categories = ["command-line-utilities", "multimedia"]
-keywords = [
-	"music",
-	"music-theory",
-	"midi",
-	"euclydian-rhythm",
-	"neo-reimannian",
-]
+keywords = ["music", "music-theory", "midi", "euclydian-rhythm", "neo-reimannian"]
 authors = ["C J Silverio <ceejceej@gmail.com>"]
 readme = "README.md"
 license = "Parity-7.0.0"
@@ -18,19 +12,18 @@ repository = "https://github.com/ceejbot/lobachevsky"
 homepage = "https://github.com/ceejbot/lobachevsky"
 
 [dependencies]
-midly = "0.5.3"
-rand = "0.9"
 clap = { version = "4.0", features = ["derive"] }
-thiserror = "2.0.16"
-miette = { version = "7.6.0", features = ["fancy"] }
-serde = { version = "1.0.219", features = ["derive"] }
-toml = "0.9.5"
-lovely_env_logger = "0.6.2"
-log = "0.4.27"
-ratatui = "0.29"
-crossterm = "0.29"
-tokio = { version = "1", features = ["macros", "rt"] }
 clap_complete = "4.5.57"
+crossterm = "0.29"
+fastrand = "2.4.1"
+log = "0.4.27"
+lovely_env_logger = "0.6.2"
+midly = "0.5.3"
+miette = { version = "7.6.0", features = ["fancy"] }
+ratatui = "0.30"
+serde = { version = "1.0.219", features = ["derive"] }
+thiserror = "2.0.16"
+toml = "1.1"
 
 [lints.rust]
 unsafe_code = { level = "deny", priority = 1 }

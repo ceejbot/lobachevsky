@@ -6,11 +6,19 @@ mod genres;
 mod pattern_types;
 mod patterns;
 
-pub use bass_patterns::*;
-pub use beats::*;
-pub use genres::*;
-pub use pattern_types::*;
-pub use patterns::*;
+pub use bass_patterns::{
+    BassEvent, BassPattern, BassVoice, EuclideanBassPattern, ProbabilityBassPattern, SequenceBassPattern,
+};
+pub use beats::{Beat, DrumEvent, DrumVoice, Duration};
+pub use genres::GenrePatterns;
+pub use pattern_types::{
+    BassLayerData, BassPatternType, BassProbabilityPoint, GrooveType, LayerData, PatternData, PatternType,
+    ProbabilityPoint,
+};
+pub use patterns::{
+    EuclideanPattern, GroovePattern, IsochronicPattern, LayeredPattern, PolyrhythmicPattern, ProbabilityPattern,
+    RhythmPattern, SwingPattern,
+};
 
 #[cfg(test)]
 mod tests {

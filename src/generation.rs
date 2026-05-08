@@ -16,14 +16,6 @@ impl TransformEngine {
             TransformEngine::Modal(engine) => engine.transform(chord, transform),
         }
     }
-
-    #[allow(dead_code)]
-    fn apply_sequence(&self, start: Chord, transforms: &[Transform]) -> Vec<Chord> {
-        match self {
-            TransformEngine::Free(engine) => engine.apply_sequence(start, transforms),
-            TransformEngine::Modal(engine) => engine.apply_sequence(start, transforms),
-        }
-    }
 }
 
 /// Builder for creating chord progressions
@@ -128,14 +120,11 @@ impl ProgressionBuilder {
 
     /// Generate a random walk through transformations
     pub fn random_walk(mut self, length: usize) -> Self {
-        use rand::Rng;
-        let mut rng = rand::rng();
-
         let transforms = [Transform::P, Transform::R, Transform::L];
         let mut pattern = Vec::new();
 
         for _ in 0..length {
-            pattern.push(transforms[rng.random_range(0..transforms.len())].clone());
+            pattern.push(transforms[fastrand::usize(0..transforms.len())].clone());
         }
 
         self.transforms = pattern;

@@ -3,8 +3,6 @@
 //!
 //! Provides an interactive TUI for conducting the algorithmic performers.
 
-//pub mod browser;
-// pub mod preview;
 mod events;
 mod state;
 mod ui;

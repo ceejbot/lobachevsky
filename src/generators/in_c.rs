@@ -1,7 +1,5 @@
 //! Terry Riley's "In C" algorithmic performance generator
 
-use rand::Rng;
-
 use crate::melody::InCPatterns;
 use crate::midi::MidiFile;
 use crate::{LobachevskyError, Note};
@@ -47,8 +45,7 @@ impl TimingVariation {
             return TimingVariation::Normal;
         }
 
-        let mut rng = rand::rng();
-        let choice: f32 = rng.random_range(0.0..1.0);
+        let choice = fastrand::f32();
 
         if choice < 0.7 {
             TimingVariation::Normal
@@ -59,7 +56,7 @@ impl TimingVariation {
         } else {
             // Occasionally use other ratios
             let ratios = [0.75, 1.5, 0.66, 1.33];
-            TimingVariation::Custom(ratios[rng.random_range(0..ratios.len())])
+            TimingVariation::Custom(ratios[fastrand::usize(0..ratios.len())])
         }
     }
 }
@@ -94,19 +91,17 @@ pub struct InCPerformer {
 impl InCPerformer {
     /// Create a new performer
     pub fn new(id: usize, midi_channel: u8) -> Self {
-        let mut rng = rand::rng();
-
         Self {
             id,
             current_pattern: 1,
-            repetitions_remaining: rng.random_range(4..12),
+            repetitions_remaining: fastrand::usize(4..12),
             timing_variation: TimingVariation::Normal,
             canon_voices: vec![],
             is_listening: false,
             pattern_position: 0,
             time_to_next_note: 0.0,
             midi_channel,
-            base_velocity: rng.random_range(60..90),
+            base_velocity: fastrand::u8(60..90),
             octave_transpose: 0,
         }
     }
@@ -115,8 +110,6 @@ impl InCPerformer {
     pub fn maybe_advance_pattern(&mut self, ensemble_median: usize, patterns: &InCPatterns) {
         // Check if we're too far ahead or behind
         let distance = (self.current_pattern as i32 - ensemble_median as i32).abs();
-
-        let mut rng = rand::rng();
 
         // More likely to advance if we're behind
         let advance_probability = if self.current_pattern < ensemble_median {
@@ -127,16 +120,16 @@ impl InCPerformer {
             0.6
         };
 
-        if rng.random_range(0.0..1.0) < advance_probability && self.current_pattern < 53 {
+        if fastrand::f32() < advance_probability && self.current_pattern < 53 {
             self.current_pattern += 1;
             self.pattern_position = 0;
             self.time_to_next_note = 0.0;
 
             // Decide repetitions for new pattern
-            self.repetitions_remaining = rng.random_range(3..10);
+            self.repetitions_remaining = fastrand::usize(3..10);
 
             // Maybe change timing variation
-            if rng.random_range(0.0..1.0) < 0.2
+            if fastrand::f32() < 0.2
                 && let Some(pattern) = patterns.get(self.current_pattern)
             {
                 self.timing_variation = if pattern.tempo_variation_suitable {
@@ -150,22 +143,20 @@ impl InCPerformer {
             self.maybe_add_canon(patterns);
 
             // Maybe transpose octave
-            if rng.random_range(0.0..1.0) < 0.1 {
-                self.octave_transpose = rng.random_range(-1..=1);
+            if fastrand::f32() < 0.1 {
+                self.octave_transpose = fastrand::i8(-1..=1);
             }
         }
     }
 
     /// Decide whether to add canon voices for the current pattern
     fn maybe_add_canon(&mut self, patterns: &InCPatterns) {
-        let mut rng = rand::rng();
-
         if let Some(pattern) = patterns.get(self.current_pattern) {
-            if pattern.canon_compatible && rng.random_range(0.0..1.0) < 0.3 {
+            if pattern.canon_compatible && fastrand::f32() < 0.3 {
                 self.canon_voices.clear();
 
                 // Add 1-2 canon voices
-                let num_voices = rng.random_range(1..=2);
+                let num_voices = fastrand::usize(1..=2);
 
                 for i in 0..num_voices {
                     let offset = if !pattern.canon_offsets.is_empty() {
@@ -188,11 +179,9 @@ impl InCPerformer {
 
     /// Decide whether to start listening (drop out)
     pub fn maybe_start_listening(&mut self) {
-        let mut rng = rand::rng();
-
-        if !self.is_listening && rng.random_range(0.0..1.0) < 0.05 {
+        if !self.is_listening && fastrand::f32() < 0.05 {
             self.is_listening = true;
-        } else if self.is_listening && rng.random_range(0.0..1.0) < 0.2 {
+        } else if self.is_listening && fastrand::f32() < 0.2 {
             self.is_listening = false;
         }
     }

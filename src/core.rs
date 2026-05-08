@@ -75,7 +75,7 @@ impl PitchClass {
     pub fn transpose(&self, semitones: i8) -> Self {
         let current = self.to_semitone() as i8;
         let new_val = ((current + semitones).rem_euclid(12)) as u8;
-        Self::from_semitone(new_val).expect("failed to convert semitone {new_val} to PitchClass; exiting")
+        Self::from_semitone(new_val).expect("rem_euclid(12) always yields 0..=11")
     }
 
     /// Get enharmonic equivalent name (for display)
@@ -173,8 +173,7 @@ impl Note {
     /// Create from MIDI note number
     pub fn from_midi(midi: u8) -> Self {
         let octave = (midi / 12) as i8 - 1;
-        let pitch_class =
-            PitchClass::from_semitone(midi % 12).expect("failed to convert semitone {new_val} to PitchClass; exiting");
+        let pitch_class = PitchClass::from_semitone(midi % 12).expect("midi % 12 always yields 0..=11");
         Note { pitch_class, octave }
     }
 

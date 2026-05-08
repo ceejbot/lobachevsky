@@ -1,7 +1,7 @@
 //! An implementation of Bjorklund's algorithm in Rust.
 //! There are two references I consulted:
-//! Godfried Toussaint's original paper: http://cgm.cs.mcgill.ca/~godfried/publications/banff.pdf
-//! Brian House's python implementation: https://github.com/brianhouse/bjorklund
+//! Godfried Toussaint's original paper: <http://cgm.cs.mcgill.ca/~godfried/publications/banff.pdf>
+//! Brian House's python implementation: <https://github.com/brianhouse/bjorklund>
 
 use super::EuclideanRhythm;
 use crate::LobachevskyError;
